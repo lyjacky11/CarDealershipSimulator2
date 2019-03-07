@@ -220,9 +220,10 @@ class CarDealership {
 class Vehicle {
 	private String mfr, color;
 	private int power, numWheels;
-	public final int ELECTRIC_MOTOR = 0;
-	public final int GAS_ENGINE = 1;
-
+	// public final int ELECTRIC_MOTOR = 0;
+	// public final int GAS_ENGINE = 1;
+	public final String[] POWERS = {"ELECTRIC_MOTOR", "GAS_ENGINE"};
+	
 	/**
 	 * @param mfr
 	 * @param color
@@ -309,10 +310,10 @@ class Car extends Vehicle implements Comparable<Car> {
 	private int maxRange;
 	private double safetyRating, price;
 	private boolean AWD;
-	private final int SEDAN = 0;
-	private final int SUV = 1;
-	private final int SPORTS = 2;
-	private final int MINIVAN = 3;
+	// private final int SEDAN = 0;
+	// private final int SUV = 1;
+	// private final int SPORTS = 2;
+	// private final int MINIVAN = 3;
 	private final String[] MODELS = {"SEDAN", "SUV", "SPORTS", "MINIVAN"};
 
 	/**
