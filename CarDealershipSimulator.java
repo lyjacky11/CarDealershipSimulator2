@@ -39,7 +39,7 @@ public class CarDealershipSimulator
 					break;
 				case "Q":
 					commandLine.close();
-					System.out.println("Program has been terminated.");
+					System.out.println("Thank you for shopping at our dealership!");
 					return;
 				case "BUY":
 					int index = commandLine.nextInt();
@@ -114,7 +114,7 @@ class CarDealership {
 	 * @return Car object
 	 */
 	public Car buyCar(int index) {
-		if (index < cars.size() - 1) {
+		if (index < cars.size()) {
 			carLastBought = cars.get(index);
 			cars.remove(index);
 			return carLastBought;
