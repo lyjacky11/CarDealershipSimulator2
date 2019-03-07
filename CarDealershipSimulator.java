@@ -35,6 +35,7 @@ public class CarDealershipSimulator
 			switch (command) {
 				case "L":
 					newDealer.displayInventory();
+					System.out.println("Inventory loaded successfully.");
 					break;
 				case "Q":
 					commandLine.close();
@@ -51,9 +52,11 @@ public class CarDealershipSimulator
 				case "RET":
 					Car currentCar2 = newDealer.getCarBought();
 					newDealer.returnCar(currentCar2);
+					System.out.println("Returned last car bought to dealership.");
 					break;
 				case "ADD":
 					newDealer.addCars(cars);
+					System.out.println("Added new cars to dealership inventory.");
 					break;
 				case "SPR":
 					newDealer.sortByPrice();
