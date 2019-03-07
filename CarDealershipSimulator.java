@@ -11,11 +11,14 @@ public class CarDealershipSimulator
 		// Then create an (initially empty) array list of type Car
 		ArrayList<Car> cars = new ArrayList<Car>();
 		// Then create some new car objects of different types
-		
+		Car car1 = new Car("Toyota", "blue", 1, 4, "SEDAN", 500, 9.5, 25000, false);
+		Car car2 = new Car("Honda", "red", 1, 4, "SPORTS", 450, 9.2, 30000, false);
 	  // See the cars file for car object details
-	  // Add the car objects to the array list
-      // The ADD command should hand this array list to CarDealership object via the addCars() method	  
-	  
+		// Add the car objects to the array list
+		cars.add(car1);
+		cars.add(car2);
+    // The ADD command should hand this array list to CarDealership object via the addCars() method	  
+		newDealer.addCars(cars);
 		// Create a scanner object
 		String line = "", command = "";
 	  Scanner s = new Scanner(System.in);
@@ -30,33 +33,13 @@ public class CarDealershipSimulator
 		//    read the next word from the commandLine scanner
 		command = commandLine.next();
 			//	check if the word (i.e. string) is equal to one of the commands and if so, call the appropriate method via the CarDealership object  
-			
-		// if (command.equals("L")) {
-		// 	newDealer.displayInventory();
-		// }
-		// else if (command.equals("Q")) {
-		// 	return;
-		// }
-		// else if (command.equals("BUY")) {
-		// 	int index = Integer.parseInt(commandLine.next());
-		// 	Car currentCar = newDealer.buyCar(index);
-		// 	if (currentCar != null) {
-		// 		currentCar.display();
-		// 	}
-		// }
-		// else if (command.equals("RET")) {
-		// 	Car currentCar = newDealer.getCarBought();
-		// 	newDealer.returnCar(currentCar);
-		// }
-		// else if (command.equals("ADD")) {
-		// 	newDealer.addCars(cars);
-		// }
 
 		switch (command) {
 			case "L":
 				newDealer.displayInventory();
 				break;
 			case "Q":
+				commandLine.close();
 				return;
 			case "BUY":
 				int index = commandLine.nextInt();
@@ -99,6 +82,7 @@ public class CarDealershipSimulator
 				System.out.println("Unknown command.");
 				break;
 		}
+		commandLine.close();
   }
 }
 
@@ -200,7 +184,7 @@ class Vehicle {
 	private String mfr, color;
 	private int power, numWheels;
 	public final int ELECTRIC_MOTOR = 0;
-	public final int GAS_ENGINE = 0;
+	public final int GAS_ENGINE = 1;
 
 	/**
 	 * @param mfr
