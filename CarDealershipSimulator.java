@@ -17,73 +17,76 @@ public class CarDealershipSimulator
 		// Add the car objects to the array list
 		cars.add(car1);
 		cars.add(car2);
-    // The ADD command should hand this array list to CarDealership object via the addCars() method	  
-		newDealer.addCars(cars);
+    // The ADD command should hand this array list to CarDealership object via the addCars() method
 		// Create a scanner object
 		String line = "", command = "";
-	  Scanner s = new Scanner(System.in);
+		Scanner s = new Scanner(System.in);
+		System.out.print("Enter a command: ");
 		// while the scanner has another line
 		while (s.hasNextLine()) {
 		//    read the input line
 			line = s.nextLine();
-		}
-		s.close();
 		//    create another scanner object (call it "commandLine" or something) using the input line instead of System.in
 		Scanner commandLine = new Scanner(line);
 		//    read the next word from the commandLine scanner
 		command = commandLine.next();
 			//	check if the word (i.e. string) is equal to one of the commands and if so, call the appropriate method via the CarDealership object  
 
-		switch (command) {
-			case "L":
-				newDealer.displayInventory();
-				break;
-			case "Q":
-				commandLine.close();
-				return;
-			case "BUY":
-				int index = commandLine.nextInt();
-				Car currentCar = newDealer.buyCar(index);
-				if (currentCar != null) {
-					currentCar.display();
-				}
-				break;
-			case "RET":
-				Car currentCar2 = newDealer.getCarBought();
-				newDealer.returnCar(currentCar2);
-				break;
-			case "ADD":
-				newDealer.addCars(cars);
-				break;
-			case "SPR":
-				newDealer.sortByPrice();
-				break;
-			case "SSR":
-				newDealer.sortBySafetyRating();
-				break;
-			case "SMR":
-				newDealer.sortByMaxRange();
-				break;
-			case "FPR":
-				int minPrice = commandLine.nextInt();
-				int maxPrice = commandLine.nextInt();
-				newDealer.filterByPrice(minPrice, maxPrice);
-				break;
-			case "FEL":
-				newDealer.filterByElectric();
-				break;
-			case "FAW":
-				newDealer.filterByAWD();
-				break;
-			case "FCL":
-				newDealer.FiltersClear();
-				break;
-			default:
-				System.out.println("Unknown command.");
-				break;
+			switch (command) {
+				case "L":
+					newDealer.displayInventory();
+					break;
+				case "Q":
+					commandLine.close();
+					System.out.println("Program has been terminated.");
+					return;
+				case "BUY":
+					int index = commandLine.nextInt();
+					Car currentCar = newDealer.buyCar(index);
+					if (currentCar != null) {
+						System.out.println(currentCar.display());
+						System.out.println("Car at position " + index + " bought successfully!");
+					}
+					break;
+				case "RET":
+					Car currentCar2 = newDealer.getCarBought();
+					newDealer.returnCar(currentCar2);
+					break;
+				case "ADD":
+					newDealer.addCars(cars);
+					break;
+				case "SPR":
+					newDealer.sortByPrice();
+					break;
+				case "SSR":
+					newDealer.sortBySafetyRating();
+					break;
+				case "SMR":
+					newDealer.sortByMaxRange();
+					break;
+				case "FPR":
+					int minPrice = commandLine.nextInt();
+					int maxPrice = commandLine.nextInt();
+					newDealer.filterByPrice(minPrice, maxPrice);
+					break;
+				case "FEL":
+					newDealer.filterByElectric();
+					break;
+				case "FAW":
+					newDealer.filterByAWD();
+					break;
+				case "FCL":
+					newDealer.FiltersClear();
+					break;
+				default:
+					System.out.println("Unknown command. Please try again!");
+					break;
+			}
+			commandLine.close();
+			System.out.print("\nEnter another command: ");
 		}
-		commandLine.close();
-  }
+		s.close();
+	}
 }
 
 class CarDealership {
