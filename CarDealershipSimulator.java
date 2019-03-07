@@ -22,16 +22,18 @@ public class CarDealershipSimulator
 	// Then create an (initially empty) array list of type Car
 	ArrayList<Car> cars = new ArrayList<Car>();
 	// Then create some new car objects of different types
-	Car car1 = new Car("Honda", "red", 1, 4, "SPORTS", 450, 9.2, 30000, false);
-	Car car2 = new Car("Toyota", "blue", 1, 4, "SEDAN", 500, 9.5, 25000, false);
+	Car car1 = new Car("Honda", "red", 1, 4, 2, 450, 9.2, 30000, false);
+	Car car2 = new Car("Toyota", "blue", 1, 4, 0, 500, 9.5, 25000, false);
+	ElectricCar car3 = new ElectricCar("Tesla", "red", 0, 4, 0, 425, 9.1, 85000, true, 55, "Lithium");
 	// See the cars file for car object details
 	// Add the car objects to the array list
 	cars.add(car1);
 	cars.add(car2);
+	cars.add(car3);
     // The ADD command should hand this array list to CarDealership object via the addCars() method
 	// Create a scanner object
 	String line = "", command = "";
-	String header = "Pos  Brand   Color  Model   MaxR  SR    Price ($)  AWD";
+	String header = "Pos  Brand   Color  Model   MaxR  SR    Price ($)  AWD    RT  Battery";
 	Scanner input = new Scanner(System.in);
 	System.out.print("Enter a command (Q to quit): ");
 	// while the scanner has another line
@@ -45,7 +47,7 @@ public class CarDealershipSimulator
 		//	check if the word (i.e. string) is equal to one of the commands and if so, call the appropriate method via the CarDealership object  
 		switch (command) {
 			case "L":
-				if (!(newDealer.isEmpty)) {
+				if (!newDealer.isEmpty) {
 					addHeader(header);
 					newDealer.displayInventory();
 					System.out.println("\nInventory loaded successfully.");
@@ -303,14 +305,15 @@ class Vehicle {
 }
 
 class Car extends Vehicle implements Comparable<Car> {
-	private String model;
+	private int model;
 	private int maxRange;
 	private double safetyRating, price;
 	private boolean AWD;
-	private final String SEDAN = "";
-	private final String SUV = "";
-	private final String SPORTS = "";
-	private final String MINIVAN = "";
+	private final int SEDAN = 0;
+	private final int SUV = 1;
+	private final int SPORTS = 2;
+	private final int MINIVAN = 3;
+	private final String[] MODELS = {"SEDAN", "SUV", "SPORTS", "MINIVAN"};
 
 	/**
 	 * @param mfr
@@ -323,7 +326,7 @@ class Car extends Vehicle implements Comparable<Car> {
 	 * @param price
 	 * @param aWD
 	 */
-	public Car (String mfr, String color, int power, int numWheels, String model, int maxRange, double safetyRating, double price, boolean aWD) {
+	public Car (String mfr, String color, int power, int numWheels, int model, int maxRange, double safetyRating, double price, boolean aWD) {
 		super(mfr, color, power, numWheels);
 		this.model = model;
 		this.maxRange = maxRange;
@@ -335,13 +338,13 @@ class Car extends Vehicle implements Comparable<Car> {
 	/**
 	 * @return the model
 	 */
-	public String getModel() {
+	public int getModel() {
 		return model;
 	}
 	/**
 	 * @param model the model to set
 	 */
-	public void setModel(String model) {
+	public void setModel(int model) {
 		this.model = model;
 	}
 
@@ -402,7 +405,7 @@ class Car extends Vehicle implements Comparable<Car> {
 	 */
 	public boolean equals(Object other) {
 		Car otherCar = (Car) other;
-		return super.equals(otherCar) && this.model.equals(otherCar.model) && (this.AWD == otherCar.AWD);
+		return super.equals(otherCar) && this.model == otherCar.model && (this.AWD == otherCar.AWD);
 	}
 
 	/**
@@ -416,7 +419,7 @@ class Car extends Vehicle implements Comparable<Car> {
 	 * @return the car specs
 	 */
 	public String display() {
-		return String.format("%s %-7s %-5d %-5.2f %-10.2f %-5b", super.display(), model, maxRange, safetyRating, price, AWD);
+		return String.format("%s %-7s %-5d %-5.2f %-10.2f %-6b", super.display(), MODELS[model], maxRange, safetyRating, price, AWD);
 	}
 }
 
@@ -437,7 +440,7 @@ class ElectricCar extends Car {
 	 * @param rechargeTime
 	 * @param batteryType
 	 */
-	public ElectricCar (String mfr, String color, int power, int numWheels, String model, int maxRange, double safetyRating, double price, boolean aWD, int rechargeTime, String batteryType) {
+	public ElectricCar (String mfr, String color, int power, int numWheels, int model, int maxRange, double safetyRating, double price, boolean aWD, int rechargeTime, String batteryType) {
 			super(mfr, color, power, numWheels, model, maxRange, safetyRating, price, aWD);
 			this.rechargeTime = rechargeTime;
 			this.setBatteryType(batteryType);
