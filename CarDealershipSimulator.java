@@ -5,7 +5,7 @@ import java.util.Collections;
 public class CarDealershipSimulator 
 {
   /**
-   * @param header string for displayInventory()
+   * @param header string for use with displayInventory()
    */
   public static void addHeader(String header) {
 	System.out.println();
@@ -17,104 +17,103 @@ public class CarDealershipSimulator
   }
   public static void main(String[] args)
   {
-	  // Create a CarDealership object
-	  CarDealership newDealer = new CarDealership();
-		// Then create an (initially empty) array list of type Car
-		ArrayList<Car> cars = new ArrayList<Car>();
-		// Then create some new car objects of different types
-		Car car1 = new Car("Toyota", "blue", 1, 4, "SEDAN", 500, 9.5, 25000, false);
-		Car car2 = new Car("Honda", "red", 1, 4, "SPORTS", 450, 9.2, 30000, false);
-	  // See the cars file for car object details
-		// Add the car objects to the array list
-		cars.add(car2);
-		cars.add(car1);
+	// Create a CarDealership object
+	CarDealership newDealer = new CarDealership();
+	// Then create an (initially empty) array list of type Car
+	ArrayList<Car> cars = new ArrayList<Car>();
+	// Then create some new car objects of different types
+	Car car1 = new Car("Honda", "red", 1, 4, "SPORTS", 450, 9.2, 30000, false);
+	Car car2 = new Car("Toyota", "blue", 1, 4, "SEDAN", 500, 9.5, 25000, false);
+	// See the cars file for car object details
+	// Add the car objects to the array list
+	cars.add(car1);
+	cars.add(car2);
     // The ADD command should hand this array list to CarDealership object via the addCars() method
-		// Create a scanner object
-		String line = "", command = "";
-		String header = "Pos  Brand   Color  Model   MaxR  SR    Price ($)  AWD";
-		Scanner input = new Scanner(System.in);
-		System.out.print("Enter a command (Q to quit): ");
-		// while the scanner has another line
-		while (input.hasNextLine()) {
-		//    read the input line
-			line = input.nextLine();
-		//    create another scanner object (call it "commandLine" or something) using the input line instead of System.in
+	// Create a scanner object
+	String line = "", command = "";
+	String header = "Pos  Brand   Color  Model   MaxR  SR    Price ($)  AWD";
+	Scanner input = new Scanner(System.in);
+	System.out.print("Enter a command (Q to quit): ");
+	// while the scanner has another line
+	while (input.hasNextLine()) {
+	//  read the input line
+		line = input.nextLine();
+	//  create another scanner object (call it "commandLine" or something) using the input line instead of System.in
 		Scanner commandLine = new Scanner(line);
-		//    read the next word from the commandLine scanner
+	//  read the next word from the commandLine scanner
 		command = commandLine.next();
-			//	check if the word (i.e. string) is equal to one of the commands and if so, call the appropriate method via the CarDealership object  
-
-			switch (command) {
-				case "L":
-					if (!(newDealer.isEmpty)) {
-						addHeader(header);
-						newDealer.displayInventory();
-						System.out.println("\nInventory loaded successfully.");
-					}
-					else
-						System.out.println("\nERROR: Inventory is empty!");
-					break;
-				case "Q":
-					commandLine.close();
-					System.out.println("\nThank you for shopping at our dealership!");
-					return;
-				case "BUY":
-					int index = commandLine.nextInt();
-					Car currentCar = newDealer.buyCar(index);
-					if (currentCar != null) {
-						System.out.println("\nCar Details:");
-						addHeader(header);
-						System.out.printf("%-4d %s\n", index, currentCar.display());
-						System.out.println("\nCar at position " + index + " bought successfully!");
-					}
-					else
-						System.out.println("\nERROR: Invalid car selection!");
-					break;
-				case "RET":
-					Car currentCar2 = newDealer.getCarBought();
-					newDealer.returnCar(currentCar2);
-					if (currentCar2 != null)
-						System.out.println("\nReturned last car bought to inventory.");
-					else
-						System.out.println("\nERROR: No car found to return to inventory.");
-					break;
-				case "ADD":
-					newDealer.addCars(cars);
-					System.out.println("\nAdded cars to dealership inventory.");
-					break;
-				case "SPR":
-					newDealer.sortByPrice();
-					System.out.println("\nInventory sorted by price.");
-					break;
-				case "SSR":
-					newDealer.sortBySafetyRating();
-					System.out.println("\nInventory sorted by safety rating.");
-					break;
-				case "SMR":
-					newDealer.sortByMaxRange();
-					System.out.println("\nInventory sorted by max range.");
-					break;
-				case "FPR":
-					int minPrice = commandLine.nextInt();
-					int maxPrice = commandLine.nextInt();
-					newDealer.filterByPrice(minPrice, maxPrice);
-					System.out.println("\nInventory filtered by min and max price.");
-					break;
-				case "FEL":
-					newDealer.filterByElectric();
-					System.out.println("\nInventory filtered by electric cars.");
-					break;
-				case "FAW":
-					newDealer.filterByAWD();
-					System.out.println("\nInventory filtered by AWD cars.");
-					break;
-				case "FCL":
-					newDealer.FiltersClear();
-					System.out.println("\nFilters cleared successfully.");
-					break;
-				default:
-					System.out.println("\nERROR: Unknown command. Please try again!");
-					break;
+		//	check if the word (i.e. string) is equal to one of the commands and if so, call the appropriate method via the CarDealership object  
+		switch (command) {
+			case "L":
+				if (!(newDealer.isEmpty)) {
+					addHeader(header);
+					newDealer.displayInventory();
+					System.out.println("\nInventory loaded successfully.");
+				}
+				else
+					System.out.println("\nERROR: Inventory is empty!");
+				break;
+			case "Q":
+				commandLine.close();
+				System.out.println("\nThank you for shopping at our dealership!");
+				return;
+			case "BUY":
+				int index = commandLine.nextInt();
+				Car currentCar = newDealer.buyCar(index);
+				if (currentCar != null) {
+					System.out.println("\nCar Details:");
+					addHeader(header);
+					System.out.printf("%-4d %s\n", index, currentCar.display());
+					System.out.println("\nCar at position " + index + " bought successfully!");
+				}
+				else
+					System.out.println("\nERROR: Invalid car selection!");
+				break;
+			case "RET":
+				Car returnCar = newDealer.carLastBought;
+				newDealer.returnCar(returnCar);
+				if (returnCar != null)
+					System.out.println("\nReturned last car bought to inventory.");
+				else
+					System.out.println("\nERROR: No car found to return to inventory.");
+				break;
+			case "ADD":
+				newDealer.addCars(cars);
+				System.out.println("\nAdded cars to dealership inventory.");
+				break;
+			case "SPR":
+				newDealer.sortByPrice();
+				System.out.println("\nInventory sorted by price.");
+				break;
+			case "SSR":
+				newDealer.sortBySafetyRating();
+				System.out.println("\nInventory sorted by safety rating.");
+				break;
+			case "SMR":
+				newDealer.sortByMaxRange();
+				System.out.println("\nInventory sorted by max range.");
+				break;
+			case "FPR":
+				int minPrice = commandLine.nextInt();
+				int maxPrice = commandLine.nextInt();
+				newDealer.filterByPrice(minPrice, maxPrice);
+				System.out.println("\nInventory filtered by min and max price.");
+				break;
+			case "FEL":
+				newDealer.filterByElectric();
+				System.out.println("\nInventory filtered by electric cars.");
+				break;
+			case "FAW":
+				newDealer.filterByAWD();
+				System.out.println("\nInventory filtered by AWD cars.");
+				break;
+			case "FCL":
+				newDealer.FiltersClear();
+				System.out.println("\nFilters cleared successfully.");
+				break;
+			default:
+				System.out.println("\nERROR: Unknown command. Please try again!");
+				break;
 			}
 			commandLine.close();
 			System.out.print("\nEnter another command (Q to quit): ");
@@ -127,11 +126,12 @@ class CarDealership {
 	private ArrayList<Car> cars;
 	private double minPrice, maxPrice;
 	private boolean AWD, electric, price;
-	public boolean isEmpty = true;
-	private Car carLastBought;
+	public boolean isEmpty;
+	public Car carLastBought;
 
 	public CarDealership () {
 		cars = new ArrayList<Car>();
+		this.isEmpty = true;
 	}
 
 	/**
@@ -168,24 +168,12 @@ class CarDealership {
 		}
 	}
 
-	/**
-	 * @return carLastBought
-	 */
-	public Car getCarBought() {
-		return carLastBought;
-	}
-
-	/* TODO */
+	/* TO DO */
 	public void displayInventory() {
-		// if (cars.size() > 0) {
-		// 	this.isEmpty = false;
-			for (int i = 0; i < cars.size(); i++) {
-				Car currentCar = cars.get(i);
-				System.out.printf("%-4d %s\n", i, currentCar.display());
-			}
-		//}
-		//else
-			//this.isEmpty = true;
+		for (int i = 0; i < cars.size(); i++) {
+			Car currentCar = cars.get(i);
+			System.out.printf("%-4d %s\n", i, currentCar.display());
+		}
 	}
 
 	public void filterByElectric() {
@@ -216,12 +204,12 @@ class CarDealership {
 		Collections.sort(cars);
 	}
 
-	/* TODO */
+	/* TO DO */
 	public void sortBySafetyRating() {
 
 	}
 
-	/* TODO */
+	/* TO DO */
 	public void sortByMaxRange() {
 		
 	}
