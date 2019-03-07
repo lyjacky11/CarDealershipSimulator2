@@ -15,11 +15,12 @@ public class CarDealershipSimulator
 		Car car2 = new Car("Honda", "red", 1, 4, "SPORTS", 450, 9.2, 30000, false);
 	  // See the cars file for car object details
 		// Add the car objects to the array list
-		cars.add(car1);
 		cars.add(car2);
+		cars.add(car1);
     // The ADD command should hand this array list to CarDealership object via the addCars() method
 		// Create a scanner object
 		String line = "", command = "";
+		String header = "Pos  Brand  Color  Model   MaxR  SR    Price   AWD";
 		Scanner s = new Scanner(System.in);
 		System.out.print("Enter a command (Q to quit): ");
 		// while the scanner has another line
@@ -34,6 +35,11 @@ public class CarDealershipSimulator
 
 			switch (command) {
 				case "L":
+					System.out.println(header);
+					for (int i = 0; i < header.length() + 2; i++) {
+						System.out.print("_");
+					}
+					System.out.println("\n");
 					newDealer.displayInventory();
 					System.out.println("Inventory loaded successfully.");
 					break;
@@ -45,14 +51,24 @@ public class CarDealershipSimulator
 					int index = commandLine.nextInt();
 					Car currentCar = newDealer.buyCar(index);
 					if (currentCar != null) {
-						System.out.println(currentCar.display());
+						// System.out.println(header);
+						// for (int i = 0; i < header.length() + 2; i++) {
+						// 	System.out.print("_");
+						// }
+						//System.out.println("\n");
+						System.out.printf("%-4d %s\n", index, currentCar.display());
 						System.out.println("Car at position " + index + " bought successfully!");
 					}
+					else
+						System.out.println("ERROR: Invalid car selection!");
 					break;
 				case "RET":
 					Car currentCar2 = newDealer.getCarBought();
 					newDealer.returnCar(currentCar2);
-					System.out.println("Returned last car bought to dealership.");
+					if (currentCar2 != null)
+						System.out.println("Returned last car bought to dealership.");
+					else
+						System.out.println("ERROR: No car has been returned.");
 					break;
 				case "ADD":
 					newDealer.addCars(cars);
@@ -60,12 +76,15 @@ public class CarDealershipSimulator
 					break;
 				case "SPR":
 					newDealer.sortByPrice();
+					System.out.println("Inventory sorted by price.");
 					break;
 				case "SSR":
 					newDealer.sortBySafetyRating();
+					System.out.println("Inventory sorted by safety rating.");
 					break;
 				case "SMR":
 					newDealer.sortByMaxRange();
+					System.out.println("Inventory sorted by max range.");
 					break;
 				case "FPR":
 					int minPrice = commandLine.nextInt();
@@ -80,9 +99,10 @@ public class CarDealershipSimulator
 					break;
 				case "FCL":
 					newDealer.FiltersClear();
+					System.out.println("Filters have been cleared.");
 					break;
 				default:
-					System.out.println("Unknown command. Please try again!");
+					System.out.println("ERROR: Unknown command. Please try again!");
 					break;
 			}
 			commandLine.close();
@@ -143,7 +163,8 @@ class CarDealership {
 	public void displayInventory() {
 		for (int i = 0; i < cars.size(); i++) {
 			Car currentCar = cars.get(i);
-			System.out.println(i + " " + currentCar.display());
+			System.out.printf("%-4d %s", i, currentCar.display());
+			System.out.println("\n");
 		}
 	}
 
@@ -269,7 +290,7 @@ class Vehicle {
 	 * @return manufacturer name and color
 	 */
 	public String display() {
-		return mfr + " " + color;
+		return String.format("%-6s %-6s", mfr, color);
 	}
 }
 
@@ -387,7 +408,7 @@ class Car extends Vehicle implements Comparable<Car> {
 	 * @return the car specs
 	 */
 	public String display() {
-		return super.display() + " " + model + " " + maxRange + " " + safetyRating + " " + price + " " + AWD;
+		return String.format("%s %-7s %-5d %-5.2f %-7.0f %-5b", super.display(), model, maxRange, safetyRating, price, AWD);
 	}
 }
 
@@ -440,6 +461,6 @@ class ElectricCar extends Car {
 	}
 
 	public String display() {
-		return super.display() + " " + rechargeTime + " " + batteryType;
+		return String.format("%s %-3d %-5s", super.display(), rechargeTime, batteryType);
 	}
 }
