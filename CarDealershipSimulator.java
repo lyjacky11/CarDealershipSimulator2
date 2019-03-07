@@ -31,7 +31,7 @@ public class CarDealershipSimulator
     // The ADD command should hand this array list to CarDealership object via the addCars() method
 		// Create a scanner object
 		String line = "", command = "";
-		String header = "Pos  Brand   Color  Model   MaxR  SR    Price       AWD";
+		String header = "Pos  Brand   Color  Model   MaxR  SR    Price ($)  AWD";
 		Scanner input = new Scanner(System.in);
 		System.out.print("Enter a command (Q to quit): ");
 		// while the scanner has another line
@@ -46,9 +46,13 @@ public class CarDealershipSimulator
 
 			switch (command) {
 				case "L":
-					addHeader(header);
-					newDealer.displayInventory();
-					System.out.println("\nInventory loaded successfully.");
+					if (!(newDealer.isEmpty)) {
+						addHeader(header);
+						newDealer.displayInventory();
+						System.out.println("\nInventory loaded successfully.");
+					}
+					else
+						System.out.println("\nERROR: Inventory is empty!");
 					break;
 				case "Q":
 					commandLine.close();
@@ -70,9 +74,9 @@ public class CarDealershipSimulator
 					Car currentCar2 = newDealer.getCarBought();
 					newDealer.returnCar(currentCar2);
 					if (currentCar2 != null)
-						System.out.println("\nReturned last car bought to dealership.");
+						System.out.println("\nReturned last car bought to inventory.");
 					else
-						System.out.println("\nERROR: No car found to return.");
+						System.out.println("\nERROR: No car found to return to inventory.");
 					break;
 				case "ADD":
 					newDealer.addCars(cars);
@@ -94,12 +98,15 @@ public class CarDealershipSimulator
 					int minPrice = commandLine.nextInt();
 					int maxPrice = commandLine.nextInt();
 					newDealer.filterByPrice(minPrice, maxPrice);
+					System.out.println("\nInventory filtered by min and max price.");
 					break;
 				case "FEL":
 					newDealer.filterByElectric();
+					System.out.println("\nInventory filtered by electric cars.");
 					break;
 				case "FAW":
 					newDealer.filterByAWD();
+					System.out.println("\nInventory filtered by AWD cars.");
 					break;
 				case "FCL":
 					newDealer.FiltersClear();
@@ -120,6 +127,7 @@ class CarDealership {
 	private ArrayList<Car> cars;
 	private double minPrice, maxPrice;
 	private boolean AWD, electric, price;
+	public boolean isEmpty = true;
 	private Car carLastBought;
 
 	public CarDealership () {
@@ -131,6 +139,7 @@ class CarDealership {
 	 */
 	public void addCars(ArrayList<Car> newCars) {
 		cars.addAll(newCars);
+		this.isEmpty = false;
 	}
 
 	/**
@@ -141,6 +150,8 @@ class CarDealership {
 		if (index < cars.size()) {
 			carLastBought = cars.get(index);
 			cars.remove(index);
+			if (cars.size() <= 0)
+				this.isEmpty = true;
 			return carLastBought;
 		}
 		return null;
@@ -152,6 +163,7 @@ class CarDealership {
 	public void returnCar(Car car) {
 		if (car != null) {
 			cars.add(car);
+			this.isEmpty = false;
 			carLastBought = null;
 		}
 	}
@@ -165,10 +177,15 @@ class CarDealership {
 
 	/* TODO */
 	public void displayInventory() {
-		for (int i = 0; i < cars.size(); i++) {
-			Car currentCar = cars.get(i);
-			System.out.printf("%-4d %s\n", i, currentCar.display());
-		}
+		// if (cars.size() > 0) {
+		// 	this.isEmpty = false;
+			for (int i = 0; i < cars.size(); i++) {
+				Car currentCar = cars.get(i);
+				System.out.printf("%-4d %s\n", i, currentCar.display());
+			}
+		//}
+		//else
+			//this.isEmpty = true;
 	}
 
 	public void filterByElectric() {
@@ -411,7 +428,7 @@ class Car extends Vehicle implements Comparable<Car> {
 	 * @return the car specs
 	 */
 	public String display() {
-		return String.format("%s %-7s %-5d %-5.2f $%-10.2f %-5b", super.display(), model, maxRange, safetyRating, price, AWD);
+		return String.format("%s %-7s %-5d %-5.2f %-10.2f %-5b", super.display(), model, maxRange, safetyRating, price, AWD);
 	}
 }
 
