@@ -96,10 +96,18 @@ public class CarDealershipSimulator
 				System.out.println("\nInventory sorted by max range.");
 				break;
 			case "FPR":
-				int minPrice = commandLine.nextInt();
-				int maxPrice = commandLine.nextInt();
-				newDealer.filterByPrice(minPrice, maxPrice);
-				System.out.println("\nInventory filtered by min and max price.");
+				if (commandLine.hasNextInt()) {
+					int minPrice = commandLine.nextInt();
+					if (commandLine.hasNextInt()) {
+						int maxPrice = commandLine.nextInt();
+						newDealer.filterByPrice(minPrice, maxPrice);
+						System.out.println("\nInventory filtered by price between $" + minPrice + " and $" + maxPrice + ".");
+					}
+					else
+					System.out.println("\nERROR: Max price not specified!");
+				}
+				else
+					System.out.println("\nERROR: No price range specified!");
 				break;
 			case "FEL":
 				newDealer.filterByElectric();
@@ -172,9 +180,23 @@ class CarDealership {
 
 	/* TO DO */
 	public void displayInventory() {
+		
 		for (int i = 0; i < cars.size(); i++) {
 			Car currentCar = cars.get(i);
-			System.out.printf("%-4d %s\n", i, currentCar.display());
+			if (electric) {
+				if(currentCar.getPower() == 0)
+					System.out.printf("%-4d %s\n", i, currentCar.display());
+			}
+			else if (AWD) {
+				if(currentCar.isAWD())
+					System.out.printf("%-4d %s\n", i, currentCar.display());
+			}
+			else if (price) {
+				if(currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+					System.out.printf("%-4d %s\n", i, currentCar.display());
+			}
+			else
+				System.out.printf("%-4d %s\n", i, currentCar.display());
 		}
 	}
 
