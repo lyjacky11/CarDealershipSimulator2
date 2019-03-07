@@ -225,6 +225,59 @@ class Car extends Vehicle implements Comparable<Car> {
 	 * @return the car specs
 	 */
 	public String display() {
-		return super.display() + model + " " + maxRange + " " + safetyRating + " " + price + " " + AWD;
+		return super.display() + " " + model + " " + maxRange + " " + safetyRating + " " + price + " " + AWD;
+	}
+}
+
+class ElectricCar extends Car {
+	private int rechargeTime;
+	private String batteryType;
+
+	/**
+	 * @param mfr
+	 * @param color
+	 * @param power
+	 * @param numWheels
+	 * @param model
+	 * @param maxRange
+	 * @param safetyRating
+	 * @param price
+	 * @param aWD
+	 * @param rechargeTime
+	 * @param batteryType
+	 */
+	public ElectricCar (String mfr, String color, int power, int numWheels, String model, int maxRange, double safetyRating, double price, boolean aWD, int rechargeTime, String batteryType) {
+			super(mfr, color, power, numWheels, model, maxRange, safetyRating, price, aWD);
+			this.rechargeTime = rechargeTime;
+			this.setBatteryType(batteryType);
+	}
+	/**
+	 * @return the rechargeTime
+	 */
+	public int getRechargeTime() {
+		return rechargeTime;
+	}
+	/**
+	 * @param rechargeTime the rechargeTime to set
+	 */
+	public void setRechargeTime(int rechargeTime) {
+		this.rechargeTime = rechargeTime;
+	}
+
+	/**
+	 * @return the batteryType
+	 */
+	public String getBatteryType() {
+		return batteryType;
+	}
+	/**
+	 * @param batteryType the batteryType to set
+	 */
+	public void setBatteryType(String batteryType) {
+		this.batteryType = batteryType;
+	}
+
+	public String display() {
+		return super.display() + " " + rechargeTime + " " + batteryType;
 	}
 }
