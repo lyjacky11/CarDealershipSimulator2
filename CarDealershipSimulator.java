@@ -21,7 +21,7 @@ public class CarDealershipSimulator
 		// Create a scanner object
 		String line = "", command = "";
 		Scanner s = new Scanner(System.in);
-		System.out.print("Enter a command: ");
+		System.out.print("Enter a command (Q to quit): ");
 		// while the scanner has another line
 		while (s.hasNextLine()) {
 		//    read the input line
@@ -83,7 +83,7 @@ public class CarDealershipSimulator
 					break;
 			}
 			commandLine.close();
-			System.out.print("\nEnter another command: ");
+			System.out.print("\nEnter another command (Q to quit): ");
 		}
 		s.close();
 	}
