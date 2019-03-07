@@ -1,27 +1,199 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Collections;
 
 public class CarDealershipSimulator 
 {
   public static void main(String[] args)
   {
 	  // Create a CarDealership object
-	  	  
-	  // Then create an (initially empty) array list of type Car
-      // Then create some new car objects of different types
+	  CarDealership newDealer = new CarDealership();
+		// Then create an (initially empty) array list of type Car
+		ArrayList<Car> cars = new ArrayList<Car>();
+		// Then create some new car objects of different types
+		
 	  // See the cars file for car object details
 	  // Add the car objects to the array list
       // The ADD command should hand this array list to CarDealership object via the addCars() method	  
 	  
-	  // Create a scanner object
-	  
-	  // while the scanner has another line
-	  //    read the input line
-	  //    create another scanner object (call it "commandLine" or something) using the input line instead of System.in
-	  //    read the next word from the commandLine scanner 
-      //	check if the word (i.e. string) is equal to one of the commands and if so, call the appropriate method via the CarDealership object  
-	 
+		// Create a scanner object
+		String line = "", command = "";
+	  Scanner s = new Scanner(System.in);
+		// while the scanner has another line
+		while (s.hasNextLine()) {
+		//    read the input line
+			line = s.nextLine();
+		}
+		s.close();
+		//    create another scanner object (call it "commandLine" or something) using the input line instead of System.in
+		Scanner commandLine = new Scanner(line);
+		//    read the next word from the commandLine scanner
+		command = commandLine.next();
+			//	check if the word (i.e. string) is equal to one of the commands and if so, call the appropriate method via the CarDealership object  
+			
+		// if (command.equals("L")) {
+		// 	newDealer.displayInventory();
+		// }
+		// else if (command.equals("Q")) {
+		// 	return;
+		// }
+		// else if (command.equals("BUY")) {
+		// 	int index = Integer.parseInt(commandLine.next());
+		// 	Car currentCar = newDealer.buyCar(index);
+		// 	if (currentCar != null) {
+		// 		currentCar.display();
+		// 	}
+		// }
+		// else if (command.equals("RET")) {
+		// 	Car currentCar = newDealer.getCarBought();
+		// 	newDealer.returnCar(currentCar);
+		// }
+		// else if (command.equals("ADD")) {
+		// 	newDealer.addCars(cars);
+		// }
+
+		switch (command) {
+			case "L":
+				newDealer.displayInventory();
+				break;
+			case "Q":
+				return;
+			case "BUY":
+				int index = commandLine.nextInt();
+				Car currentCar = newDealer.buyCar(index);
+				if (currentCar != null) {
+					currentCar.display();
+				}
+				break;
+			case "RET":
+				Car currentCar2 = newDealer.getCarBought();
+				newDealer.returnCar(currentCar2);
+				break;
+			case "ADD":
+				newDealer.addCars(cars);
+				break;
+			case "SPR":
+				newDealer.sortByPrice();
+				break;
+			case "SSR":
+				newDealer.sortBySafetyRating();
+				break;
+			case "SMR":
+				newDealer.sortByMaxRange();
+				break;
+			case "FPR":
+				int minPrice = commandLine.nextInt();
+				int maxPrice = commandLine.nextInt();
+				newDealer.filterByPrice(minPrice, maxPrice);
+				break;
+			case "FEL":
+				newDealer.filterByElectric();
+				break;
+			case "FAW":
+				newDealer.filterByAWD();
+				break;
+			case "FCL":
+				newDealer.FiltersClear();
+				break;
+			default:
+				System.out.println("Unknown command.");
+				break;
+		}
   }
+}
+
+class CarDealership {
+	private ArrayList<Car> cars;
+	private double minPrice, maxPrice;
+	private boolean AWD, electric, price;
+	private Car carLastBought;
+
+	public CarDealership () {
+		cars = new ArrayList<Car>();
+	}
+
+	/**
+	 * @param newCars ArrayList of Car objects
+	 */
+	public void addCars(ArrayList<Car> newCars) {
+		cars.addAll(newCars);
+	}
+
+	/**
+	 * @param index of the car to buy
+	 * @return Car object
+	 */
+	public Car buyCar(int index) {
+		if (index < cars.size() - 1) {
+			carLastBought = cars.get(index);
+			cars.remove(index);
+			return carLastBought;
+		}
+		return null;
+	}
+	
+	/**
+	 * @param car to return
+	 */
+	public void returnCar(Car car) {
+		if (car != null) {
+			cars.add(car);
+			carLastBought = null;
+		}
+	}
+
+	/**
+	 * @return carLastBought
+	 */
+	public Car getCarBought() {
+		return carLastBought;
+	}
+
+	/* TODO */
+	public void displayInventory() {
+		for (int i = 0; i < cars.size(); i++) {
+			Car currentCar = cars.get(i);
+			System.out.println(i + " " + currentCar.display());
+		}
+	}
+
+	public void filterByElectric() {
+		this.electric = true;
+	}
+
+	public void filterByAWD() {
+		this.AWD = true;
+	}
+
+	/**
+	 * @param minPrice
+	 * @param maxPrice
+	 */
+	public void filterByPrice(double minPrice, double maxPrice) {
+		this.price = true;
+		this.minPrice = minPrice;
+		this.maxPrice = maxPrice;
+	}
+
+	public void FiltersClear() {
+		this.AWD = false;
+		this.electric = false;
+		this.price = false;
+	}
+
+	public void sortByPrice() {
+		Collections.sort(cars);
+	}
+
+	/* TODO */
+	public void sortBySafetyRating() {
+
+	}
+
+	/* TODO */
+	public void sortByMaxRange() {
+		
+	}
 }
 
 class Vehicle {
