@@ -48,7 +48,7 @@ public class CarDealershipSimulator
 		//	check if the word (i.e. string) is equal to one of the commands and if so, call the appropriate method via the CarDealership object  
 		switch (command) {
 			case "L":
-				if (!(newDealer.isEmpty) || !(newDealer.checkFilterEmpty())) {
+				if (!newDealer.isEmpty) {
 					addHeader(header);
 					newDealer.displayInventory();
 					System.out.println("\nInventory loaded successfully.");
@@ -180,7 +180,7 @@ class CarDealership {
 	public void returnCar(Car car) {
 		if (car != null) {
 			cars.add(car);
-			filterCars.add(new Integer(filterCars.size()));
+			filterCars.add(new Integer(cars.indexOf(car)));
 			this.isEmpty = false;
 			carLastBought = null;
 		}
