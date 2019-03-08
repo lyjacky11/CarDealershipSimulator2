@@ -48,7 +48,7 @@ public class CarDealershipSimulator
 		//	check if the word (i.e. string) is equal to one of the commands and if so, call the appropriate method via the CarDealership object  
 		switch (command) {
 			case "L":
-				if (!newDealer.isEmpty) {
+				if (!(newDealer.isEmpty) || !(newDealer.checkFilterEmpty())) {
 					addHeader(header);
 					newDealer.displayInventory();
 					System.out.println("\nInventory loaded successfully.");
@@ -135,6 +135,7 @@ public class CarDealershipSimulator
 
 class CarDealership {
 	private ArrayList<Car> cars;
+	private ArrayList<Integer> filterCars;
 	private double minPrice, maxPrice;
 	private boolean AWD, electric, price;
 	public boolean isEmpty;
@@ -142,6 +143,7 @@ class CarDealership {
 
 	public CarDealership () {
 		cars = new ArrayList<Car>();
+		filterCars = new ArrayList<Integer>();
 		this.isEmpty = true;
 	}
 
@@ -151,6 +153,9 @@ class CarDealership {
 	public void addCars(ArrayList<Car> newCars) {
 		cars.addAll(newCars);
 		this.isEmpty = false;
+		for (int i = 0; i < cars.size(); i++) {
+			filterCars.add(i);
+		}
 	}
 
 	/**
@@ -161,6 +166,7 @@ class CarDealership {
 		if (index < cars.size()) {
 			carLastBought = cars.get(index);
 			cars.remove(index);
+			filterCars.remove(filterCars.size() - 1);
 			if (cars.size() <= 0)
 				this.isEmpty = true;
 			return carLastBought;
@@ -174,9 +180,15 @@ class CarDealership {
 	public void returnCar(Car car) {
 		if (car != null) {
 			cars.add(car);
+			filterCars.add(new Integer(filterCars.size()));
 			this.isEmpty = false;
 			carLastBought = null;
 		}
+	}
+	public boolean checkFilterEmpty() {
+		if (filterCars.size() <= 0)
+			return true;
+		return false;
 	}
 
 	/* TO DO - Filter has bugs!!*/
@@ -184,36 +196,50 @@ class CarDealership {
 		for (int i = 0; i < cars.size(); i++) {
 			Car currentCar = cars.get(i);
 			String output = String.format("%-4d %s", i, currentCar.display());
-			if (electric) {
-				if(currentCar.getPower() == Car.ELECTRIC_MOTOR)
+			if (filterCars.contains(i)) {
+				if (electric) {
+					if(currentCar.getPower() == Car.ELECTRIC_MOTOR)
+						System.out.println(output);
+					else
+						filterCars.remove(new Integer(i));
+				}
+				else if (AWD) {
+					if(currentCar.isAWD())
+						System.out.println(output);
+				}
+				else if (price) {
+					if(currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+						System.out.println(output);
+					else
+						filterCars.remove(new Integer(i));
+				}
+				else if (electric && AWD) {
+					if(currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD())
+						System.out.println(output);
+					else
+						filterCars.remove(new Integer(i));
+				}
+				else if (AWD && price) {
+					if (currentCar.isAWD() && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+						System.out.println(output);
+					else
+						filterCars.remove(new Integer(i));
+				}
+				else if (electric && price) {
+					if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+						System.out.println(output);
+					else
+						filterCars.remove(new Integer(i));
+				}
+				else if (electric && AWD && price) {
+					if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD() && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+						System.out.println(output);
+					else
+						filterCars.remove(new Integer(i));
+				}
+				else
 					System.out.println(output);
 			}
-			else if (AWD) {
-				if(currentCar.isAWD())
-					System.out.println(output);
-			}
-			else if (price) {
-				if(currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
-					System.out.println(output);
-			}
-			else if (electric && AWD) {
-				if(currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD())
-					System.out.println(output);
-			}
-			else if (AWD && price) {
-				if (currentCar.isAWD() && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
-					System.out.println(output);
-			}
-			else if (electric && price) {
-				if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
-					System.out.println(output);
-			}
-			else if (electric && AWD && price) {
-				if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD() && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
-					System.out.println(output);
-			}
-			else
-				System.out.println(output);
 		}
 	}
 
@@ -241,6 +267,10 @@ class CarDealership {
 		this.price = false;
 		this.minPrice = 0.0;
 		this.maxPrice = 0.0;
+		filterCars.clear();
+		for (int i = 0; i < cars.size(); i++) {
+			filterCars.add(i);
+		}
 	}
 
 	public void sortByPrice() {
