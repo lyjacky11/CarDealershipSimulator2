@@ -188,6 +188,8 @@ class CarDealership {
 
 	/* TO DO - Filter has some bugs (with price filter) !!*/
 	public void displayInventory() {
+		if (electric == false && AWD == false && price == false)
+			FiltersClear();
 		for (int i = 0; i < cars.size(); i++) {
 			Car currentCar = cars.get(i);
 			String output = String.format("%-4d %s", i, currentCar.display());
@@ -232,18 +234,19 @@ class CarDealership {
 					else
 						filterCars.remove(new Integer(i));
 				}
-				else
+				else {
 					System.out.println(output);
+				}
 			}
 		}
 	}
 
 	public void filterByElectric() {
-		this.electric = !this.electric;
+		this.electric = !electric;
 	}
 
 	public void filterByAWD() {
-		this.AWD = !this.AWD;
+		this.AWD = !AWD;
 	}
 
 	/**
@@ -251,7 +254,7 @@ class CarDealership {
 	 * @param maxPrice
 	 */
 	public void filterByPrice(double minPrice, double maxPrice) {
-		this.price = !this.price;
+		this.price = !price;
 		this.minPrice = minPrice;
 		this.maxPrice = maxPrice;
 	}
