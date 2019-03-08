@@ -166,7 +166,7 @@ class CarDealership {
 		if (index < cars.size()) {
 			carLastBought = cars.get(index);
 			cars.remove(index);
-			filterCars.remove(filterCars.size() - 1);
+			filterCars.remove(new Integer(cars.size() - 1));
 			if (cars.size() <= 0)
 				this.isEmpty = true;
 			return carLastBought;
@@ -186,7 +186,7 @@ class CarDealership {
 		}
 	}
 
-	/* TO DO - Filter has bugs!!*/
+	/* TO DO - Filter has some bugs (with price filter) !!*/
 	public void displayInventory() {
 		for (int i = 0; i < cars.size(); i++) {
 			Car currentCar = cars.get(i);
