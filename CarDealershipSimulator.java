@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class CarDealershipSimulator 
 {
@@ -141,6 +142,22 @@ class CarDealership {
 	public boolean isEmpty;
 	public Car carLastBought;
 
+	class SRComparator implements Comparator<Car> {
+		public int compare(Car car1, Car car2) {
+			if (car1.getSafetyRating() < car2.getSafetyRating()) return -1;
+			if (car1.getSafetyRating() > car1.getSafetyRating()) return 1;
+			return 0;
+		}
+	}
+
+	class MRComparator implements Comparator<Car> {
+		public int compare(Car car1, Car car2) {
+			if (car1.getMaxRange() < car2.getMaxRange()) return -1;
+			if (car1.getMaxRange() > car1.getMaxRange()) return 1;
+			return 0;
+		}
+	}
+
 	public CarDealership () {
 		cars = new ArrayList<Car>();
 		filterCars = new ArrayList<Integer>();
@@ -272,14 +289,12 @@ class CarDealership {
 		Collections.sort(cars);
 	}
 
-	/* TO DO */
 	public void sortBySafetyRating() {
-
+		Collections.sort(cars, new SRComparator());
 	}
 
-	/* TO DO */
 	public void sortByMaxRange() {
-		
+		Collections.sort(cars, new MRComparator());
 	}
 }
 
