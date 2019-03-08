@@ -239,11 +239,11 @@ class CarDealership {
 	}
 
 	public void filterByElectric() {
-		this.electric = true;
+		this.electric = !this.electric;
 	}
 
 	public void filterByAWD() {
-		this.AWD = true;
+		this.AWD = !this.AWD;
 	}
 
 	/**
@@ -251,7 +251,7 @@ class CarDealership {
 	 * @param maxPrice
 	 */
 	public void filterByPrice(double minPrice, double maxPrice) {
-		this.price = true;
+		this.price = !this.price;
 		this.minPrice = minPrice;
 		this.maxPrice = maxPrice;
 	}
