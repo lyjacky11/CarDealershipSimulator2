@@ -185,11 +185,6 @@ class CarDealership {
 			carLastBought = null;
 		}
 	}
-	public boolean checkFilterEmpty() {
-		if (filterCars.size() <= 0)
-			return true;
-		return false;
-	}
 
 	/* TO DO - Filter has bugs!!*/
 	public void displayInventory() {
