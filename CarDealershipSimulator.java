@@ -14,7 +14,8 @@ public class CarDealershipSimulator
 		System.out.print("-");
 	}
 	System.out.println();
-  }
+	}
+	
   public static void main(String[] args)
   {
 	// Create a CarDealership object
@@ -22,9 +23,9 @@ public class CarDealershipSimulator
 	// Then create an (initially empty) array list of type Car
 	ArrayList<Car> cars = new ArrayList<Car>();
 	// Then create some new car objects of different types
-	Car car1 = new Car("Honda", "red", 1, 4, 2, 450, 9.2, 30000, false);
-	Car car2 = new Car("Toyota", "blue", 1, 4, 0, 500, 9.5, 25000, false);
-	ElectricCar car3 = new ElectricCar("Tesla", "red", 0, 4, 0, 425, 9.1, 85000, true, 55, "Lithium");
+	Car car1 = new Car("Honda", "red", Car.GAS_ENGINE, 4, Car.SPORTS, 450, 9.2, 30000, false);
+	Car car2 = new Car("Toyota", "blue", Car.GAS_ENGINE, 4, Car.SEDAN, 500, 9.5, 25000, false);
+	ElectricCar car3 = new ElectricCar("Tesla", "red", Car.ELECTRIC_MOTOR, 4, Car.SEDAN, 425, 9.1, 85000, true, 55, "Lithium");
 	// See the cars file for car object details
 	// Add the car objects to the array list
 	cars.add(car1);
@@ -154,7 +155,7 @@ class CarDealership {
 
 	/**
 	 * @param index of the car to buy
-	 * @return Car object
+	 * @return carLastBought Car object
 	 */
 	public Car buyCar(int index) {
 		if (index < cars.size()) {
@@ -178,14 +179,13 @@ class CarDealership {
 		}
 	}
 
-	/* TO DO */
+	/* TO DO - Filter has bugs!!*/
 	public void displayInventory() {
-		
 		for (int i = 0; i < cars.size(); i++) {
 			Car currentCar = cars.get(i);
 			String output = String.format("%-4d %s", i, currentCar.display());
 			if (electric) {
-				if(currentCar.getPower() == 0)
+				if(currentCar.getPower() == Car.ELECTRIC_MOTOR)
 					System.out.println(output);
 			}
 			else if (AWD) {
@@ -197,7 +197,7 @@ class CarDealership {
 					System.out.println(output);
 			}
 			else if (electric && AWD) {
-				if(currentCar.getPower() == 0 && currentCar.isAWD())
+				if(currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD())
 					System.out.println(output);
 			}
 			else if (AWD && price) {
@@ -205,11 +205,11 @@ class CarDealership {
 					System.out.println(output);
 			}
 			else if (electric && price) {
-				if (currentCar.getPower() == 0 && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+				if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
 					System.out.println(output);
 			}
 			else if (electric && AWD && price) {
-				if (currentCar.getPower() == 0 && currentCar.isAWD() && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+				if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD() && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
 					System.out.println(output);
 			}
 			else
@@ -259,11 +259,10 @@ class CarDealership {
 }
 
 class Vehicle {
-	private String mfr, color;
+	private String mfr, color, powerString;
 	private int power, numWheels;
-	// public final int ELECTRIC_MOTOR = 0;
-	// public final int GAS_ENGINE = 1;
-	public final String[] POWERS = {"ELECTRIC_MOTOR", "GAS_ENGINE"};
+	public static final int ELECTRIC_MOTOR = 0;
+	public static final int GAS_ENGINE = 1;
 	
 	/**
 	 * @param mfr
@@ -331,6 +330,24 @@ class Vehicle {
 	}
 
 	/**
+	 * @param power
+	 * @return powerString
+	 */
+	public String checkPower(int power) {
+		switch (power) {
+			case Car.ELECTRIC_MOTOR:
+				powerString = "ELECTRIC_MOTOR";
+				break;
+			case Car.GAS_ENGINE:
+				powerString = "GAS_ENGINE";
+				break;
+			default:
+				break;
+		}
+		return powerString;
+	}
+
+	/**
 	 * @return the equality of two vehicles
 	 */
 	public boolean equals(Object other) {
@@ -351,11 +368,11 @@ class Car extends Vehicle implements Comparable<Car> {
 	private int maxRange;
 	private double safetyRating, price;
 	private boolean AWD;
-	// private final int SEDAN = 0;
-	// private final int SUV = 1;
-	// private final int SPORTS = 2;
-	// private final int MINIVAN = 3;
-	private final String[] MODELS = {"SEDAN", "SUV", "SPORTS", "MINIVAN"};
+	private String modelString;
+	public static final int SEDAN = 0;
+	public static final int SUV = 1;
+	public static final int SPORTS = 2;
+	public static final int MINIVAN = 3;
 
 	/**
 	 * @param mfr
@@ -456,12 +473,36 @@ class Car extends Vehicle implements Comparable<Car> {
 	public int compareTo(Car other) {
 		return new Double(this.price).compareTo(other.price);
 	}
+	
+	/**
+	 * @param model
+	 * @return modelString
+	 */
+	public String checkModel(int model) {
+		switch (model) {
+			case Car.SEDAN:
+				modelString = "SEDAN";
+				break;
+			case Car.SUV:
+				modelString = "SUV";
+				break;
+			case Car.SPORTS:
+				modelString = "SPORTS";
+				break;
+			case Car.MINIVAN:
+				modelString = "MINIVAN";
+				break;
+			default:
+				break;
+		}
+		return modelString;
+	}
 
 	/**
-	 * @return the car specs
+	 * @return the Car object specifications
 	 */
 	public String display() {
-		return String.format("%s %-7s %-5d %-5.2f %-10.2f %-6b", super.display(), MODELS[model], maxRange, safetyRating, price, AWD);
+		return String.format("%s %-7s %-5d %-5.2f %-10.2f %-6b", super.display(), checkModel(model), maxRange, safetyRating, price, AWD);
 	}
 }
 
