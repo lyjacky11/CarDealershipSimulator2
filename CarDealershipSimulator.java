@@ -186,7 +186,7 @@ class CarDealership {
 		}
 	}
 
-	/* TO DO - Filter has some bugs (with price filter) !!*/
+	/* TO DO - Filter has some bugs (with price as second filter) !!*/
 	public void displayInventory() {
 		for (int i = 0; i < cars.size(); i++) {
 			Car currentCar = cars.get(i);
@@ -215,19 +215,19 @@ class CarDealership {
 						filterCars.remove(new Integer(i));
 				}
 				else if (AWD && price) {
-					if (currentCar.isAWD() && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+					if (currentCar.isAWD() && (currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice))
 						System.out.println(output);
 					else
 						filterCars.remove(new Integer(i));
 				}
 				else if (electric && price) {
-					if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+					if (currentCar.getPower() == Car.ELECTRIC_MOTOR && (currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice))
 						System.out.println(output);
 					else
 						filterCars.remove(new Integer(i));
 				}
 				else if (electric && AWD && price) {
-					if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD() && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+					if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD() && (currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice))
 						System.out.println(output);
 					else
 						filterCars.remove(new Integer(i));
@@ -260,8 +260,8 @@ class CarDealership {
 		this.AWD = false;
 		this.electric = false;
 		this.price = false;
-		this.minPrice = 0.0;
-		this.maxPrice = 0.0;
+		this.minPrice = Integer.MIN_VALUE;
+		this.maxPrice = Integer.MAX_VALUE;
 		filterCars.clear();
 		for (int i = 0; i < cars.size(); i++) {
 			filterCars.add(i);
