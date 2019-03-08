@@ -183,20 +183,37 @@ class CarDealership {
 		
 		for (int i = 0; i < cars.size(); i++) {
 			Car currentCar = cars.get(i);
+			String output = String.format("%-4d %s", i, currentCar.display());
 			if (electric) {
 				if(currentCar.getPower() == 0)
-					System.out.printf("%-4d %s\n", i, currentCar.display());
+					System.out.println(output);
 			}
 			else if (AWD) {
 				if(currentCar.isAWD())
-					System.out.printf("%-4d %s\n", i, currentCar.display());
+					System.out.println(output);
 			}
 			else if (price) {
 				if(currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
-					System.out.printf("%-4d %s\n", i, currentCar.display());
+					System.out.println(output);
+			}
+			else if (electric && AWD) {
+				if(currentCar.getPower() == 0 && currentCar.isAWD())
+					System.out.println(output);
+			}
+			else if (AWD && price) {
+				if (currentCar.isAWD() && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+					System.out.println(output);
+			}
+			else if (electric && price) {
+				if (currentCar.getPower() == 0 && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+					System.out.println(output);
+			}
+			else if (electric && AWD && price) {
+				if (currentCar.getPower() == 0 && currentCar.isAWD() && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+					System.out.println(output);
 			}
 			else
-				System.out.printf("%-4d %s\n", i, currentCar.display());
+				System.out.println(output);
 		}
 	}
 
@@ -222,6 +239,8 @@ class CarDealership {
 		this.AWD = false;
 		this.electric = false;
 		this.price = false;
+		this.minPrice = 0.0;
+		this.maxPrice = 0.0;
 	}
 
 	public void sortByPrice() {
