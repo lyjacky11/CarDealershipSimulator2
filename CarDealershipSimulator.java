@@ -315,6 +315,8 @@ class CarDealership {
 				else if (AWD) {
 					if(currentCar.isAWD())
 						System.out.println(output);
+					else
+						filterCars.remove(new Integer(i));
 				}
 				else if (price) {
 					if(currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
@@ -332,6 +334,8 @@ class CarDealership {
 					if (currentCar.isAWD()) {
 						if (currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
 							System.out.println(output);
+						else
+							filterCars.remove(new Integer(i));
 					}
 					else
 						filterCars.remove(new Integer(i));
@@ -340,6 +344,8 @@ class CarDealership {
 					if (currentCar.getPower() == Car.ELECTRIC_MOTOR) {
 						if (currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
 							System.out.println(output);
+						else
+							filterCars.remove(new Integer(i));
 					}
 					else
 						filterCars.remove(new Integer(i));
@@ -348,6 +354,8 @@ class CarDealership {
 					if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD()) {
 						if (currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
 							System.out.println(output);
+						else
+							filterCars.remove(new Integer(i));
 					}
 					else
 						filterCars.remove(new Integer(i));
