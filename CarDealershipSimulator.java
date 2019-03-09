@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
 import java.util.Comparator;
-//import java.io.BufferedReader;
-//import java.io.FileReader;
 import java.io.File;
 import java.io.IOException;
 
@@ -27,7 +25,11 @@ public class CarDealershipSimulator
 	System.out.println();
 	}
 
-	private static void readCars(String filename, ArrayList<Car> cars) throws IOException {
+	/**
+	 * @param filename of file to read from
+	 * @param cars ArrayList of Car objects
+	 */
+	private static void readAddCars(String filename, ArrayList<Car> cars) throws IOException {
 		Scanner scan = new Scanner(new File(filename));
 		ArrayList<Object> specsList = new ArrayList<Object>();
 		while (scan.hasNextLine()) {
@@ -104,6 +106,9 @@ public class CarDealershipSimulator
 	// Then create an (initially empty) array list of type Car
 	ArrayList<Car> cars = new ArrayList<Car>();
 	// Then create some new car objects of different types
+	String header = String.format("%-4s %-11s %-6s %-8s %-5s %-8s %-10s %-6s %-3s %-7s", "Pos", "Brand", "Color", "Model", "MaxR", "SafetyR", "Price ($)", "AWD?", "RT", "Battery");
+	String filename = "cars.txt", line = "", command = "";
+	readAddCars(filename, cars);
 
 		// Car car1 = new Car("Honda", "red", Car.GAS_ENGINE, 4, Car.SPORTS, 450, 9.2, 30000, false);
 		// Car car2 = new Car("Toyota", "blue", Car.GAS_ENGINE, 4, Car.SEDAN, 500, 9.5, 25000, false);
@@ -115,14 +120,7 @@ public class CarDealershipSimulator
 		// cars.add(car2);
 		// cars.add(car3);
   // The ADD command should hand this array list to CarDealership object via the addCars() method
-	String filename = "cars.txt";
-	String line = "", command = "";
-	String header = "Pos  Brand   Color  Model   MaxR  SR    Price ($)  AWD    RT  Battery";
 	
-	//Car car1 = readCars(filename);
-	//cars.add(car1);
-	readCars(filename, cars);
-
 	// Create a scanner object
 	Scanner input = new Scanner(System.in);
 	System.out.print("Enter a command (Q to quit): ");
@@ -231,6 +229,11 @@ class CarDealership {
 	public Car carLastBought;
 
 	class SRComparator implements Comparator<Car> {
+		/**
+		 * @param car1
+		 * @param car2
+		 * @return int value of result
+		 */
 		public int compare(Car car1, Car car2) {
 			if (car1.getSafetyRating() < car2.getSafetyRating()) return -1;
 			if (car1.getSafetyRating() > car1.getSafetyRating()) return 1;
@@ -239,6 +242,11 @@ class CarDealership {
 	}
 
 	class MRComparator implements Comparator<Car> {
+		/**
+		 * @param car1
+		 * @param car2
+		 * @return int value of result
+		 */
 		public int compare(Car car1, Car car2) {
 			if (car1.getMaxRange() < car2.getMaxRange()) return -1;
 			if (car1.getMaxRange() > car1.getMaxRange()) return 1;
@@ -487,7 +495,7 @@ class Vehicle {
 	 * @return manufacturer name and color
 	 */
 	public String display() {
-		return String.format("%-7s %-6s", mfr, color);
+		return String.format("%-11s %-6s", mfr, color);
 	}
 }
 
@@ -627,10 +635,19 @@ class Car extends Vehicle implements Comparable<Car> {
 	}
 
 	/**
+	 * @param aWD boolean value
+	 * @return "AWD" or "2WD" string value
+	 */
+	public String checkAWD(boolean aWD) {
+		if (aWD) return "AWD";
+		else return "2WD";
+	}
+
+	/**
 	 * @return the Car object specifications
 	 */
 	public String display() {
-		return String.format("%s %-7s %-5d %-5.2f %-10.2f %-6b", super.display(), checkModel(model), maxRange, safetyRating, price, AWD);
+		return String.format("%s %-8s %-5d %-8.2f %-10.2f %-6s", super.display(), checkModel(model), maxRange, safetyRating, price, checkAWD(AWD));
 	}
 }
 
