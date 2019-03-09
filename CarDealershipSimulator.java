@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.NoSuchElementException;
 import java.io.File;
 import java.io.IOException;
 
@@ -109,17 +108,11 @@ public class CarDealershipSimulator
 	// Then create some new car objects of different types
 	String header = String.format("%-4s %-11s %-6s %-8s %-5s %-8s %-10s %-6s %-3s %-7s", "Pos", "Brand", "Color", "Model", "MaxR", "SafetyR", "Price ($)", "AWD?", "RT", "Battery");
 	String filename = "cars.txt", line = "", command = "";
-	readAddCars(filename, cars);
-
-		// Car car1 = new Car("Honda", "red", Car.GAS_ENGINE, 4, Car.SPORTS, 450, 9.2, 30000, false);
-		// Car car2 = new Car("Toyota", "blue", Car.GAS_ENGINE, 4, Car.SEDAN, 500, 9.5, 25000, false);
-		// ElectricCar car3 = new ElectricCar("Tesla", "red", Car.ELECTRIC_MOTOR, 4, Car.SEDAN, 425, 9.1, 85000, true, 55, "Lithium");
 
 	// See the cars file for car object details
 	// Add the car objects to the array list
-		// cars.add(car1);
-		// cars.add(car2);
-		// cars.add(car3);
+	readAddCars(filename, cars);
+
   // The ADD command should hand this array list to CarDealership object via the addCars() method
 	
 	// Create a scanner object
@@ -300,12 +293,12 @@ class CarDealership {
 		}
 	}
 
-	/* TO DO - Filter has some bugs (with price as second filter) !!*/
+	/* Filter has some bugs (with price as second filter) */
 	public void displayInventory() {
 		for (int i = 0; i < cars.size(); i++) {
 			Car currentCar = cars.get(i);
-			String output = String.format("%-4d %s", i, currentCar.display());
 			if (filterCars.contains(i)) {
+				String output = String.format("%-4d %s", i, currentCar.display());
 				if (electric) {
 					if(currentCar.getPower() == Car.ELECTRIC_MOTOR)
 						System.out.println(output);
@@ -493,6 +486,7 @@ class Vehicle {
 				powerString = "GAS_ENGINE";
 				break;
 			default:
+				powerString = null;
 				break;
 		}
 		return powerString;
@@ -507,7 +501,7 @@ class Vehicle {
 	}
 
 	/** 
-	 * @return manufacturer name and color
+	 * @return the Vehicle object specifications
 	 */
 	public String display() {
 		return String.format("%-11s %-6s", mfr, color);
@@ -552,66 +546,66 @@ class Car extends Vehicle implements Comparable<Car> {
 		return model;
 	}
 	/**
-	 * @param model the model to set
+	 * @param model to set
 	 */
 	public void setModel(int model) {
 		this.model = model;
 	}
 
 	/**
-	 * @return the maxRange
+	 * @return maxRange
 	 */
 	public int getMaxRange() {
 		return maxRange;
 	}
 	/**
-	 * @param maxRange the maxRange to set
+	 * @param maxRange to set
 	 */
 	public void setMaxRange(int maxRange) {
 		this.maxRange = maxRange;
 	}
 	
 	/**
-	 * @return the safetyRating
+	 * @return safetyRating
 	 */
 	public double getSafetyRating() {
 		return safetyRating;
 	}
 	/**
-	 * @param safetyRating the safetyRating to set
+	 * @param safetyRating to set
 	 */
 	public void setSafetyRating(double safetyRating) {
 		this.safetyRating = safetyRating;
 	}
 
 	/**
-	 * @return the price
+	 * @return price
 	 */
 	public double getPrice() {
 		return price;
 	}
 	/**
-	 * @param price the price to set
+	 * @param price to set
 	 */
 	public void setPrice(double price) {
 		this.price = price;
 	}
 	
 	/**
-	 * @return the aWD
+	 * @return AWD
 	 */
 	public boolean isAWD() {
 		return AWD;
 	}
 	/**
-	 * @param aWD the aWD to set
+	 * @param aWD to set
 	 */
 	public void setAWD(boolean aWD) {
 		this.AWD = aWD;
 	}
 
 	/**
-	 * @return equality of Car object
+	 * @return equality of two Car objects
 	 */
 	public boolean equals(Object other) {
 		Car otherCar = (Car) other;
@@ -619,7 +613,7 @@ class Car extends Vehicle implements Comparable<Car> {
 	}
 
 	/**
-	 * @return comparsion value of two Car objects
+	 * @return comparision of two Car objects
 	 */
 	public int compareTo(Car other) {
 		return new Double(this.price).compareTo(other.price);
@@ -689,31 +683,34 @@ class ElectricCar extends Car {
 			this.setBatteryType(batteryType);
 	}
 	/**
-	 * @return the rechargeTime
+	 * @return rechargeTime
 	 */
 	public int getRechargeTime() {
 		return rechargeTime;
 	}
 	/**
-	 * @param rechargeTime the rechargeTime to set
+	 * @param rechargeTime to set
 	 */
 	public void setRechargeTime(int rechargeTime) {
 		this.rechargeTime = rechargeTime;
 	}
 
 	/**
-	 * @return the batteryType
+	 * @return batteryType
 	 */
 	public String getBatteryType() {
 		return batteryType;
 	}
 	/**
-	 * @param batteryType the batteryType to set
+	 * @param batteryType to set
 	 */
 	public void setBatteryType(String batteryType) {
 		this.batteryType = batteryType;
 	}
 
+	/**
+	 * @return the ElectricCar object specifications
+	 */
 	public String display() {
 		return String.format("%s %-3d %-5s", super.display(), rechargeTime, batteryType);
 	}
