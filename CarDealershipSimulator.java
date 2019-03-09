@@ -1,14 +1,24 @@
+/*
+ * Name: Jacky Ly
+ * Student ID: 500890960
+ * Section: CPS209-031
+ */
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
 import java.util.Comparator;
+//import java.io.BufferedReader;
+//import java.io.FileReader;
+import java.io.File;
+import java.io.IOException;
 
 public class CarDealershipSimulator 
 {
   /**
    * @param header string for use with displayInventory()
    */
-  public static void addHeader(String header) {
+  private static void addHeader(String header) {
 	System.out.println();
 	System.out.println(header);
 	for (int i = 0; i < header.length() + 2; i++) {
@@ -16,26 +26,104 @@ public class CarDealershipSimulator
 	}
 	System.out.println();
 	}
+
+	private static void readCars(String filename, ArrayList<Car> cars) throws IOException {
+		Scanner scan = new Scanner(new File(filename));
+		ArrayList<Object> specsList = new ArrayList<Object>();
+		while (scan.hasNextLine()) {
+			String line = scan.nextLine();
+			Scanner specsLine = new Scanner(line);
+			while (specsLine.hasNext()) {
+				String specs = specsLine.next();
+				specsList.add(specs);
+			}
+			specsLine.close();
+			String brandFile = (String) specsList.get(0);
+			String colorFile = (String) specsList.get(1);
+			String modelFile = (String) specsList.get(2);
+			int modelInt;
+			switch (modelFile) {
+			case "SEDAN":
+				modelInt = Car.SEDAN;
+				break;
+			case "SUV":
+				modelInt = Car.SUV;
+				break;
+			case "SPORTS":
+				modelInt = Car.SPORTS;
+				break;
+			case "MINIVAN":
+				modelInt = Car.MINIVAN;
+				break;
+			default:
+				modelInt = -1;
+				break;
+			}
+			String powerFile = (String) specsList.get(3);
+			int powerInt;
+			switch (powerFile) {
+			case "ELECTRIC_MOTOR":
+				powerInt = Car.ELECTRIC_MOTOR;
+				break;
+			case "GAS_ENGINE":
+				powerInt = Car.GAS_ENGINE;
+				break;
+			default:
+				powerInt = -1;
+				break;
+			}
+			double safetyRatingFile = Double.parseDouble((String) specsList.get(4));
+			int maxRangeFile = Integer.parseInt((String) specsList.get(5));
+			String aWDFile = (String) specsList.get(6);
+			boolean aWDValue = false;
+			if (aWDFile.equals("AWD"))
+				aWDValue = true;
+			int priceFile = Integer.parseInt((String) specsList.get(7));
+			int rechargeTimeFile = 0;
+			if (specsList.size() == 9) {
+				rechargeTimeFile = Integer.parseInt((String) specsList.get(8));
+				ElectricCar car;
+				car = new ElectricCar(brandFile, colorFile, powerInt, 4, modelInt, maxRangeFile, safetyRatingFile, priceFile,
+						aWDValue, rechargeTimeFile, "Lithium");
+				cars.add(car);
+			} else {
+				Car car;
+				car = new Car(brandFile, colorFile, powerInt, 4, modelInt, maxRangeFile, safetyRatingFile, priceFile, aWDValue);
+				cars.add(car);
+			}
+			specsList.clear();
+		}
+		scan.close();
+		return;
+	}
 	
-  public static void main(String[] args)
+  public static void main(String[] args) throws IOException
   {
 	// Create a CarDealership object
 	CarDealership newDealer = new CarDealership();
 	// Then create an (initially empty) array list of type Car
 	ArrayList<Car> cars = new ArrayList<Car>();
 	// Then create some new car objects of different types
-	Car car1 = new Car("Honda", "red", Car.GAS_ENGINE, 4, Car.SPORTS, 450, 9.2, 30000, false);
-	Car car2 = new Car("Toyota", "blue", Car.GAS_ENGINE, 4, Car.SEDAN, 500, 9.5, 25000, false);
-	ElectricCar car3 = new ElectricCar("Tesla", "red", Car.ELECTRIC_MOTOR, 4, Car.SEDAN, 425, 9.1, 85000, true, 55, "Lithium");
+
+		// Car car1 = new Car("Honda", "red", Car.GAS_ENGINE, 4, Car.SPORTS, 450, 9.2, 30000, false);
+		// Car car2 = new Car("Toyota", "blue", Car.GAS_ENGINE, 4, Car.SEDAN, 500, 9.5, 25000, false);
+		// ElectricCar car3 = new ElectricCar("Tesla", "red", Car.ELECTRIC_MOTOR, 4, Car.SEDAN, 425, 9.1, 85000, true, 55, "Lithium");
+
 	// See the cars file for car object details
 	// Add the car objects to the array list
-	cars.add(car1);
-	cars.add(car2);
-	cars.add(car3);
-    // The ADD command should hand this array list to CarDealership object via the addCars() method
-	// Create a scanner object
+		// cars.add(car1);
+		// cars.add(car2);
+		// cars.add(car3);
+  // The ADD command should hand this array list to CarDealership object via the addCars() method
+	String filename = "cars.txt";
 	String line = "", command = "";
 	String header = "Pos  Brand   Color  Model   MaxR  SR    Price ($)  AWD    RT  Battery";
+	
+	//Car car1 = readCars(filename);
+	//cars.add(car1);
+	readCars(filename, cars);
+
+	// Create a scanner object
 	Scanner input = new Scanner(System.in);
 	System.out.print("Enter a command (Q to quit): ");
 	// while the scanner has another line
