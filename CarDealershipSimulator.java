@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.NoSuchElementException;
 import java.io.File;
 import java.io.IOException;
 
@@ -328,20 +329,26 @@ class CarDealership {
 						filterCars.remove(new Integer(i));
 				}
 				else if (AWD && price) {
-					if (currentCar.isAWD() && (currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice))
-						System.out.println(output);
+					if (currentCar.isAWD()) {
+						if (currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+							System.out.println(output);
+					}
 					else
 						filterCars.remove(new Integer(i));
 				}
 				else if (electric && price) {
-					if (currentCar.getPower() == Car.ELECTRIC_MOTOR && (currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice))
-						System.out.println(output);
+					if (currentCar.getPower() == Car.ELECTRIC_MOTOR) {
+						if (currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+							System.out.println(output);
+					}
 					else
 						filterCars.remove(new Integer(i));
 				}
 				else if (electric && AWD && price) {
-					if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD() && (currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice))
-						System.out.println(output);
+					if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD()) {
+						if (currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+							System.out.println(output);
+					}
 					else
 						filterCars.remove(new Integer(i));
 				}
