@@ -152,10 +152,10 @@ public class CarDealershipSimulator
 	private static void commandsMenu() {
 		System.out.println();
 		System.out.println("COMMANDS MENU");
-		System.out.printf("%7s  |  %-40s %-33s %-30s %s\n", "General", "ADD - Add Cars To Inventory", "L - Load Inventory", "Q - Quit Program", "HELP - Display Commands Menu");
-		System.out.printf("%7s  |  %-40s %s\n", "Actions", "BUY [num] - Buy 'num' Car", "RET - Return Car");
-		System.out.printf("%7s  |  %-40s %-33s %s\n", "Sort", "SPR - Sort By Price", "SSR - Sort By Safety Rating", "SMR - Sort By Max Range");
-		System.out.printf("%7s  |  %-40s %-33s %-30s %s\n", "Filter", "FPR [min] [max] - Filter By Price", "FEL - Filter By Electric", "FAW - Filter By AWD", "FCL - Clear Filters");
+		System.out.printf("%7s  |  %-37s %-33s %-30s %s\n", "General", "ADD - Add Cars To Inventory", "L - Load Inventory", "Q - Quit Program", "HELP - Display Commands Menu");
+		System.out.printf("%7s  |  %-37s %s\n", "Actions", "BUY [num] - Buy 'num' Car", "RET - Return Car");
+		System.out.printf("%7s  |  %-37s %-33s %s\n", "Sort", "SPR - Sort By Price", "SSR - Sort By Safety Rating", "SMR - Sort By Max Range");
+		System.out.printf("%7s  |  %-37s %-33s %-30s %s\n", "Filter", "FPR [min] [max] - Filter By Price", "FEL - Filter By Electric", "FAW - Filter By AWD", "FCL - Clear Filters");
 	}
 
 	/**
