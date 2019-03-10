@@ -9,6 +9,7 @@ import java.util.Scanner;
 import java.util.Collections;
 import java.util.Comparator;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class CarDealershipSimulator 
@@ -29,80 +30,87 @@ public class CarDealershipSimulator
 	 * @param filename of text file to read from
 	 * @param cars ArrayList of Car objects
 	 */
-	private static void readAddCars(String filename, ArrayList<Car> cars) throws IOException {
-		Scanner scan = new Scanner(new File(filename));
-		ArrayList<Object> specsList = new ArrayList<Object>();
-		final String BATTERY_TYPE = "Lithium";
-		final int NUM_WHEELS = 4;
-		int modelInt, powerInt, rechargeTimeFile = 0;
-		while (scan.hasNextLine()) {
-			String line = scan.nextLine();
-			Scanner specsLine = new Scanner(line);
-			while (specsLine.hasNext()) {
-				String specs = specsLine.next();
-				specsList.add(specs);
+	private static void readAddCars(String filename, ArrayList<Car> cars) throws IOException, FileNotFoundException {
+		try {
+			Scanner scan = new Scanner(new File(filename));
+			ArrayList<Object> specsList = new ArrayList<Object>();
+			final String BATTERY_TYPE = "Lithium";
+			final int NUM_WHEELS = 4;
+			int modelInt, powerInt, rechargeTimeFile = 0;
+		
+			while (scan.hasNextLine()) {
+				String line = scan.nextLine();
+				Scanner specsLine = new Scanner(line);
+				while (specsLine.hasNext()) {
+					String specs = specsLine.next();
+					specsList.add(specs);
+				}
+				specsLine.close();
+
+				String brandFile = (String)specsList.get(0);
+				String colorFile = (String)specsList.get(1);
+
+				String modelFile = (String)specsList.get(2);
+				switch (modelFile) {
+				case "SEDAN":
+					modelInt = Car.SEDAN;
+					break;
+				case "SUV":
+					modelInt = Car.SUV;
+					break;
+				case "SPORTS":
+					modelInt = Car.SPORTS;
+					break;
+				case "MINIVAN":
+					modelInt = Car.MINIVAN;
+					break;
+				default:
+					modelInt = -1;
+					break;
+				}
+
+				String powerFile = (String)specsList.get(3);
+				switch (powerFile) {
+				case "ELECTRIC_MOTOR":
+					powerInt = Car.ELECTRIC_MOTOR;
+					break;
+				case "GAS_ENGINE":
+					powerInt = Car.GAS_ENGINE;
+					break;
+				default:
+					powerInt = -1;
+					break;
+				}
+
+				double safetyRatingFile = Double.parseDouble((String)specsList.get(4));
+				int maxRangeFile = Integer.parseInt((String)specsList.get(5));
+				String aWDFile = (String)specsList.get(6);
+				
+				boolean aWDValue = false;
+				if (aWDFile.equals("AWD"))
+					aWDValue = true;
+
+				int priceFile = Integer.parseInt((String)specsList.get(7));
+
+				if (specsList.size() == 9) {
+					rechargeTimeFile = Integer.parseInt((String)specsList.get(8));
+					ElectricCar car = new ElectricCar(brandFile, colorFile, powerInt, NUM_WHEELS, modelInt, maxRangeFile, safetyRatingFile, priceFile,
+							aWDValue, rechargeTimeFile, BATTERY_TYPE);
+					cars.add(car);
+				}
+				else {
+					Car car = new Car(brandFile, colorFile, powerInt, 4, modelInt, maxRangeFile, safetyRatingFile, priceFile, aWDValue);
+					cars.add(car);
+				}
+				specsList.clear();
 			}
-			specsLine.close();
-
-			String brandFile = (String)specsList.get(0);
-			String colorFile = (String)specsList.get(1);
-
-			String modelFile = (String)specsList.get(2);
-			switch (modelFile) {
-			case "SEDAN":
-				modelInt = Car.SEDAN;
-				break;
-			case "SUV":
-				modelInt = Car.SUV;
-				break;
-			case "SPORTS":
-				modelInt = Car.SPORTS;
-				break;
-			case "MINIVAN":
-				modelInt = Car.MINIVAN;
-				break;
-			default:
-				modelInt = -1;
-				break;
-			}
-
-			String powerFile = (String)specsList.get(3);
-			switch (powerFile) {
-			case "ELECTRIC_MOTOR":
-				powerInt = Car.ELECTRIC_MOTOR;
-				break;
-			case "GAS_ENGINE":
-				powerInt = Car.GAS_ENGINE;
-				break;
-			default:
-				powerInt = -1;
-				break;
-			}
-
-			double safetyRatingFile = Double.parseDouble((String)specsList.get(4));
-			int maxRangeFile = Integer.parseInt((String)specsList.get(5));
-			String aWDFile = (String)specsList.get(6);
-			
-			boolean aWDValue = false;
-			if (aWDFile.equals("AWD"))
-				aWDValue = true;
-
-			int priceFile = Integer.parseInt((String)specsList.get(7));
-
-			if (specsList.size() == 9) {
-				rechargeTimeFile = Integer.parseInt((String)specsList.get(8));
-				 ElectricCar car = new ElectricCar(brandFile, colorFile, powerInt, NUM_WHEELS, modelInt, maxRangeFile, safetyRatingFile, priceFile,
-						aWDValue, rechargeTimeFile, BATTERY_TYPE);
-				cars.add(car);
-			}
-			else {
-				Car car = new Car(brandFile, colorFile, powerInt, 4, modelInt, maxRangeFile, safetyRatingFile, priceFile, aWDValue);
-				cars.add(car);
-			}
-			specsList.clear();
+			scan.close();
+			return;
 		}
-		scan.close();
-		return;
+		catch (FileNotFoundException e) {
+			System.out.println("The file name specified is not found! Please check the file location and try again!");
+			System.exit(0);
+		}
 	}
 
 	// Display commands menu
@@ -168,7 +176,7 @@ public class CarDealershipSimulator
 					System.out.println("\nCar Details:");
 					addHeader(header);
 					System.out.printf("%-4d %s\n", index, currentCar.display());
-					System.out.println("\nCar at position " + index + " bought successfully!");
+					System.out.println("\nCar at position " + index + " bought successfully.");
 				}
 				else
 					System.out.println("\nERROR: Invalid car selection!");
@@ -179,11 +187,15 @@ public class CarDealershipSimulator
 				if (returnCar != null)
 					System.out.println("\nReturned last car bought to inventory.");
 				else
-					System.out.println("\nERROR: No car found to return to inventory.");
+					System.out.println("\nERROR: No car found to return to inventory!");
 				break;
 			case "ADD":
-				newDealer.addCars(cars);
-				System.out.println("\nAdded cars from file to dealership inventory.");
+				if (cars.size() > 0) {
+					newDealer.addCars(cars);
+					System.out.println("\nAdded cars from file to dealership inventory.");
+				}
+				else
+					System.out.println("\nERROR: No cars from file found!");
 				break;
 			case "SPR":
 				newDealer.sortByPrice();
