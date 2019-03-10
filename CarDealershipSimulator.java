@@ -104,6 +104,16 @@ public class CarDealershipSimulator
 		scan.close();
 		return;
 	}
+
+	// Display commands menu
+	private static void commandsMenu() {
+		System.out.println();
+		System.out.println("COMMANDS MENU");
+		System.out.printf("%7s  |  %-40s %-33s %-30s %s\n", "General", "ADD - Add Cars To Inventory", "L - Load Inventory", "Q - Quit Program", "HELP - Display Commands Menu");
+		System.out.printf("%7s  |  %-40s %s\n", "Actions", "BUY [num] - Buy 'num' Car", "RET - Return Car");
+		System.out.printf("%7s  |  %-40s %-33s %s\n", "Sort", "SPR - Sort By Price", "SSR - Sort By Safety Rating", "SMR - Sort By Max Range");
+		System.out.printf("%7s  |  %-40s %-33s %-30s %s\n", "Filter", "FPR [min] [max] - Filter By Price", "FEL - Filter By Electric", "FAW - Filter By AWD", "FCL - Clear Filters");
+	}
 	
   public static void main(String[] args) throws IOException
   {
@@ -123,7 +133,11 @@ public class CarDealershipSimulator
 	
 	// Create a scanner object
 	Scanner input = new Scanner(System.in);
-	System.out.print("Enter a command (Q to quit): ");
+	System.out.println("Welcome to Car Dealership Simulator!");
+	commandsMenu();
+	System.out.println();
+	System.out.println("Run the 'ADD' command to get started!");
+	System.out.print("Enter a command: (HELP for commands menu): ");
 	// while the scanner has another line
 	while (input.hasNextLine()) {
 	//  read the input line
@@ -145,7 +159,7 @@ public class CarDealershipSimulator
 				break;
 			case "Q":
 				commandLine.close();
-				System.out.println("\nThank you for shopping at our dealership!");
+				System.out.println("\nThank you for shopping at Car Dealership Simulator! Have a great day!");
 				return;
 			case "BUY":
 				int index = commandLine.nextInt();
@@ -169,7 +183,7 @@ public class CarDealershipSimulator
 				break;
 			case "ADD":
 				newDealer.addCars(cars);
-				System.out.println("\nAdded cars to dealership inventory.");
+				System.out.println("\nAdded cars from file to dealership inventory.");
 				break;
 			case "SPR":
 				newDealer.sortByPrice();
@@ -209,12 +223,15 @@ public class CarDealershipSimulator
 				newDealer.FiltersClear();
 				System.out.println("\nFilters cleared successfully.");
 				break;
+			case "HELP":
+				commandsMenu();
+				break;
 			default:
 				System.out.println("\nERROR: Unknown command. Please try again!");
 				break;
 			}
 			commandLine.close();
-			System.out.print("\nEnter another command (Q to quit): ");
+			System.out.print("\nEnter another command (HELP for commands menu): ");
 		}
 		input.close();
 	}
