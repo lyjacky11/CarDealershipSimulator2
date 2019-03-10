@@ -12,115 +12,6 @@ import java.io.IOException;
 
 public class CarDealershipSimulator 
 {
-  /**
-   * @param header string for use with displayInventory()
-   */
-  private static void addHeader(String header) {
-	System.out.println();
-	System.out.println(header);
-	for (int i = 0; i < header.length() + 2; i++) {
-		System.out.print("-");
-	}
-	System.out.println();
-	}
-
-	/**
-	 * @param filename of text file to read from
-	 * @param cars ArrayList of Car objects
-	 */
-	private static void readAddCars(String filename, ArrayList<Car> cars) throws FileNotFoundException {
-		try {
-			Scanner scan = new Scanner(new File(filename));
-			ArrayList<Object> specsList = new ArrayList<Object>();
-			final String BATTERY_TYPE = "Lithium";
-			final int NUM_WHEELS = 4;
-			int modelInt, powerInt, rechargeTimeFile = 0;
-		
-			while (scan.hasNextLine()) {
-				String line = scan.nextLine();
-				Scanner specsLine = new Scanner(line);
-				while (specsLine.hasNext()) {
-					String specs = specsLine.next();
-					specsList.add(specs);
-				}
-				specsLine.close();
-
-				String brandFile = (String)specsList.get(0);
-				String colorFile = (String)specsList.get(1);
-
-				String modelFile = (String)specsList.get(2);
-				switch (modelFile) {
-				case "SEDAN":
-					modelInt = Car.SEDAN;
-					break;
-				case "SUV":
-					modelInt = Car.SUV;
-					break;
-				case "SPORTS":
-					modelInt = Car.SPORTS;
-					break;
-				case "MINIVAN":
-					modelInt = Car.MINIVAN;
-					break;
-				default:
-					modelInt = -1;
-					break;
-				}
-
-				String powerFile = (String)specsList.get(3);
-				switch (powerFile) {
-				case "ELECTRIC_MOTOR":
-					powerInt = Car.ELECTRIC_MOTOR;
-					break;
-				case "GAS_ENGINE":
-					powerInt = Car.GAS_ENGINE;
-					break;
-				default:
-					powerInt = -1;
-					break;
-				}
-
-				double safetyRatingFile = Double.parseDouble((String)specsList.get(4));
-				int maxRangeFile = Integer.parseInt((String)specsList.get(5));
-				String aWDFile = (String)specsList.get(6);
-				
-				boolean aWDValue = false;
-				if (aWDFile.equals("AWD"))
-					aWDValue = true;
-
-				int priceFile = Integer.parseInt((String)specsList.get(7));
-
-				if (specsList.size() == 9) {
-					rechargeTimeFile = Integer.parseInt((String)specsList.get(8));
-					ElectricCar car = new ElectricCar(brandFile, colorFile, powerInt, NUM_WHEELS, modelInt, maxRangeFile, safetyRatingFile, priceFile,
-							aWDValue, rechargeTimeFile, BATTERY_TYPE);
-					cars.add(car);
-				}
-				else {
-					Car car = new Car(brandFile, colorFile, powerInt, 4, modelInt, maxRangeFile, safetyRatingFile, priceFile, aWDValue);
-					cars.add(car);
-				}
-				specsList.clear();
-			}
-			scan.close();
-			return;
-		}
-		catch (FileNotFoundException e) {
-			System.out.println("The file name specified is not found! Please check the file location and try again!");
-			System.exit(0);
-		}
-	}
-
-	// Display commands menu
-	private static void commandsMenu() {
-		System.out.println();
-		System.out.println("COMMANDS MENU");
-		System.out.printf("%7s  |  %-40s %-33s %-30s %s\n", "General", "ADD - Add Cars To Inventory", "L - Load Inventory", "Q - Quit Program", "HELP - Display Commands Menu");
-		System.out.printf("%7s  |  %-40s %s\n", "Actions", "BUY [num] - Buy 'num' Car", "RET - Return Car");
-		System.out.printf("%7s  |  %-40s %-33s %s\n", "Sort", "SPR - Sort By Price", "SSR - Sort By Safety Rating", "SMR - Sort By Max Range");
-		System.out.printf("%7s  |  %-40s %-33s %-30s %s\n", "Filter", "FPR [min] [max] - Filter By Price", "FEL - Filter By Electric", "FAW - Filter By AWD", "FCL - Clear Filters");
-	}
-	
   public static void main(String[] args) throws IOException
   {
 	// Create a CarDealership object
@@ -244,5 +135,113 @@ public class CarDealershipSimulator
 			System.out.print("\nEnter another command (HELP for commands menu): ");
 		}
 		input.close();
+	}
+	/**
+   * @param header string for use with displayInventory()
+   */
+  private static void addHeader(String header) {
+	System.out.println();
+	System.out.println(header);
+	for (int i = 0; i < header.length() + 2; i++) {
+		System.out.print("-");
+	}
+	System.out.println();
+	}
+
+	// Display commands menu
+	private static void commandsMenu() {
+		System.out.println();
+		System.out.println("COMMANDS MENU");
+		System.out.printf("%7s  |  %-40s %-33s %-30s %s\n", "General", "ADD - Add Cars To Inventory", "L - Load Inventory", "Q - Quit Program", "HELP - Display Commands Menu");
+		System.out.printf("%7s  |  %-40s %s\n", "Actions", "BUY [num] - Buy 'num' Car", "RET - Return Car");
+		System.out.printf("%7s  |  %-40s %-33s %s\n", "Sort", "SPR - Sort By Price", "SSR - Sort By Safety Rating", "SMR - Sort By Max Range");
+		System.out.printf("%7s  |  %-40s %-33s %-30s %s\n", "Filter", "FPR [min] [max] - Filter By Price", "FEL - Filter By Electric", "FAW - Filter By AWD", "FCL - Clear Filters");
+	}
+
+	/**
+	 * @param filename of text file to read from
+	 * @param cars ArrayList of Car objects
+	 */
+	private static void readAddCars(String filename, ArrayList<Car> cars) throws FileNotFoundException {
+		try {
+			Scanner scan = new Scanner(new File(filename));
+			ArrayList<Object> specsList = new ArrayList<Object>();
+			final String BATTERY_TYPE = "Lithium";
+			final int NUM_WHEELS = 4;
+			int modelInt, powerInt, rechargeTimeFile = 0;
+		
+			while (scan.hasNextLine()) {
+				String line = scan.nextLine();
+				Scanner specsLine = new Scanner(line);
+				while (specsLine.hasNext()) {
+					String specs = specsLine.next();
+					specsList.add(specs);
+				}
+				specsLine.close();
+
+				String brandFile = (String)specsList.get(0);
+				String colorFile = (String)specsList.get(1);
+
+				String modelFile = (String)specsList.get(2);
+				switch (modelFile) {
+				case "SEDAN":
+					modelInt = Car.SEDAN;
+					break;
+				case "SUV":
+					modelInt = Car.SUV;
+					break;
+				case "SPORTS":
+					modelInt = Car.SPORTS;
+					break;
+				case "MINIVAN":
+					modelInt = Car.MINIVAN;
+					break;
+				default:
+					modelInt = -1;
+					break;
+				}
+
+				String powerFile = (String)specsList.get(3);
+				switch (powerFile) {
+				case "ELECTRIC_MOTOR":
+					powerInt = Car.ELECTRIC_MOTOR;
+					break;
+				case "GAS_ENGINE":
+					powerInt = Car.GAS_ENGINE;
+					break;
+				default:
+					powerInt = -1;
+					break;
+				}
+
+				double safetyRatingFile = Double.parseDouble((String)specsList.get(4));
+				int maxRangeFile = Integer.parseInt((String)specsList.get(5));
+				String aWDFile = (String)specsList.get(6);
+				
+				boolean aWDValue = false;
+				if (aWDFile.equals("AWD"))
+					aWDValue = true;
+
+				int priceFile = Integer.parseInt((String)specsList.get(7));
+
+				if (specsList.size() == 9) {
+					rechargeTimeFile = Integer.parseInt((String)specsList.get(8));
+					ElectricCar car = new ElectricCar(brandFile, colorFile, powerInt, NUM_WHEELS, modelInt, maxRangeFile, safetyRatingFile, priceFile,
+							aWDValue, rechargeTimeFile, BATTERY_TYPE);
+					cars.add(car);
+				}
+				else {
+					Car car = new Car(brandFile, colorFile, powerInt, 4, modelInt, maxRangeFile, safetyRatingFile, priceFile, aWDValue);
+					cars.add(car);
+				}
+				specsList.clear();
+			}
+			scan.close();
+			return;
+		}
+		catch (FileNotFoundException e) {
+			System.out.println("The file name specified is not found! Please check the file location and try again!");
+			System.exit(0);
+		}
 	}
 }
