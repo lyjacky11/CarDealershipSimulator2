@@ -26,12 +26,15 @@ public class CarDealershipSimulator
 	}
 
 	/**
-	 * @param filename of file to read from
+	 * @param filename of text file to read from
 	 * @param cars ArrayList of Car objects
 	 */
 	private static void readAddCars(String filename, ArrayList<Car> cars) throws IOException {
 		Scanner scan = new Scanner(new File(filename));
 		ArrayList<Object> specsList = new ArrayList<Object>();
+		final String BATTERY_TYPE = "Lithium";
+		final int NUM_WHEELS = 4;
+		int modelInt, powerInt, rechargeTimeFile = 0;
 		while (scan.hasNextLine()) {
 			String line = scan.nextLine();
 			Scanner specsLine = new Scanner(line);
@@ -40,10 +43,11 @@ public class CarDealershipSimulator
 				specsList.add(specs);
 			}
 			specsLine.close();
-			String brandFile = (String) specsList.get(0);
-			String colorFile = (String) specsList.get(1);
-			String modelFile = (String) specsList.get(2);
-			int modelInt;
+
+			String brandFile = (String)specsList.get(0);
+			String colorFile = (String)specsList.get(1);
+
+			String modelFile = (String)specsList.get(2);
 			switch (modelFile) {
 			case "SEDAN":
 				modelInt = Car.SEDAN;
@@ -61,8 +65,8 @@ public class CarDealershipSimulator
 				modelInt = -1;
 				break;
 			}
-			String powerFile = (String) specsList.get(3);
-			int powerInt;
+
+			String powerFile = (String)specsList.get(3);
 			switch (powerFile) {
 			case "ELECTRIC_MOTOR":
 				powerInt = Car.ELECTRIC_MOTOR;
@@ -74,23 +78,25 @@ public class CarDealershipSimulator
 				powerInt = -1;
 				break;
 			}
-			double safetyRatingFile = Double.parseDouble((String) specsList.get(4));
-			int maxRangeFile = Integer.parseInt((String) specsList.get(5));
-			String aWDFile = (String) specsList.get(6);
+
+			double safetyRatingFile = Double.parseDouble((String)specsList.get(4));
+			int maxRangeFile = Integer.parseInt((String)specsList.get(5));
+			String aWDFile = (String)specsList.get(6);
+			
 			boolean aWDValue = false;
 			if (aWDFile.equals("AWD"))
 				aWDValue = true;
-			int priceFile = Integer.parseInt((String) specsList.get(7));
-			int rechargeTimeFile = 0;
+
+			int priceFile = Integer.parseInt((String)specsList.get(7));
+
 			if (specsList.size() == 9) {
-				rechargeTimeFile = Integer.parseInt((String) specsList.get(8));
-				ElectricCar car;
-				car = new ElectricCar(brandFile, colorFile, powerInt, 4, modelInt, maxRangeFile, safetyRatingFile, priceFile,
-						aWDValue, rechargeTimeFile, "Lithium");
+				rechargeTimeFile = Integer.parseInt((String)specsList.get(8));
+				 ElectricCar car = new ElectricCar(brandFile, colorFile, powerInt, NUM_WHEELS, modelInt, maxRangeFile, safetyRatingFile, priceFile,
+						aWDValue, rechargeTimeFile, BATTERY_TYPE);
 				cars.add(car);
-			} else {
-				Car car;
-				car = new Car(brandFile, colorFile, powerInt, 4, modelInt, maxRangeFile, safetyRatingFile, priceFile, aWDValue);
+			}
+			else {
+				Car car = new Car(brandFile, colorFile, powerInt, 4, modelInt, maxRangeFile, safetyRatingFile, priceFile, aWDValue);
 				cars.add(car);
 			}
 			specsList.clear();
@@ -107,13 +113,13 @@ public class CarDealershipSimulator
 	ArrayList<Car> cars = new ArrayList<Car>();
 	// Then create some new car objects of different types
 	String header = String.format("%-4s %-11s %-6s %-8s %-5s %-8s %-10s %-6s %-3s %-7s", "Pos", "Brand", "Color", "Model", "MaxR", "SafetyR", "Price ($)", "AWD?", "RT", "Battery");
+	// See the cars file for car object details
 	String filename = "cars.txt", line = "", command = "";
 
-	// See the cars file for car object details
 	// Add the car objects to the array list
 	readAddCars(filename, cars);
 
-  // The ADD command should hand this array list to CarDealership object via the addCars() method
+  	// The ADD command should hand this array list to CarDealership object via the addCars() method
 	
 	// Create a scanner object
 	Scanner input = new Scanner(System.in);
