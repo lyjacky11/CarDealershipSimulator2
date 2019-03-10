@@ -30,7 +30,7 @@ public class CarDealershipSimulator
 	 * @param filename of text file to read from
 	 * @param cars ArrayList of Car objects
 	 */
-	private static void readAddCars(String filename, ArrayList<Car> cars) throws IOException, FileNotFoundException {
+	private static void readAddCars(String filename, ArrayList<Car> cars) throws FileNotFoundException {
 		try {
 			Scanner scan = new Scanner(new File(filename));
 			ArrayList<Object> specsList = new ArrayList<Object>();
