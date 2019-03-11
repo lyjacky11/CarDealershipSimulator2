@@ -152,6 +152,6 @@ public class Car extends Vehicle implements Comparable<Car> {
 	 * @return the Car object specifications
 	 */
 	public String display() {
-		return String.format("%s %-8s %-5d %-8.2f %-10.2f %-6s", super.display(), checkModel(model), maxRange, safetyRating, price, checkAWD(AWD));
+		return String.format("%s %-8s %-5d %-8.2f %-10.2f %-5s", super.display(), checkModel(model), maxRange, safetyRating, price, checkAWD(AWD));
 	}
 }

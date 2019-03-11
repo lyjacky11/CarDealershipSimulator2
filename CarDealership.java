@@ -91,7 +91,7 @@ public class CarDealership {
 		for (int i = 0; i < cars.size(); i++) {
 			Car currentCar = cars.get(i);
 			//if (filterCars.contains(i)) {
-				String output = String.format("%-4d %s", i, currentCar.display());
+				String output = String.format("%-3d %s", i, currentCar.display());
 				if (electric && AWD && price) {
 					if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD() && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
 						System.out.println(output);
