@@ -54,81 +54,127 @@ public class CarDealershipSimulator
 				else
 					System.out.println("\nERROR: Inventory is empty!");
 				break;
+			
 			case "Q":
 				commandLine.close();
-				System.out.println("\nThank you for shopping at Car Dealership Simulator! Have a great day!");
+				System.out.println("\nThank you for using Car Dealership Simulator! Have a great day!");
 				return;
+			
 			case "BUY":
-				int index = commandLine.nextInt();
-				Car currentCar = newDealer.buyCar(index);
-				if (currentCar != null) {
-					System.out.println("\nCar Details:");
-					addHeader(header);
-					System.out.printf("%-4d %s\n", index, currentCar.display());
-					System.out.println("\nCar at position " + index + " bought successfully.");
+				if (commandLine.hasNextInt()) {
+					int index = commandLine.nextInt();
+					Car currentCar = newDealer.buyCar(index);
+					if (currentCar != null) {
+						System.out.println("\nCar Details:");
+						addHeader(header);
+						System.out.printf("%-4d %s\n", index, currentCar.display());
+						System.out.println("\nCar at position " + index + " bought successfully.");
+					}
+					else
+						System.out.println("\nERROR: Invalid car selection!");
 				}
 				else
-					System.out.println("\nERROR: Invalid car selection!");
+					System.out.println("\nERROR: No car # position specified!");
 				break;
+			
 			case "RET":
 				Car returnCar = newDealer.carLastBought;
-				newDealer.returnCar(returnCar);
-				if (returnCar != null)
-					System.out.println("\nReturned last car bought to inventory.");
+				if (returnCar != null) {
+					newDealer.returnCar(returnCar);
+					System.out.println("\nReturned last bought car to inventory.");
+				}
 				else
 					System.out.println("\nERROR: No car found to return to inventory!");
 				break;
+			
 			case "ADD":
 				if (cars.size() > 0) {
 					newDealer.addCars(cars);
-					System.out.println("\nAdded cars from file to dealership inventory.");
+					System.out.println("\nAdded cars to dealership inventory.");
 				}
 				else
-					System.out.println("\nERROR: No cars from file found!");
+					System.out.println("\nERROR: No cars to add found!");
 				break;
+			
 			case "SPR":
-				newDealer.sortByPrice();
-				System.out.println("\nInventory sorted by price.");
+				if (!newDealer.isEmpty) {
+					newDealer.sortByPrice();
+					System.out.println("\nInventory sorted by price.");
+				}
+				else
+					System.out.println("\nERROR: Inventory is empty!");
 				break;
+			
 			case "SSR":
-				newDealer.sortBySafetyRating();
-				System.out.println("\nInventory sorted by safety rating.");
+				if (!newDealer.isEmpty) {
+					newDealer.sortBySafetyRating();
+					System.out.println("\nInventory sorted by safety rating.");
+				}
+				else
+					System.out.println("\nERROR: Inventory is empty!");
 				break;
+			
 			case "SMR":
-				newDealer.sortByMaxRange();
-				System.out.println("\nInventory sorted by max range.");
+				if (!newDealer.isEmpty) {
+					newDealer.sortByMaxRange();
+					System.out.println("\nInventory sorted by max range.");
+				}
+				else
+					System.out.println("\nERROR: Inventory is empty!");
 				break;
+			
 			case "FPR":
 				if (commandLine.hasNextInt()) {
 					int minPrice = commandLine.nextInt();
 					if (commandLine.hasNextInt()) {
 						int maxPrice = commandLine.nextInt();
-						newDealer.filterByPrice(minPrice, maxPrice);
-						System.out.println("\nInventory filtered by price between $" + minPrice + " and $" + maxPrice + ".");
+						if (!newDealer.isEmpty) {
+							newDealer.filterByPrice(minPrice, maxPrice);
+							System.out.println("\nInventory filtered by price between $" + minPrice + " and $" + maxPrice + ".");
+						}
+						else
+							System.out.println("\nERROR: Inventory is empty!");
 					}
 					else
-					System.out.println("\nERROR: Max price not specified!");
+						System.out.println("\nERROR: Invalid max price or not specified!");
 				}
 				else
-					System.out.println("\nERROR: No price range specified!");
+					System.out.println("\nERROR: Invalid price range or not specified!");
 				break;
+			
 			case "FEL":
-				newDealer.filterByElectric();
-				System.out.println("\nInventory filtered by electric cars.");
+				if (!newDealer.isEmpty) {
+					newDealer.filterByElectric();
+					System.out.println("\nInventory filtered by electric cars.");
+				}
+				else
+					System.out.println("\nERROR: Inventory is empty!");
 				break;
+			
 			case "FAW":
-				newDealer.filterByAWD();
-				System.out.println("\nInventory filtered by AWD cars.");
+				if (!newDealer.isEmpty) {
+					newDealer.filterByAWD();
+					System.out.println("\nInventory filtered by AWD cars.");
+				}
+				else
+					System.out.println("\nERROR: Inventory is empty!");
 				break;
+			
 			case "FCL":
-				newDealer.FiltersClear();
-				System.out.println("\nFilters cleared successfully.");
+				if (!newDealer.isEmpty) {
+					newDealer.FiltersClear();
+					System.out.println("\nFilters cleared successfully.");
+				}
+				else
+					System.out.println("\nERROR: Inventory is empty!");
 				break;
+			
 			case "HELP":
 				commandsMenu();
 				break;
+			
 			default:
-				System.out.println("\nERROR: Unknown command. Please try again!");
+				System.out.println("\nERROR: Unknown command. Check caps lock and try again!");
 				break;
 			}
 			commandLine.close();
@@ -137,7 +183,7 @@ public class CarDealershipSimulator
 		input.close();
 	}
 	/**
-   * @param header string for use with displayInventory()
+   * @param header string to be used with displayInventory()
    */
   private static void addHeader(String header) {
 	System.out.println();
@@ -168,7 +214,8 @@ public class CarDealershipSimulator
 			ArrayList<Object> specsList = new ArrayList<Object>();
 			final String BATTERY_TYPE = "Lithium";
 			final int NUM_WHEELS = 4;
-			int modelInt, powerInt, rechargeTimeFile = 0;
+			int modelInt = -1, powerInt = -1, rechargeTimeFile = 0;
+			boolean aWDValue = false;
 		
 			while (scan.hasNextLine()) {
 				String line = scan.nextLine();
@@ -181,7 +228,6 @@ public class CarDealershipSimulator
 
 				String brandFile = (String)specsList.get(0);
 				String colorFile = (String)specsList.get(1);
-
 				String modelFile = (String)specsList.get(2);
 				switch (modelFile) {
 				case "SEDAN":
@@ -197,7 +243,6 @@ public class CarDealershipSimulator
 					modelInt = Car.MINIVAN;
 					break;
 				default:
-					modelInt = -1;
 					break;
 				}
 
@@ -210,24 +255,19 @@ public class CarDealershipSimulator
 					powerInt = Car.GAS_ENGINE;
 					break;
 				default:
-					powerInt = -1;
 					break;
 				}
 
 				double safetyRatingFile = Double.parseDouble((String)specsList.get(4));
 				int maxRangeFile = Integer.parseInt((String)specsList.get(5));
 				String aWDFile = (String)specsList.get(6);
-				
-				boolean aWDValue = false;
 				if (aWDFile.equals("AWD"))
 					aWDValue = true;
 
 				int priceFile = Integer.parseInt((String)specsList.get(7));
-
 				if (specsList.size() == 9) {
 					rechargeTimeFile = Integer.parseInt((String)specsList.get(8));
-					ElectricCar car = new ElectricCar(brandFile, colorFile, powerInt, NUM_WHEELS, modelInt, maxRangeFile, safetyRatingFile, priceFile,
-							aWDValue, rechargeTimeFile, BATTERY_TYPE);
+					ElectricCar car = new ElectricCar(brandFile, colorFile, powerInt, NUM_WHEELS, modelInt, maxRangeFile, safetyRatingFile, priceFile, aWDValue, rechargeTimeFile, BATTERY_TYPE);
 					cars.add(car);
 				}
 				else {
