@@ -176,14 +176,20 @@ public class CarDealershipSimulator
 					break;
 				
 				default:
-					System.out.println("\nERROR: '" + command + "' is an unknown command. Please check the commands list and try again!");
-					break;
+					commandLine.close();
+					throw new NoSuchElementException();
+					//System.out.println("\nERROR: '" + command + "' is an unknown command! Please check the commands list and try again!");
+					//break;
 				}
 				commandLine.close();
 			}
-			catch (Exception ex) {
-				System.out.println("\nERROR: " + ex + " has occurred! Please try again!");
+			catch (NoSuchElementException NSE) {
+				System.out.println("\nERROR: '" + command + "' is an unknown command! Please check the commands list and try again!");
+				System.out.println(NSE + " has occurred.");
 			}
+			// catch (Exception ex) {
+			// 	System.out.println("\nERROR: " + ex + " has occurred! Please try again!");
+			// }
 			System.out.print("\nEnter another command (HELP for commands menu): ");
 		}
 		input.close();
