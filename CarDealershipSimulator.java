@@ -176,13 +176,13 @@ public class CarDealershipSimulator
 					break;
 				
 				default:
-					System.out.println("\nERROR: Unknown command. Check caps lock and try again!");
+					System.out.println("\nERROR: '" + command + "' is an unknown command. Please check the commands list and try again!");
 					break;
 				}
 				commandLine.close();
 			}
-			catch (NoSuchElementException exception) {
-				System.out.println("\nERROR: " + exception + " has occurred! Please try again!");
+			catch (Exception ex) {
+				System.out.println("\nERROR: " + ex + " has occurred! Please try again!");
 			}
 			System.out.print("\nEnter another command (HELP for commands menu): ");
 		}
