@@ -178,18 +178,15 @@ public class CarDealershipSimulator
 				default:
 					commandLine.close();
 					throw new NoSuchElementException();
-					//System.out.println("\nERROR: '" + command + "' is an unknown command! Please check the commands list and try again!");
-					//break;
 				}
 				commandLine.close();
 			}
 			catch (NoSuchElementException NSE) {
-				System.out.println("\nERROR: '" + command + "' is an unknown command! Please check the commands list and try again!");
-				System.out.println(NSE + " has occurred.");
+				System.out.println("\nERROR: '" + command + "' is an unrecognized command! Please check the commands list and try again!");
 			}
-			// catch (Exception ex) {
-			// 	System.out.println("\nERROR: " + ex + " has occurred! Please try again!");
-			// }
+			catch (Exception ex) {
+				System.out.println("\nERROR: " + ex + " has occurred! Please try again!");
+			}
 			System.out.print("\nEnter another command (HELP for commands menu): ");
 		}
 		input.close();
@@ -292,7 +289,7 @@ public class CarDealershipSimulator
 			return;
 		}
 		catch (FileNotFoundException e) {
-			System.out.println("The file name specified is not found! Please check the file location and try again!");
+			System.out.println("\nERROR: " + e + "\nPlease check the file location and try again!");
 			System.exit(0);
 		}
 	}
