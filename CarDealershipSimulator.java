@@ -74,7 +74,7 @@ public class CarDealershipSimulator
 								System.out.println("\nERROR: Invalid car selection!");
 						}
 						else
-							System.out.println("\nERROR: No car # position specified!");
+							System.out.println("\nERROR: Invalid car # position or not specified!");
 						break;
 					
 					case "RET":
@@ -177,8 +177,8 @@ public class CarDealershipSimulator
 						commandLine.close();
 						throw new NoSuchElementException();
 					}
-					command = "";
 					commandLine.close();
+					command = "";
 				}
 				catch (NoSuchElementException NSE) {
 					System.out.println("\nERROR: '" + command + "' is an unrecognized command! Please check the commands list and try again!");
