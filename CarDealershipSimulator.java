@@ -26,7 +26,7 @@ public class CarDealershipSimulator
 
 	// Add the car objects to the array list
 	// The ADD command should hand this array list to CarDealership object via the addCars() method
-	if(readAddCars(filename, cars)) {
+	if(addFromFile(filename, cars)) {
 		// Create a scanner object
 		Scanner input = new Scanner(System.in);
 		System.out.println("Welcome to Car Dealership Simulator!");
@@ -222,7 +222,7 @@ public class CarDealershipSimulator
 	 * @param filename of text file to read from
 	 * @param cars ArrayList of Car objects
 	 */
-	private static boolean readAddCars(String filename, ArrayList<Car> cars) throws FileNotFoundException {
+	private static boolean addFromFile(String filename, ArrayList<Car> cars) throws FileNotFoundException {
 		try {
 			Scanner scan = new Scanner(new File(filename));
 			ArrayList<Object> specsList = new ArrayList<Object>();
