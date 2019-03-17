@@ -172,7 +172,9 @@ public class CarDealershipSimulator
 					case "HELP":
 						commandsMenu();
 						break;
-					
+					case "F":
+						System.out.println("\nYou have paid your respects.");
+						break;
 					default:
 						commandLine.close();
 						throw new NoSuchElementException();
