@@ -67,7 +67,7 @@ public class CarDealershipSimulator
 							if (currentCar != null) {
 								System.out.println("\nCar Details:");
 								addHeader(header);
-								System.out.printf("%-4d %s\n", index, currentCar.display());
+								System.out.printf("%-3d %s\n", index, currentCar.display());
 								System.out.println("\nCar at position " + index + " bought successfully.");
 							}
 							else
@@ -172,9 +172,11 @@ public class CarDealershipSimulator
 					case "HELP":
 						commandsMenu();
 						break;
+					
 					case "F":
 						System.out.println("\nYou have paid your respects.");
 						break;
+					
 					default:
 						commandLine.close();
 						throw new NoSuchElementException();
