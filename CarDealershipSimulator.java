@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class CarDealershipSimulator 
+public class CarDealershipSimulator
 {
   public static void main(String[] args) throws IOException
   {
@@ -46,94 +46,133 @@ public class CarDealershipSimulator
 				//	check if the word (i.e. string) is equal to one of the commands and if so, call the appropriate method via the CarDealership object  
 				switch (command) {
 					case "L":
-						if (!newDealer.isEmpty) {
-							addHeader(header);
-							newDealer.displayInventory();
-							System.out.println("\nInventory loaded successfully.");
+						if (!commandLine.hasNext()) {
+							if (!newDealer.isEmpty) {
+								addHeader(header);
+								newDealer.displayInventory();
+								System.out.println("\nInventory loaded successfully.");
+							}
+							else
+								System.out.println("\nERROR: Inventory is empty!");
+							break;
 						}
-						else
-							System.out.println("\nERROR: Inventory is empty!");
-						break;
+						commandLine.close();
+						throw new NoSuchElementException();
 					
 					case "Q":
+						if (!commandLine.hasNext()) {
+							commandLine.close();
+							System.out.println("\nThank you for using Car Dealership Simulator! Have a great day!");
+							return;
+						}
 						commandLine.close();
-						System.out.println("\nThank you for using Car Dealership Simulator! Have a great day!");
-						return;
+						throw new NoSuchElementException();
 					
 					case "BUY":
 						if (commandLine.hasNextInt()) {
 							int index = commandLine.nextInt();
-							Car currentCar = newDealer.buyCar(index);
-							if (currentCar != null) {
-								System.out.println("\nCar Details:");
-								addHeader(header);
-								System.out.printf("%-3d %s\n", index, currentCar.display());
-								System.out.println("\nCar at position " + index + " bought successfully.");
+							if (!commandLine.hasNext()) {
+								Car currentCar = newDealer.buyCar(index);
+								if (currentCar != null) {
+									System.out.println("\nCar Details:");
+									addHeader(header);
+									System.out.printf("%-3d %s\n", index, currentCar.display());
+									System.out.println("\nCar at position " + index + " bought successfully.");
+								}
+								else
+									System.out.println("\nERROR: Invalid car selection!");
+								break;
 							}
-							else
-								System.out.println("\nERROR: Invalid car selection!");
+							commandLine.close();
+							throw new NoSuchElementException();
 						}
 						else
 							System.out.println("\nERROR: Invalid car # position or not specified!");
 						break;
 					
 					case "RET":
-						Car returnCar = newDealer.carLastBought;
-						if (returnCar != null) {
-							newDealer.returnCar(returnCar);
-							System.out.println("\nReturned last bought car to inventory.");
+						if (!commandLine.hasNext()) {
+							Car returnCar = newDealer.carLastBought;
+							if (returnCar != null) {
+								newDealer.returnCar(returnCar);
+								System.out.println("\nReturned last bought car to inventory.");
+							}
+							else
+								System.out.println("\nERROR: No car found to return to inventory!");
+							break;
 						}
-						else
-							System.out.println("\nERROR: No car found to return to inventory!");
-						break;
+						commandLine.close();
+						throw new NoSuchElementException();
 					
 					case "ADD":
-						if (cars.size() > 0) {
-							newDealer.addCars(cars);
-							System.out.println("\nAdded cars to dealership inventory.");
+						if (!commandLine.hasNext()) {
+							if (cars.size() > 0) {
+								newDealer.addCars(cars);
+								System.out.println("\nAdded cars to dealership inventory.");
+							}
+							else
+								System.out.println("\nERROR: No cars to add found!");
+							break;
 						}
-						else
-							System.out.println("\nERROR: No cars to add found!");
-						break;
+						commandLine.close();
+						throw new NoSuchElementException();
 					
 					case "SPR":
-						if (!newDealer.isEmpty) {
-							newDealer.sortByPrice();
-							System.out.println("\nInventory sorted by price.");
+						if (!commandLine.hasNext()) {
+							if (!newDealer.isEmpty) {
+								newDealer.sortByPrice();
+								System.out.println("\nInventory sorted by price.");
+							}
+							else
+								System.out.println("\nERROR: Inventory is empty!");
+							break;
 						}
-						else
-							System.out.println("\nERROR: Inventory is empty!");
-						break;
+						commandLine.close();
+						throw new NoSuchElementException();
 					
 					case "SSR":
-						if (!newDealer.isEmpty) {
-							newDealer.sortBySafetyRating();
-							System.out.println("\nInventory sorted by safety rating.");
+						if (!commandLine.hasNext()) {
+							if (!newDealer.isEmpty) {
+								newDealer.sortBySafetyRating();
+								System.out.println("\nInventory sorted by safety rating.");
+							}
+							else
+								System.out.println("\nERROR: Inventory is empty!");
+							break;
 						}
 						else
-							System.out.println("\nERROR: Inventory is empty!");
-						break;
+							commandLine.close();
+							throw new NoSuchElementException();
 					
 					case "SMR":
-						if (!newDealer.isEmpty) {
-							newDealer.sortByMaxRange();
-							System.out.println("\nInventory sorted by max range.");
+						if (!commandLine.hasNext()) {
+							if (!newDealer.isEmpty) {
+								newDealer.sortByMaxRange();
+								System.out.println("\nInventory sorted by max range.");
+							}
+							else
+								System.out.println("\nERROR: Inventory is empty!");
+							break;
 						}
-						else
-							System.out.println("\nERROR: Inventory is empty!");
-						break;
+						commandLine.close();
+						throw new NoSuchElementException();
 					
 					case "FPR":
 						if (commandLine.hasNextInt()) {
 							int minPrice = commandLine.nextInt();
 							if (commandLine.hasNextInt()) {
 								int maxPrice = commandLine.nextInt();
-								if (!newDealer.isEmpty) {
-									newDealer.filterByPrice(minPrice, maxPrice);
-									System.out.println("\nInventory filtered by price between $" + minPrice + " and $" + maxPrice + ".");
+								if (!commandLine.hasNext()) {
+									if (!newDealer.isEmpty) {
+										newDealer.filterByPrice(minPrice, maxPrice);
+										System.out.println("\nInventory filtered by price between $" + minPrice + " and $" + maxPrice + ".");
+									}
+									else
+										System.out.println("\nERROR: Inventory is empty!");
+									break;
 								}
-								else
-									System.out.println("\nERROR: Inventory is empty!");
+								commandLine.close();
+								throw new NoSuchElementException();
 							}
 							else
 								System.out.println("\nERROR: Invalid max price or not specified!");
@@ -143,50 +182,69 @@ public class CarDealershipSimulator
 						break;
 					
 					case "FEL":
-						if (!newDealer.isEmpty) {
-							newDealer.filterByElectric();
-							System.out.println("\nInventory filtered by electric cars.");
+						if (!commandLine.hasNext()) {
+							if (!newDealer.isEmpty) {
+								newDealer.filterByElectric();
+								System.out.println("\nInventory filtered by electric cars.");
+							}
+							else
+								System.out.println("\nERROR: Inventory is empty!");
+							break;
 						}
-						else
-							System.out.println("\nERROR: Inventory is empty!");
-						break;
+						commandLine.close();
+						throw new NoSuchElementException();
 					
 					case "FAW":
-						if (!newDealer.isEmpty) {
-							newDealer.filterByAWD();
-							System.out.println("\nInventory filtered by AWD cars.");
+						if (!commandLine.hasNext()) {
+							if (!newDealer.isEmpty) {
+								newDealer.filterByAWD();
+								System.out.println("\nInventory filtered by AWD cars.");
+							}
+							else
+								System.out.println("\nERROR: Inventory is empty!");
+							break;
 						}
-						else
-							System.out.println("\nERROR: Inventory is empty!");
-						break;
+						commandLine.close();
+						throw new NoSuchElementException();
 					
 					case "FCL":
-						if (!newDealer.isEmpty) {
-							newDealer.FiltersClear();
-							System.out.println("\nFilters cleared successfully.");
+						if (!commandLine.hasNext()) {
+							if (!newDealer.isEmpty) {
+								newDealer.FiltersClear();
+								System.out.println("\nFilters cleared successfully.");
+							}
+							else
+								System.out.println("\nERROR: Inventory is empty!");
+							break;
 						}
-						else
-							System.out.println("\nERROR: Inventory is empty!");
-						break;
+						commandLine.close();
+						throw new NoSuchElementException();
 					
 					case "HELP":
-						commandsMenu();
-						break;
+						if (!commandLine.hasNext()) {
+							commandsMenu();
+							break;
+						}
+						commandLine.close();
+						throw new NoSuchElementException();
 					
 					case "F":
-						System.out.println("\nYou have paid your respects.");
-						break;
+						if (!commandLine.hasNext()) {
+							System.out.println("\nYou have paid your respects.");
+							break;
+						}
+						commandLine.close();
+						throw new NoSuchElementException();
 					
 					default:
 						commandLine.close();
 						throw new NoSuchElementException();
 					}
-					commandLine.close();
-					command = "";
+					line = "";
 				}
 				catch (NoSuchElementException NSE) {
-					System.out.println("\nERROR: '" + command + "' is an unrecognized command! Please check the commands list and try again!");
-					command = "";
+					System.out.println("\nERROR: '" + line + "' is an unrecognized command! Please check the commands list and try again!");
+					line = "";
 				}
 				catch (Exception ex) {
 					System.out.println("\nERROR: " + ex + " has occurred! Please try again!");
