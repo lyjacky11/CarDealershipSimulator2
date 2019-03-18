@@ -93,12 +93,12 @@ public class CarDealershipSimulator
 					case "RET":
 						if (!commandLine.hasNext()) {
 							Car returnCar = newDealer.carLastBought;
-							if (returnCar != null) {
+							// if (returnCar != null) {
 								newDealer.returnCar(returnCar);
 								System.out.println("\nReturned last bought car to inventory.");
-							}
-							else
-								System.out.println("\nERROR: No car found to return to inventory!");
+							// }
+							// else
+								// System.out.println("\nERROR: No car found to return to inventory!");
 							break;
 						}
 						commandLine.close();
@@ -106,13 +106,13 @@ public class CarDealershipSimulator
 					
 					case "ADD":
 						if (!commandLine.hasNext()) {
-							//if (cars.size() > 0) {
+							// if (cars.size() > 0) {
 							newDealer.addCars(cars);
-							if (!newDealer.isEmpty)
+							// if (!newDealer.isEmpty)
 								System.out.println("\nAdded cars to dealership inventory.");
-							//}
-							else
-								System.out.println("\nERROR: No cars to add found!");
+							// }
+							// else
+							// 	System.out.println("\nERROR: No cars to add found!");
 							break;
 						}
 						commandLine.close();
@@ -249,7 +249,10 @@ public class CarDealershipSimulator
 					line = "";
 				}
 				catch (IndexOutOfBoundsException IOB) {
-					System.out.println("\nERROR: " + IOB + " has occurred! Please try again!");
+					System.out.println(IOB.getMessage());
+				}
+				catch (IllegalArgumentException IAE) {
+					System.out.println(IAE.getMessage());
 				}
 				catch (Exception ex) {
 					System.out.println("\nERROR: " + ex + " has occurred! Please try again!");

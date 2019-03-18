@@ -60,7 +60,7 @@ public class CarDealership {
 			// }
 		}
 		else
-			throw new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException("\nERROR: No cars to add found!");
 	}
 
 	/**
@@ -76,9 +76,7 @@ public class CarDealership {
 				this.isEmpty = true;
 			return carLastBought;
 		}
-		else
-			throw new IndexOutOfBoundsException();
-		// return null;
+		return null;
 	}
 	
 	/**
@@ -92,7 +90,7 @@ public class CarDealership {
 			carLastBought = null;
 		}
 		else
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("\nERROR: No car found to return to inventory!");
 	}
 
 	public void displayInventory() {
