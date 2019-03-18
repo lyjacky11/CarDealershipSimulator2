@@ -240,6 +240,7 @@ public class CarDealershipSimulator
 						commandLine.close();
 						throw new NoSuchElementException();
 					}
+					commandLine.close();
 					line = "";
 				}
 				catch (NoSuchElementException NSE) {
