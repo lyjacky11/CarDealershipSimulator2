@@ -106,10 +106,11 @@ public class CarDealershipSimulator
 					
 					case "ADD":
 						if (!commandLine.hasNext()) {
-							if (cars.size() > 0) {
-								newDealer.addCars(cars);
+							//if (cars.size() > 0) {
+							newDealer.addCars(cars);
+							if (!newDealer.isEmpty)
 								System.out.println("\nAdded cars to dealership inventory.");
-							}
+							//}
 							else
 								System.out.println("\nERROR: No cars to add found!");
 							break;
@@ -246,6 +247,9 @@ public class CarDealershipSimulator
 				catch (NoSuchElementException NSE) {
 					System.out.println("\nERROR: '" + line + "' is an unrecognized command! Please check the commands list and try again!");
 					line = "";
+				}
+				catch (IndexOutOfBoundsException IOB) {
+					System.out.println("\nERROR: " + IOB + " has occurred! Please try again!");
 				}
 				catch (Exception ex) {
 					System.out.println("\nERROR: " + ex + " has occurred! Please try again!");
