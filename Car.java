@@ -5,17 +5,22 @@
  */
 
 public class Car extends Vehicle implements Comparable<Car> {
+	
+	// Instance variables
 	private int model;
 	private int maxRange;
 	private double safetyRating, price;
 	private boolean AWD;
 	private String modelString;
+
+	// Constant variables
 	public static final int SEDAN = 0;
 	public static final int SUV = 1;
 	public static final int SPORTS = 2;
 	public static final int MINIVAN = 3;
 
 	/**
+	 * Default constructor for class Car
 	 * @param mfr
 	 * @param color
 	 * @param power
@@ -36,12 +41,14 @@ public class Car extends Vehicle implements Comparable<Car> {
 	}
 
 	/**
+	 * Returns the model of the car
 	 * @return the model
 	 */
 	public int getModel() {
 		return model;
 	}
 	/**
+	 * Sets the model
 	 * @param model to set
 	 */
 	public void setModel(int model) {
@@ -49,12 +56,14 @@ public class Car extends Vehicle implements Comparable<Car> {
 	}
 
 	/**
+	 * Returns the max range of the car
 	 * @return maxRange
 	 */
 	public int getMaxRange() {
 		return maxRange;
 	}
 	/**
+	 * Sets the max range
 	 * @param maxRange to set
 	 */
 	public void setMaxRange(int maxRange) {
@@ -62,12 +71,14 @@ public class Car extends Vehicle implements Comparable<Car> {
 	}
 	
 	/**
+	 * Returns the safety rating of the car
 	 * @return safetyRating
 	 */
 	public double getSafetyRating() {
 		return safetyRating;
 	}
 	/**
+	 * Sets the safety rating
 	 * @param safetyRating to set
 	 */
 	public void setSafetyRating(double safetyRating) {
@@ -75,12 +86,14 @@ public class Car extends Vehicle implements Comparable<Car> {
 	}
 
 	/**
+	 * Returns the price of the car
 	 * @return price
 	 */
 	public double getPrice() {
 		return price;
 	}
 	/**
+	 * Sets the price
 	 * @param price to set
 	 */
 	public void setPrice(double price) {
@@ -88,12 +101,14 @@ public class Car extends Vehicle implements Comparable<Car> {
 	}
 	
 	/**
+	 * Returns true if the car is AWD, else returns false
 	 * @return AWD
 	 */
 	public boolean isAWD() {
 		return AWD;
 	}
 	/**
+	 * Sets the AWD boolean
 	 * @param aWD to set
 	 */
 	public void setAWD(boolean aWD) {
@@ -101,6 +116,7 @@ public class Car extends Vehicle implements Comparable<Car> {
 	}
 
 	/**
+	 * Checks if two Car objects are equal to each other
 	 * @return equality of two Car objects
 	 */
 	public boolean equals(Object other) {
@@ -109,6 +125,7 @@ public class Car extends Vehicle implements Comparable<Car> {
 	}
 
 	/**
+	 * Compares two Car objects
 	 * @return comparision of two Car objects
 	 */
 	public int compareTo(Car other) {
@@ -116,6 +133,7 @@ public class Car extends Vehicle implements Comparable<Car> {
 	}
 	
 	/**
+	 * Converts the model from an integer to its respective String value
 	 * @param model
 	 * @return modelString
 	 */
@@ -140,6 +158,7 @@ public class Car extends Vehicle implements Comparable<Car> {
 	}
 
 	/**
+	 * Converts AWD from an integer to its respective String value
 	 * @param aWD boolean value
 	 * @return "AWD" or "2WD" string value
 	 */
@@ -149,6 +168,7 @@ public class Car extends Vehicle implements Comparable<Car> {
 	}
 
 	/**
+	 * Displays the car's details and specifications
 	 * @return the Car object specifications
 	 */
 	public String display() {

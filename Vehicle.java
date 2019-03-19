@@ -5,12 +5,17 @@
  */
 
 public class Vehicle {
+
+	// Instance variables
 	private String mfr, color, powerString;
 	private int power, numWheels;
+
+	// Constant variables
 	public static final int ELECTRIC_MOTOR = 0;
 	public static final int GAS_ENGINE = 1;
 	
 	/**
+	 * Default constructor for class Vehicle
 	 * @param mfr
 	 * @param color
 	 * @param power
@@ -24,12 +29,14 @@ public class Vehicle {
 	}
 
 	/**
-	 * @return the mfr
+	 * Returns the manufacturer of the vehicle
+	 * @return mfr
 	 */
 	public String getMfr() {
 		return mfr;
 	}
 	/**
+	 * Sets the manufacturer 
 	 * @param mfr the mfr to set
 	 */
 	public void setMfr(String mfr) {
@@ -37,12 +44,14 @@ public class Vehicle {
 	}
 
 	/**
-	 * @return the color
+	 * Returns the color of the vehicle
+	 * @return color
 	 */
 	public String getColor() {
 		return color;
 	}
 	/**
+	 * Sets the color
 	 * @param color the color to set
 	 */
 	public void setColor(String color) {
@@ -50,12 +59,14 @@ public class Vehicle {
 	}
 
 	/**
-	 * @return the power
+	 * Returns the power type of the vehicle
+	 * @return power
 	 */
 	public int getPower() {
 		return power;
 	}
 	/**
+	 * Sets the power
 	 * @param power the power to set
 	 */
 	public void setPower(int power) {
@@ -63,12 +74,14 @@ public class Vehicle {
 	}
 
 	/**
-	 * @return the numWheels
+	 * Returns the number of wheels
+	 * @return numWheels
 	 */
 	public int getNumWheels() {
 		return numWheels;
 	}
 	/**
+	 * Sets the number of wheels
 	 * @param numWheels the numWheels to set
 	 */
 	public void setNumWheels(int numWheels) {
@@ -76,6 +89,7 @@ public class Vehicle {
 	}
 
 	/**
+	 * Converts the power type from an integer to its respective String value
 	 * @param power
 	 * @return powerString
 	 */
@@ -95,6 +109,7 @@ public class Vehicle {
 	}
 
 	/**
+	 * Checks if two Vehicle objects are equal to each other
 	 * @return the equality of two vehicles
 	 */
 	public boolean equals(Object other) {
@@ -103,6 +118,7 @@ public class Vehicle {
 	}
 
 	/** 
+	 * Displays the vehicle's manufacturer and color
 	 * @return the Vehicle object specifications
 	 */
 	public String display() {

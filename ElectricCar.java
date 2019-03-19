@@ -5,10 +5,13 @@
  */
 
 public class ElectricCar extends Car {
+	
+	// Instance variables
 	private int rechargeTime;
 	private String batteryType;
 
 	/**
+	 * Default constructor for class ElectricCar
 	 * @param mfr
 	 * @param color
 	 * @param power
@@ -27,12 +30,14 @@ public class ElectricCar extends Car {
 			this.setBatteryType(batteryType);
 	}
 	/**
+	 * Returns the recharge time of the electric car
 	 * @return rechargeTime
 	 */
 	public int getRechargeTime() {
 		return rechargeTime;
 	}
 	/**
+	 * Sets the recharge time
 	 * @param rechargeTime to set
 	 */
 	public void setRechargeTime(int rechargeTime) {
@@ -40,12 +45,14 @@ public class ElectricCar extends Car {
 	}
 
 	/**
+	 * Returns the battery type of the electric car
 	 * @return batteryType
 	 */
 	public String getBatteryType() {
 		return batteryType;
 	}
 	/**
+	 * Sets the battery type
 	 * @param batteryType to set
 	 */
 	public void setBatteryType(String batteryType) {
@@ -53,6 +60,7 @@ public class ElectricCar extends Car {
 	}
 
 	/**
+	 * Displays the electric car's details and specifications
 	 * @return the ElectricCar object specifications
 	 */
 	public String display() {

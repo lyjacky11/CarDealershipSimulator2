@@ -4,6 +4,7 @@
  * Section: CPS209-031
  */
 
+ // import statements
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -13,15 +14,16 @@ import java.io.IOException;
 
 public class CarDealershipSimulator
 {
-  public static void main(String[] args) throws IOException
-  {
+	// Main method of class CarDealershipSimulator
+	public static void main(String[] args) throws IOException
+	{
 	// Create a CarDealership object
 	CarDealership newDealer = new CarDealership();
 	// Then create an (initially empty) array list of type Car
 	ArrayList<Car> cars = new ArrayList<Car>();
-	// Then create some new car objects of different types
-	String header = String.format("%-3s %-11s %-6s %-8s %-5s %-8s %-10s %-5s %-3s %-7s", "#", "Brand", "Color", "Model", "MaxR", "SafetyR", "Price ($)", "AWD?", "RT", "Battery");
-	// See the cars file for car object details
+
+	// Initialize variables
+	final String header = String.format("%-3s %-11s %-6s %-8s %-5s %-8s %-10s %-5s %-3s %-7s", "#", "Brand", "Color", "Model", "MaxR", "SafetyR", "Price ($)", "AWD?", "RT", "Battery");
 	String filename = "cars.txt", line = "", command = "";
 
 	// Add the car objects to the array list
@@ -263,9 +265,10 @@ public class CarDealershipSimulator
 		}
 	}
 	/**
-   * @param header string to be used with displayInventory()
-   */
-  private static void addHeader(String header) {
+	 * Prints header string to be used with displayInventory()
+	 * @param header
+	 */
+	private static void addHeader(String header) {
 	System.out.println();
 	System.out.println(header);
 	for (int i = 0; i < header.length() + 2; i++) {
@@ -274,7 +277,7 @@ public class CarDealershipSimulator
 	System.out.println();
 	}
 
-	// Display commands menu
+	// Displays the commands menu
 	private static void commandsMenu() {
 		System.out.println();
 		System.out.println("COMMANDS MENU");
@@ -285,6 +288,7 @@ public class CarDealershipSimulator
 	}
 
 	/**
+	 * Reads from a text file and converts the data to Car objects and add them to the array list
 	 * @param filename of text file to read from
 	 * @param cars ArrayList of Car objects
 	 */

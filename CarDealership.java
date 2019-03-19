@@ -4,11 +4,14 @@
  * Section: CPS209-031
  */
 
+ // import statements
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class CarDealership {
+
+	// Instance variables
 	private ArrayList<Car> cars;
 	// private ArrayList<Integer> filterCars;
 	private double minPrice, maxPrice;
@@ -16,8 +19,10 @@ public class CarDealership {
 	public boolean isEmpty;
 	public Car carLastBought;
 
+	// Comparator class for safety rating
 	class SRComparator implements Comparator<Car> {
 		/**
+		 * Compares two Car objects
 		 * @param car1
 		 * @param car2
 		 * @return int value of result
@@ -29,8 +34,10 @@ public class CarDealership {
 		}
 	}
 
+	// Comparator class for max range
 	class MRComparator implements Comparator<Car> {
 		/**
+		 * Compares two Car objects
 		 * @param car1
 		 * @param car2
 		 * @return int value of result
@@ -42,6 +49,7 @@ public class CarDealership {
 		}
 	}
 
+	// Default constructor for class CarDealership
 	public CarDealership () {
 		cars = new ArrayList<Car>();
 		// filterCars = new ArrayList<Integer>();
@@ -49,6 +57,7 @@ public class CarDealership {
 	}
 
 	/**
+	 * Adds cars from an array list
 	 * @param newCars ArrayList of Car objects
 	 */
 	public void addCars(ArrayList<Car> newCars) {
@@ -64,6 +73,7 @@ public class CarDealership {
 	}
 
 	/**
+	 * Buys a car (remove car from array list) given car position (index)
 	 * @param index of the car to buy
 	 * @return carLastBought Car object
 	 */
@@ -80,6 +90,7 @@ public class CarDealership {
 	}
 	
 	/**
+	 * Returns last bought car (adds car back to array list)
 	 * @param car to return
 	 */
 	public void returnCar(Car car) {
@@ -93,6 +104,7 @@ public class CarDealership {
 			throw new IllegalArgumentException("\nERROR: No car found to return to inventory!");
 	}
 
+	// Displays the inventory of cars (prints cars in the array list based on filters and sorting)
 	public void displayInventory() {
 		for (int i = 0; i < cars.size(); i++) {
 			Car currentCar = cars.get(i);
@@ -146,15 +158,18 @@ public class CarDealership {
 		}
 	}
 
+	// Filters vehicles by electric cars
 	public void filterByElectric() {
 		this.electric = true;
 	}
 
+	// Filters vehicles by AWD
 	public void filterByAWD() {
 		this.AWD = true;
 	}
 
 	/**
+	 * Filters vehicles by price given minimum and maximum price
 	 * @param minPrice
 	 * @param maxPrice
 	 */
@@ -164,6 +179,7 @@ public class CarDealership {
 		this.maxPrice = maxPrice;
 	}
 
+	// Clears filters (sets all filters to false)
 	public void FiltersClear() {
 		this.AWD = false;
 		this.electric = false;
@@ -176,14 +192,17 @@ public class CarDealership {
 		// }
 	}
 
+	// Sorts array list by price
 	public void sortByPrice() {
 		Collections.sort(cars);
 	}
 
+	// Sorts array list by safety rating
 	public void sortBySafetyRating() {
 		Collections.sort(cars, new SRComparator());
 	}
 
+	// Sorts array list by max range
 	public void sortByMaxRange() {
 		Collections.sort(cars, new MRComparator());
 	}
