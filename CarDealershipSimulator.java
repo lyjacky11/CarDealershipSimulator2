@@ -35,7 +35,7 @@ public class CarDealershipSimulator
 		commandsMenu();
 		System.out.println();
 		System.out.println("Run the 'ADD' command to get started!");
-		System.out.print("Enter a command: (HELP for commands menu): ");
+		System.out.print("Enter a command (HELP for commands menu): ");
 		// while the scanner has another line
 		while (input.hasNextLine()) {
 			try {
@@ -298,8 +298,8 @@ public class CarDealershipSimulator
 			ArrayList<Object> specsList = new ArrayList<Object>();
 			final String BATTERY_TYPE = "Lithium";
 			final int NUM_WHEELS = 4;
-			int modelInt = -1, powerInt = -1, rechargeTimeFile = 0;
-			boolean aWDValue = false;
+			int modelInt, powerInt, rechargeTimeFile = 0;
+			boolean aWDValue;
 		
 			while (scan.hasNextLine()) {
 				String line = scan.nextLine();
@@ -327,7 +327,7 @@ public class CarDealershipSimulator
 					modelInt = Car.MINIVAN;
 					break;
 				default:
-					break;
+					throw new IllegalArgumentException("\nERROR: The file contains an invalid model!");
 				}
 
 				String powerFile = (String)specsList.get(3);
@@ -339,14 +339,22 @@ public class CarDealershipSimulator
 					powerInt = Car.GAS_ENGINE;
 					break;
 				default:
-					break;
+					throw new IllegalArgumentException("\nERROR: THe file contains an invalid power type!");
 				}
 
 				double safetyRatingFile = Double.parseDouble((String)specsList.get(4));
 				int maxRangeFile = Integer.parseInt((String)specsList.get(5));
 				String aWDFile = (String)specsList.get(6);
-				if (aWDFile.equals("AWD"))
-					aWDValue = true;
+				switch(aWDFile) {
+					case "AWD":
+						aWDValue = true;
+						break;
+					case "2WD":
+						aWDValue = false;
+						break;
+					default:
+						throw new IllegalArgumentException("\nERROR: THe file contains an invalid AWD value!");
+				}
 
 				int priceFile = Integer.parseInt((String)specsList.get(7));
 				if (specsList.size() == 9) {
@@ -362,6 +370,10 @@ public class CarDealershipSimulator
 			}
 			scan.close();
 			return true;
+		}
+		catch (IllegalArgumentException IAE) {
+			System.out.println("\n" + IAE);
+			return false;
 		}
 		catch (FileNotFoundException e) {
 			System.out.println("\nERROR: " + e + "\nPlease check the file location and try again!");
