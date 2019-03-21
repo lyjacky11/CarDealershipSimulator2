@@ -4,7 +4,7 @@
  * Section: CPS209-031
  */
 
- // import statements
+ // Import statements
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -54,7 +54,7 @@ public class CarDealershipSimulator
 								System.out.println("\nERROR: Inventory is empty!");
 							break;
 						}
-						// Any command other than 'L' by itself will throw an exception
+						// Any command with arguments after 'L' will throw an exception
 						commandLine.close();
 						throw new NoSuchElementException();
 					
@@ -65,7 +65,7 @@ public class CarDealershipSimulator
 							System.out.println("\nThank you for using Car Dealership Simulator! Have a great day!");
 							return;
 						}
-						// Any command other than 'Q' by itself will throw an exception
+						// Any command with arguments after 'Q' will throw an exception
 						commandLine.close();
 						throw new NoSuchElementException();
 					
@@ -85,7 +85,7 @@ public class CarDealershipSimulator
 									System.out.println("\nERROR: Invalid car selection!");
 								break;
 							}
-							// Any command other than 'BUY' followed by an integer will throw an exception
+							// Any command with arguments after 'BUY' followed by an integer will throw an exception
 							commandLine.close();
 							throw new NoSuchElementException();
 						}
@@ -101,7 +101,7 @@ public class CarDealershipSimulator
 							System.out.println("\nReturned last bought car to inventory.");
 							break;
 						}
-						// Any command other than 'RET' by itself will throw an exception
+						// Any command with arguments after 'RET' will throw an exception
 						commandLine.close();
 						throw new NoSuchElementException();
 					
@@ -112,7 +112,7 @@ public class CarDealershipSimulator
 							System.out.println("\nAdded cars to dealership inventory.");
 							break;
 						}
-						// Any command other than 'ADD' by itself will throw an exception
+						// Any command with arguments after 'ADD' will throw an exception
 						commandLine.close();
 						throw new NoSuchElementException();
 					
@@ -127,7 +127,7 @@ public class CarDealershipSimulator
 								System.out.println("\nERROR: Inventory is empty!");
 							break;
 						}
-						// Any command other than 'SPR' by itself will throw an exception
+						// Any command with arguments after 'SPR' will throw an exception
 						commandLine.close();
 						throw new NoSuchElementException();
 					
@@ -142,7 +142,7 @@ public class CarDealershipSimulator
 								System.out.println("\nERROR: Inventory is empty!");
 							break;
 						}
-						// Any command other than 'SSR' by itself will throw an exception
+						// Any command with arguments after 'SSR' will throw an exception
 						commandLine.close();
 						throw new NoSuchElementException();
 					
@@ -157,7 +157,7 @@ public class CarDealershipSimulator
 								System.out.println("\nERROR: Inventory is empty!");
 							break;
 						}
-						// Any command other than 'SMR' by itself will throw an exception
+						// Any command with arguments after 'SMR' will throw an exception
 						commandLine.close();
 						throw new NoSuchElementException();
 					
@@ -176,7 +176,7 @@ public class CarDealershipSimulator
 										System.out.println("\nERROR: Inventory is empty!");
 									break;
 								}
-								// Any command other than 'FPR' followed by two integers will throw an exception
+								// Any command with arguments after 'FPR' followed by two integers will throw an exception
 								commandLine.close();
 								throw new NoSuchElementException();
 							}
@@ -200,7 +200,7 @@ public class CarDealershipSimulator
 								System.out.println("\nERROR: Inventory is empty!");
 							break;
 						}
-						// Any command other than 'FEL' by itself will throw an exception
+						// Any command with arguments after 'FEL' will throw an exception
 						commandLine.close();
 						throw new NoSuchElementException();
 					
@@ -215,7 +215,7 @@ public class CarDealershipSimulator
 								System.out.println("\nERROR: Inventory is empty!");
 							break;
 						}
-						// Any command other than 'FAW' by itself will throw an exception
+						// Any command with arguments after 'FAW' will throw an exception
 						commandLine.close();
 						throw new NoSuchElementException();
 					
@@ -230,7 +230,7 @@ public class CarDealershipSimulator
 								System.out.println("\nERROR: Inventory is empty!");
 							break;
 						}
-						// Any command other than 'FCL' by itself will throw an exception
+						// Any command with arguments after 'FCL' will throw an exception
 						commandLine.close();
 						throw new NoSuchElementException();
 					
@@ -240,7 +240,7 @@ public class CarDealershipSimulator
 							commandsMenu();
 							break;
 						}
-						// Any command other than 'HELP' by itself will throw an exception
+						// Any command with arguments after 'HELP' will throw an exception
 						commandLine.close();
 						throw new NoSuchElementException();
 					
@@ -250,7 +250,7 @@ public class CarDealershipSimulator
 							System.out.println("\nYou have paid your respects.");
 							break;
 						}
-						// Any command other than 'F' by itself will throw an exception
+						// Any command with arguments after 'F' will throw an exception
 						commandLine.close();
 						throw new NoSuchElementException();
 					

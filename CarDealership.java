@@ -4,7 +4,7 @@
  * Section: CPS209-031
  */
 
- // import statements
+ // Import statements
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
