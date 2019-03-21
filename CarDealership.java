@@ -13,7 +13,6 @@ public class CarDealership {
 
 	// Instance variables
 	private ArrayList<Car> cars;
-	// private ArrayList<Integer> filterCars;
 	private double minPrice, maxPrice;
 	private boolean AWD, electric, price;
 	public boolean isEmpty;
@@ -52,7 +51,6 @@ public class CarDealership {
 	// Default constructor for class CarDealership
 	public CarDealership () {
 		cars = new ArrayList<Car>();
-		// filterCars = new ArrayList<Integer>();
 		this.isEmpty = true;
 	}
 
@@ -64,10 +62,8 @@ public class CarDealership {
 		if (newCars.size() > 0) {
 			cars.addAll(newCars);
 			this.isEmpty = false;
-			// for (int i = 0; i < cars.size(); i++) {
-			// 	filterCars.add(i);
-			// }
 		}
+		// Throws an exception when the array list is empty
 		else
 			throw new IndexOutOfBoundsException("\nERROR: No cars to add found!");
 	}
@@ -81,7 +77,6 @@ public class CarDealership {
 		if (index < cars.size()) {
 			carLastBought = cars.get(index);
 			cars.remove(index);
-			// filterCars.remove(new Integer(cars.size() - 1));
 			if (cars.size() <= 0)
 				this.isEmpty = true;
 			return carLastBought;
@@ -96,65 +91,58 @@ public class CarDealership {
 	public void returnCar(Car car) {
 		if (car != null) {
 			cars.add(car);
-			// filterCars.add(new Integer(cars.indexOf(car)));
 			this.isEmpty = false;
 			carLastBought = null;
 		}
+		// Throws an exception when there is no car that was last bought
 		else
 			throw new IllegalArgumentException("\nERROR: No car found to return to inventory!");
 	}
 
-	// Displays the inventory of cars (prints cars in the array list based on filters and sorting)
+	// Displays the inventory of cars (prints the cars in the array list based on enabled filters)
 	public void displayInventory() {
 		for (int i = 0; i < cars.size(); i++) {
 			Car currentCar = cars.get(i);
-			// if (filterCars.contains(i)) {
-				String output = String.format("%-3d %s", i, currentCar.display());
-				if (electric && AWD && price) {
-					if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD() && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
-						System.out.println(output);
-					// else
-					// 	filterCars.remove(new Integer(i));
-				}
-				else if (electric && price) {
-					if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
-						System.out.println(output);
-					// else
-					// 	filterCars.remove(new Integer(i));
-				}
-				else if (AWD && price) {
-					if (currentCar.isAWD() && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
-						System.out.println(output);
-					// else
-					// 	filterCars.remove(new Integer(i));
-				}
-				else if (electric && AWD) {
-					if(currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD())
-						System.out.println(output);
-					// else
-					// 	filterCars.remove(new Integer(i));
-				}
-				else if (electric) {
-					if(currentCar.getPower() == Car.ELECTRIC_MOTOR)
-						System.out.println(output);
-					// else
-					// 	filterCars.remove(new Integer(i));
-				}
-				else if (AWD) {
-					if(currentCar.isAWD())
-						System.out.println(output);
-					// else
-					// 	filterCars.remove(new Integer(i));
-				}
-				else if (price) {
-					if(currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
-						System.out.println(output);
-					// else
-					// 	filterCars.remove(new Integer(i));
-				}
-				else
+			String output = String.format("%-3d %s", i, currentCar.display());
+
+			// FEL and FAW and FPR enabled
+			if (electric && AWD && price) {
+				if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD() && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
 					System.out.println(output);
-			// }
+			}
+			// FEL and FPR enabled
+			else if (electric && price) {
+				if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+					System.out.println(output);
+			}
+			// FAW and FPR enabled
+			else if (AWD && price) {
+				if (currentCar.isAWD() && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+					System.out.println(output);
+			}
+			// FEL and FAW enabled
+			else if (electric && AWD) {
+				if(currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD())
+					System.out.println(output);
+			}
+			// FEL enabled
+			else if (electric) {
+				if(currentCar.getPower() == Car.ELECTRIC_MOTOR)
+					System.out.println(output);
+			}
+			// FAW enabled
+			else if (AWD) {
+				if(currentCar.isAWD())
+					System.out.println(output);
+			}
+			// FPR enabled
+			else if (price) {
+				if(currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
+					System.out.println(output);
+			}
+			// No filters enabled
+			else
+				System.out.println(output);
 		}
 	}
 
@@ -186,10 +174,6 @@ public class CarDealership {
 		this.price = false;
 		this.minPrice = Integer.MIN_VALUE;
 		this.maxPrice = Integer.MAX_VALUE;
-		// filterCars.clear();
-		// for (int i = 0; i < cars.size(); i++) {
-		// 	filterCars.add(i);
-		// }
 	}
 
 	// Sorts array list by price
