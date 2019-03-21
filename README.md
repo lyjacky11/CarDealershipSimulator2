@@ -9,7 +9,7 @@ Simulates a car dealership inventory system using classes, objects and inheritan
 
 - User-friendly prompts and messages
 
-- All filter and sort commands working as intended
+- All commands (and filter/sort) working as intended
 
 - File I/O and exceptions implemented (reads from a text file)
 
