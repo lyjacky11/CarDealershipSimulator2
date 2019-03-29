@@ -73,15 +73,28 @@ public class CarDealership {
 	 * @param index of the car to buy
 	 * @return carLastBought Car object
 	 */
-	public Car buyCar(int index) {
-		if (index < cars.size()) {
-			carLastBought = cars.get(index);
-			cars.remove(index);
-			if (cars.size() <= 0)
-				this.isEmpty = true;
-			return carLastBought;
+	// public Car buyCar(int index) {
+	// 	if (index < cars.size()) {
+	// 		carLastBought = cars.get(index);
+	// 		cars.remove(index);
+	// 		if (cars.size() <= 0)
+	// 			this.isEmpty = true;
+	// 		return carLastBought;
+	// 	}
+	// 	return null;
+	// }
+
+	public String buyCar(int VIN) {
+		for (int i = 0; i < cars.size(); i++) {
+			if (cars.get(i).getVIN() == VIN) {
+				carLastBought = cars.get(i);
+				cars.remove(carLastBought);
+				if (cars.size() <= 0)
+					 this.isEmpty = true;
+				String salesPerson = "Joe"; // PLACEHOLDER
+				
+			}
 		}
-		return null;
 	}
 	
 	/**

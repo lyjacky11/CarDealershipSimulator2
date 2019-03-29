@@ -8,28 +8,31 @@ public class Vehicle {
 
 	// Instance variables
 	private String mfr, color, powerString;
-	private int power, numWheels;
+	private int power, numWheels, VIN;
 
 	// Constant variables
 	public static final int ELECTRIC_MOTOR = 0;
 	public static final int GAS_ENGINE = 1;
-	
+
 	/**
 	 * Default constructor for class Vehicle
+	 * 
 	 * @param mfr
 	 * @param color
 	 * @param power
 	 * @param numWheels
 	 */
-	public Vehicle (String mfr, String color, int power, int numWheels) {
+	public Vehicle(String mfr, String color, int power, int numWheels) {
 		this.mfr = mfr;
 		this.color = color;
 		this.power = power;
 		this.numWheels = numWheels;
+		this.setVIN((int) (Math.random() * 400) + 100);
 	}
 
 	/**
 	 * Returns the manufacturer of the vehicle
+	 * 
 	 * @return mfr
 	 */
 	public String getMfr() {
@@ -89,6 +92,20 @@ public class Vehicle {
 	}
 
 	/**
+	 * @return the vIN
+	 */
+	public int getVIN() {
+		return VIN;
+	}
+
+	/**
+	 * @param vIN the vIN to set
+	 */
+	public void setVIN(int vIN) {
+		this.VIN = vIN;
+	}
+
+	/**
 	 * Converts the power type from an integer to its respective String value
 	 * @param power
 	 * @return powerString
@@ -122,6 +139,6 @@ public class Vehicle {
 	 * @return the Vehicle object specifications
 	 */
 	public String display() {
-		return String.format("%-11s %-6s", mfr, color);
+		return String.format("%-4d %-11s %-6s", VIN, mfr, color);
 	}
 }

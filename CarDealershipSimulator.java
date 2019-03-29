@@ -21,7 +21,7 @@ public class CarDealershipSimulator
 	ArrayList<Car> cars = new ArrayList<Car>(); // Creates an (initially empty) array list of type Car
 
 	// Initialize variables
-	final String header = String.format("%-3s %-11s %-6s %-8s %-5s %-8s %-10s %-5s %-3s %-7s", "#", "Brand", "Color", "Model", "MaxR", "SafetyR", "Price ($)", "AWD?", "RT", "Battery");
+	final String header = String.format("%-3s %-4s %-11s %-6s %-8s %-5s %-8s %-10s %-5s %-3s %-7s", "#", "VIN", "Brand", "Color", "Model", "MaxR", "SafetyR", "Price ($)", "AWD?", "RT", "Battery");
 	String filename = "cars.txt", line = "", command = "";
 
 	// Reads data from file and continues if data is valid
