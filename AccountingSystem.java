@@ -7,8 +7,9 @@
 // Import statements
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
- public class AccountingSystem {
+public class AccountingSystem {
 
     // Instance variables
     private ArrayList<Transaction> transList;
@@ -22,6 +23,22 @@ import java.util.Calendar;
     }
 
     public String add(Calendar date, Car car, String salesPerson, String type, double salePrice) {
-        
+        int id = (int) (Math.random() * 100) + 1;
+        int year = date.get(Calendar.YEAR);
+        int month = date.get(Calendar.MONTH);
+        int day = date.get(Calendar.DAY_OF_MONTH);
+        GregorianCalendar gCalendar = new GregorianCalendar(year, month, day);
+        Transaction trans = new Transaction(id, gCalendar, car, salesPerson, type, salePrice);
+        transList.add(trans);
+        return trans.display();
     }
- }
+
+    public Transaction getTransaction(int id) {
+        for (int i = 0; i < transList.size(); i++) {
+            Transaction currentTrans = transList.get(i);
+            if (currentTrans.getTransID() == id)
+                return currentTrans;
+        }
+        return null;
+    }
+}

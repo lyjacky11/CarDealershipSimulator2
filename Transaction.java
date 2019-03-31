@@ -4,18 +4,38 @@
  * Section: CPS209-031
  */
 
- // Import statements
+// Import statements
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
- public class Transaction {
-     
+public class Transaction {
+    
     // Instance variables
     private int transID;
     private GregorianCalendar transDate;
     private Car car;
     private String salesPerson, transType;
     private double salePrice;
+
+	public int getTransID() {
+		return this.transID;
+	}
+
+	public GregorianCalendar getTransDate() {
+		return this.transDate;
+	}
+
+	public Car getCar() {
+		return this.car;
+	}
+
+	public String getSalesPerson() {
+		return this.salesPerson;
+	}
+
+	public double getSalePrice() {
+		return this.salePrice;
+	}
 
     /**
      * Default constructor for class Transaction
@@ -37,7 +57,7 @@ import java.util.GregorianCalendar;
     }
 
     public String display() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM DD, YYYY");
-        return "\nTransaction ID: " + transID + "\nDate: " + dateFormat.format(transDate.getTime()) + "\nTransaction Type: " + transType + "\nCar: " + car.getVIN() + "\nSalesperson: " + salesPerson + "\nSale Price: " + salePrice;
+        SimpleDateFormat df = new SimpleDateFormat("EEE, MMM DD, YYYY");
+        return "\nTransaction ID: " + transID + "\nDate: " + df.format(transDate.getTime()) + "\nTransaction Type: " + transType + "\nCar: " + car.getVIN() + "\nSalesperson: " + salesPerson + "\nSale Price: " + salePrice;
     }
- }
+}

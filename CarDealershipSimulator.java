@@ -50,8 +50,10 @@ public class CarDealershipSimulator
 								newDealer.displayInventory();
 								System.out.println("\nInventory loaded successfully.");
 							}
-							else
-								System.out.println("\nERROR: Inventory is empty!");
+							else {
+								commandLine.close();
+								throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
+							}
 							break;
 						}
 						// Any command with arguments after 'L' will throw an exception
@@ -71,18 +73,18 @@ public class CarDealershipSimulator
 					
 					// Buys a car given the car position
 					case "BUY":
-						if (commandLine.hasNextInt()) { // Checks for an integer value after 'BUY'
-							int index = commandLine.nextInt();
+						if (commandLine.hasNextInt()) { // Checks for the VIN after 'BUY'
+							int VIN = commandLine.nextInt();
 							if (!commandLine.hasNext()) {
-								Car currentCar = newDealer.buyCar(index);
-								if (currentCar != null) {
+								String currentCar = newDealer.buyCar(VIN);
+								// if (currentCar != null) {
 									System.out.println("\nCar Details:");
 									addHeader(header);
-									System.out.printf("%-3d %s\n", index, currentCar.display());
-									System.out.println("\nCar at position " + index + " bought successfully.");
-								}
-								else
-									System.out.println("\nERROR: Invalid car selection!");
+									System.out.printf("%-3d %s\n", VIN, currentCar);
+									System.out.println("\nCar with VIN #" + VIN + " bought successfully.");
+								// }
+								// else
+									// System.out.println("\nERROR: Invalid car selection!");
 								break;
 							}
 							// Any command with arguments after 'BUY' followed by an integer will throw an exception
@@ -90,7 +92,7 @@ public class CarDealershipSimulator
 							throw new NoSuchElementException();
 						}
 						else
-							System.out.println("\nERROR: Invalid car # position or not specified!");
+							System.out.println("\nERROR: Invalid VIN # or not specified!");
 						break;
 					
 					// Returns the last bought car
@@ -123,8 +125,10 @@ public class CarDealershipSimulator
 								newDealer.sortByPrice();
 								System.out.println("\nInventory sorted by price.");
 							}
-							else
-								System.out.println("\nERROR: Inventory is empty!");
+							else {
+								commandLine.close();
+								throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
+							}
 							break;
 						}
 						// Any command with arguments after 'SPR' will throw an exception
@@ -138,8 +142,10 @@ public class CarDealershipSimulator
 								newDealer.sortBySafetyRating();
 								System.out.println("\nInventory sorted by safety rating.");
 							}
-							else
-								System.out.println("\nERROR: Inventory is empty!");
+							else {
+								commandLine.close();
+								throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
+							}
 							break;
 						}
 						// Any command with arguments after 'SSR' will throw an exception
@@ -153,8 +159,10 @@ public class CarDealershipSimulator
 								newDealer.sortByMaxRange();
 								System.out.println("\nInventory sorted by max range.");
 							}
-							else
-								System.out.println("\nERROR: Inventory is empty!");
+							else {
+								commandLine.close();
+								throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
+							}
 							break;
 						}
 						// Any command with arguments after 'SMR' will throw an exception
@@ -172,9 +180,12 @@ public class CarDealershipSimulator
 										newDealer.filterByPrice(minPrice, maxPrice);
 										System.out.println("\nInventory filtered by price between $" + minPrice + " and $" + maxPrice + ".");
 									}
-									else
-										System.out.println("\nERROR: Inventory is empty!");
+									else {
+										commandLine.close();
+										throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
+									}
 									break;
+	
 								}
 								// Any command with arguments after 'FPR' followed by two integers will throw an exception
 								commandLine.close();
@@ -196,8 +207,10 @@ public class CarDealershipSimulator
 								newDealer.filterByElectric();
 								System.out.println("\nInventory filtered by electric cars.");
 							}
-							else
-								System.out.println("\nERROR: Inventory is empty!");
+							else {
+								commandLine.close();
+								throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
+							}
 							break;
 						}
 						// Any command with arguments after 'FEL' will throw an exception
@@ -211,8 +224,10 @@ public class CarDealershipSimulator
 								newDealer.filterByAWD();
 								System.out.println("\nInventory filtered by AWD cars.");
 							}
-							else
-								System.out.println("\nERROR: Inventory is empty!");
+							else {
+								commandLine.close();
+								throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
+							}
 							break;
 						}
 						// Any command with arguments after 'FAW' will throw an exception
@@ -226,8 +241,10 @@ public class CarDealershipSimulator
 								newDealer.FiltersClear();
 								System.out.println("\nFilters cleared successfully.");
 							}
-							else
-								System.out.println("\nERROR: Inventory is empty!");
+							else {
+								commandLine.close();
+								throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
+							}
 							break;
 						}
 						// Any command with arguments after 'FCL' will throw an exception

@@ -4,15 +4,18 @@
  * Section: CPS209-031
  */
 
- // Import statements
+// Import statements
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.GregorianCalendar;
 
 public class CarDealership {
 
 	// Instance variables
 	private ArrayList<Car> cars;
+	private AccountingSystem accSystem;
 	private double minPrice, maxPrice;
 	private boolean AWD, electric, price;
 	public boolean isEmpty;
@@ -85,6 +88,8 @@ public class CarDealership {
 	// }
 
 	public String buyCar(int VIN) {
+		if (isEmpty)
+			throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
 		for (int i = 0; i < cars.size(); i++) {
 			if (cars.get(i).getVIN() == VIN) {
 				carLastBought = cars.get(i);
@@ -92,9 +97,15 @@ public class CarDealership {
 				if (cars.size() <= 0)
 					 this.isEmpty = true;
 				String salesPerson = "Joe"; // PLACEHOLDER
-				
+				String transType = "BUY";
+				int year = 2019;
+				int month = (int) (Math.random() * 13) + 1;
+				int day = (int) (Math.random() * 32) + 1;
+				Calendar date = new GregorianCalendar(year, month, day);
+				return accSystem.add(date, carLastBought, salesPerson, transType, carLastBought.getPrice());
 			}
 		}
+		throw new IllegalArgumentException("\nERROR: Entered VIN is not a valid selection! Please check the input and try again!");
 	}
 	
 	/**
