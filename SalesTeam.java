@@ -33,7 +33,7 @@ import java.util.ListIterator;
         String team = "";
         salesIterator = salesTeam.listIterator();
         for (int i = 0; i < salesTeam.size(); i++) {
-            team += salesIterator.next();
+            team += salesIterator.next() + " ";
         }
         return team;
     }

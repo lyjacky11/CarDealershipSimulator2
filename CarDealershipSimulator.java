@@ -19,6 +19,7 @@ public class CarDealershipSimulator
 	{
 	CarDealership newDealer = new CarDealership(); // Creates a CarDealership object
 	ArrayList<Car> cars = new ArrayList<Car>(); // Creates an (initially empty) array list of type Car
+	SalesTeam salesTeam = new SalesTeam();
 
 	// Initialize variables
 	final String header = String.format("%-3s %-4s %-11s %-6s %-8s %-5s %-8s %-10s %-5s %-3s %-7s", "#", "VIN", "Brand", "Color", "Model", "MaxR", "SafetyR", "Price ($)", "AWD?", "RT", "Battery");
@@ -250,6 +251,19 @@ public class CarDealershipSimulator
 						// Any command with arguments after 'FCL' will throw an exception
 						commandLine.close();
 						throw new NoSuchElementException();
+
+					case "SALES":
+						if (!commandLine.hasNext()) {
+							// TO DO
+							break;
+						}
+						else {
+							String arg = commandLine.next();
+							if (arg.equals("TEAM")) {
+								System.out.println("\nSales Team: " + salesTeam.getAll());
+							}
+						}
+						break;
 					
 					// Displays the commands list in the console
 					case "HELP":
@@ -294,8 +308,7 @@ public class CarDealershipSimulator
 				}
 				// Catches any other exception
 				catch (Exception ex) {
-					//System.out.println("\nERROR: " + ex + " has occurred! Please try again!");
-					ex.printStackTrace();
+					System.out.println("\nERROR: " + ex + " has occurred! Please try again!");
 				}
 				System.out.print("\nEnter another command (HELP for commands menu): ");
 			}
