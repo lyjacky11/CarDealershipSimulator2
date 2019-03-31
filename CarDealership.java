@@ -19,7 +19,6 @@ public class CarDealership {
 	private double minPrice, maxPrice;
 	private boolean AWD, electric, price;
 	public boolean isEmpty;
-	public Car carLastBought;
 
 	// Comparator class for safety rating
 	class SRComparator implements Comparator<Car> {
@@ -92,17 +91,18 @@ public class CarDealership {
 			throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
 		for (int i = 0; i < cars.size(); i++) {
 			if (cars.get(i).getVIN() == VIN) {
-				carLastBought = cars.get(i);
-				cars.remove(carLastBought);
+				Car currentCar = cars.get(i);
+				cars.remove(currentCar);
 				if (cars.size() <= 0)
 					 this.isEmpty = true;
 				String salesPerson = "Joe"; // PLACEHOLDER
 				String transType = "BUY";
 				int year = 2019;
 				int month = (int) (Math.random() * 13) + 1;
-				int day = (int) (Math.random() * 32) + 1;
+				int day = (int) (Math.random() * 29) + 1;
 				Calendar date = new GregorianCalendar(year, month, day);
-				return accSystem.add(date, carLastBought, salesPerson, transType, carLastBought.getPrice());
+				String trans = accSystem.add(date, currentCar, salesPerson, transType, currentCar.getPrice());
+				return trans;
 			}
 		}
 		throw new IllegalArgumentException("\nERROR: Entered VIN is not a valid selection! Please check the input and try again!");
@@ -112,15 +112,31 @@ public class CarDealership {
 	 * Returns last bought car (adds car back to array list)
 	 * @param car to return
 	 */
-	public void returnCar(Car car) {
-		if (car != null) {
-			cars.add(car);
-			this.isEmpty = false;
-			carLastBought = null;
+	// public void returnCar(Car car) {
+	// 	if (car != null) {
+	// 		cars.add(car);
+	// 		this.isEmpty = false;
+	// 		carLastBought = null;
+	// 	}
+	// 	// Throws an exception when there is no car that was last bought
+	// 	else
+	// 		throw new IllegalArgumentException("\nERROR: No car found to return to inventory!");
+	// }
+
+	public void returnCar(int transaction) {
+		Transaction trans = accSystem.getTransaction(transaction);
+		if (trans != null) {
+			String transType = "RETURN";
+			Calendar transDate = trans.getTransDate();
+			int transMonth = transDate.get(Calendar.MONTH);
+			int transDay = transDate.get(Calendar.DAY_OF_MONTH);
+			int transYear = transDate.get(Calendar.YEAR);
+			int returnDay = (int) (Math.random() * (29 - transDay + 1)) + transDay;
+			Calendar returnDate = new GregorianCalendar(transYear, transMonth, returnDay);
+			accSystem.add(returnDate, trans.getCar(), trans.getSalesPerson(), transType, trans.getSalePrice());
+			cars.add(trans.getCar());
 		}
-		// Throws an exception when there is no car that was last bought
-		else
-			throw new IllegalArgumentException("\nERROR: No car found to return to inventory!");
+		throw new IllegalArgumentException("\nERROR: Transaction ID not found!");
 	}
 
 	// Displays the inventory of cars (prints the cars in the array list based on enabled filters)
