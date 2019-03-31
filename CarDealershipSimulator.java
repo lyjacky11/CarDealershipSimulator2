@@ -31,6 +31,7 @@ public class CarDealershipSimulator
 	ArrayList<Car> cars = new ArrayList<Car>();
 	SalesTeam salesTeam = new SalesTeam();
 	final String header = String.format("%-3s %-4s %-11s %-6s %-8s %-5s %-8s %-10s %-5s %-3s %-7s", "#", "VIN", "Brand", "Color", "Model", "MaxR", "SafetyR", "Price ($)", "AWD?", "RT", "Battery");
+	final String transHeader = String.format("%-8s %-5s %-7s %-13s %-13s %s", "TransID", "Type", "VIN #", "Salesperson", "Price ($)", "Date");
 	String filename = "cars.txt", line = "", command = "";
 	/*
 	 * Reads data from file and continues if the data is valid
@@ -99,7 +100,7 @@ public class CarDealershipSimulator
 								String currentCar = newDealer.buyCar(VIN);
 								// if (currentCar != null) {
 									System.out.println("\nTRANSACTION INFO:");
-									System.out.println("-------------------");
+									addHeader(transHeader);
 									System.out.println(currentCar);
 									System.out.println("\nCar with VIN #" + VIN + " bought successfully.");
 								// }
@@ -308,7 +309,13 @@ public class CarDealershipSimulator
 					case "SALES":
 						if (!commandLine.hasNext()) {
 							// TO DO - print all transactions for the year
-							System.out.println("All transactions");
+							ArrayList<Transaction> trans = newDealer.getAccSystem().getTransList();
+							System.out.println("\nAll transactions for 2019: ");
+							addHeader(transHeader);
+							for (int i = 0; i < trans.size(); i++) {
+								System.out.println(trans.get(i).display());
+							}
+
 						}
 						else if (commandLine.hasNextInt()) {
 							int month = commandLine.nextInt();
@@ -404,7 +411,7 @@ public class CarDealershipSimulator
 	private static void addHeader(String header) {
 	System.out.println();
 	System.out.println(header);
-	for (int i = 0; i < header.length() + 2; i++) {
+	for (int i = 0; i < header.length() + 15; i++) {
 		System.out.print("-");
 	}
 	System.out.println();
@@ -417,7 +424,7 @@ public class CarDealershipSimulator
 		System.out.println();
 		System.out.println("COMMANDS MENU");
 		System.out.printf("%7s  |  %-37s %-33s %-30s %s\n", "General", "ADD - Add Cars To Inventory", "L - Load Inventory", "Q - Quit Program", "HELP - Display Commands Menu");
-		System.out.printf("%7s  |  %-37s %s\n", "Actions", "BUY [num] - Buy 'num' Car", "RET - Return Car");
+		System.out.printf("%7s  |  %-37s %s\n", "Actions", "BUY [VIN] - Buy Car by VIN #", "RET - Return Car");
 		System.out.printf("%7s  |  %-37s %-33s %s\n", "Sort", "SPR - Sort By Price", "SSR - Sort By Safety Rating", "SMR - Sort By Max Range");
 		System.out.printf("%7s  |  %-37s %-33s %-30s %s\n", "Filter", "FPR [min] [max] - Filter By Price", "FEL - Filter By Electric", "FAW - Filter By AWD", "FCL - Clear Filters");
 	}
@@ -440,7 +447,6 @@ public class CarDealershipSimulator
 			final int NUM_WHEELS = 4;
 			int modelInt, powerInt, rechargeTimeFile = 0;
 			boolean aWDValue;
-			System.out.println("Importing from " + filename + "...");
 			/*
 			 * While the file still has data to be imported
 			 */

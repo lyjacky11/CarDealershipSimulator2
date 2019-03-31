@@ -237,4 +237,46 @@ public class CarDealership {
 	public void sortByMaxRange() {
 		Collections.sort(cars, new MRComparator());
 	}
+
+	/**
+	 * @return the cars
+	 */
+	public ArrayList<Car> getCars() {
+		return cars;
+	}
+
+	/**
+	 * @param cars the cars to set
+	 */
+	public void setCars(ArrayList<Car> cars) {
+		this.cars = cars;
+	}
+
+	/**
+	 * @return the accSystem
+	 */
+	public AccountingSystem getAccSystem() {
+		return accSystem;
+	}
+
+	/**
+	 * @param accSystem the accSystem to set
+	 */
+	public void setAccSystem(AccountingSystem accSystem) {
+		this.accSystem = accSystem;
+	}
+
+	/**
+	 * @return the salesTeam
+	 */
+	public SalesTeam getSalesTeam() {
+		return salesTeam;
+	}
+
+	/**
+	 * @param salesTeam the salesTeam to set
+	 */
+	public void setSalesTeam(SalesTeam salesTeam) {
+		this.salesTeam = salesTeam;
+	}
 }

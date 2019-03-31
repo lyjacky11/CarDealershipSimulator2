@@ -60,6 +60,6 @@ public class Transaction {
 
     public String display() {
         SimpleDateFormat df = new SimpleDateFormat("EEE, MMM dd, YYYY");
-        return "Transaction ID: " + transID + "\nDate: " + df.format(transDate.getTime()) + "\nTransaction Type: " + transType + "\nCar VIN #: " + car.getVIN() + "\nSalesperson: " + salesPerson + "\nSale Price: $" + salePrice;
+        return String.format("%-8d %-5s %-7d %-13s %-13.2f %s", transID, transType, car.getVIN(), salesPerson, salePrice, df.format(transDate.getTime()));
     }
 }
