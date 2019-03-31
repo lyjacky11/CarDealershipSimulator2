@@ -4,7 +4,9 @@
  * Section: CPS209-031
  */
 
-// Import statements
+ /*
+ * Import statements
+ */
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;

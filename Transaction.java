@@ -4,7 +4,9 @@
  * Section: CPS209-031
  */
 
-// Import statements
+ /*
+ * Import statements
+ */
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 

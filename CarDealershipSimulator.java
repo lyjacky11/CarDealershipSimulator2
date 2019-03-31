@@ -4,7 +4,9 @@
  * Section: CPS209-031
  */
 
- // Import statements
+/*
+ * Import statements
+ */
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -14,36 +16,47 @@ import java.io.IOException;
 
 public class CarDealershipSimulator
 {
-	// Main method of class CarDealershipSimulator
+	/**
+	 * Main method of the class
+	 * 
+	 * @param args
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException
 	{
-	CarDealership newDealer = new CarDealership(); // Creates a CarDealership object
-	ArrayList<Car> cars = new ArrayList<Car>(); // Creates an (initially empty) array list of type Car
+	/*
+	 * Initialize objects and variables
+	 */
+	CarDealership newDealer = new CarDealership();
+	ArrayList<Car> cars = new ArrayList<Car>();
 	SalesTeam salesTeam = new SalesTeam();
-
-	// Initialize variables
 	final String header = String.format("%-3s %-4s %-11s %-6s %-8s %-5s %-8s %-10s %-5s %-3s %-7s", "#", "VIN", "Brand", "Color", "Model", "MaxR", "SafetyR", "Price ($)", "AWD?", "RT", "Battery");
 	String filename = "cars.txt", line = "", command = "";
-
-	// Reads data from file and continues if data is valid
+	/*
+	 * Reads data from file and continues if the data is valid
+	 */
 	if(addFromFile(filename, cars)) {
-		Scanner input = new Scanner(System.in); // Creates a scanner object for keyboard input
+		Scanner input = new Scanner(System.in);
 		System.out.println("\nWelcome to Car Dealership Simulator 2!");
-		commandsMenu(); // Displays commands menu
+		commandsMenu();
 		System.out.println();
 		System.out.println("Run the 'ADD' command to get started!");
 		System.out.print("Enter a command (HELP for commands menu): ");
-
-		// While the scanner has another line
+		/*
+		 * When there is another command entered, process the command
+		 */
 		while (input.hasNextLine()) {
 			try {
 				line = input.nextLine();
-				Scanner commandLine = new Scanner(line); // Creates another scanner object to read from the line
+				Scanner commandLine = new Scanner(line);
 				command = commandLine.next();
-				
-				//	Checks if the word (i.e. string) is equal to one of the commands and if so, call the appropriate method via the CarDealership object  
+				/*
+				 * Checks if the input is equal to one of the commands and call the appropriate method(s)
+				 */
 				switch (command) {
-					// Displays the inventory in the console
+					/*
+					 * Displays the car inventory in the console
+					 */
 					case "L":
 						if (!commandLine.hasNext()) {
 							if (!newDealer.isEmpty) {
@@ -57,24 +70,30 @@ public class CarDealershipSimulator
 							}
 							break;
 						}
-						// Any command with arguments after 'L' will throw an exception
+						/*
+						 * Any command with other arguments will throw an exception
+						 */ 
 						commandLine.close();
 						throw new NoSuchElementException();
-					
-					// Terminates the program
+					/*
+					 * Terminates the program
+					 */ 
 					case "Q":
 						if (!commandLine.hasNext()) {
 							commandLine.close();
 							System.out.println("\nThank you for using Car Dealership Simulator! Have a great day!");
 							return;
 						}
-						// Any command with arguments after 'Q' will throw an exception
+						/*
+						 * Any command with other arguments will throw an exception
+						 */
 						commandLine.close();
 						throw new NoSuchElementException();
-					
-					// Buys a car given the VIN number
+					/*
+					 * Buys a car given the VIN number
+					 */ 
 					case "BUY":
-						if (commandLine.hasNextInt()) { // Checks for the VIN after 'BUY'
+						if (commandLine.hasNextInt()) {
 							int VIN = commandLine.nextInt();
 							if (!commandLine.hasNext()) {
 								String currentCar = newDealer.buyCar(VIN);
@@ -88,15 +107,18 @@ public class CarDealershipSimulator
 									// System.out.println("\nERROR: Invalid car selection!");
 								break;
 							}
-							// Any command with arguments after 'BUY' followed by an integer will throw an exception
+							/*
+						 	 * Any command with other arguments will throw an exception
+						 	 */ 
 							commandLine.close();
 							throw new NoSuchElementException();
 						}
 						else
 							System.out.println("\nERROR: Invalid VIN # or not specified!");
 						break;
-					
-					// Returns the last transaction
+					/**
+					 * Returns the last transaction
+					 */ 
 					case "RET":
 						if (!commandLine.hasNext()) {
 							int id = newDealer.lastTransID;
@@ -104,22 +126,28 @@ public class CarDealershipSimulator
 							System.out.println("\nProcessed return for transaction #" + id + " successfully.");
 							break;
 						}
-						// Any command with arguments after 'RET' will throw an exception
+						/*
+						 * Any command with other arguments will throw an exception
+						 */ 
 						commandLine.close();
 						throw new NoSuchElementException();
-					
-					// Adds the cars from the array list to the dealership inventory
+					/**
+					 * Adds cars to the dealership inventory
+					 */ 
 					case "ADD":
 						if (!commandLine.hasNext()) {
 							newDealer.addCars(cars);
 							System.out.println("\nAdded cars to dealership inventory.");
 							break;
 						}
-						// Any command with arguments after 'ADD' will throw an exception
+						/*
+						 * Any command with other arguments will throw an exception
+						 */ 
 						commandLine.close();
 						throw new NoSuchElementException();
-					
-					// Sorts the list by price (from least to most expensive)
+					/*
+					 * Sorts the list by price (from least to most expensive)
+					 */ 
 					case "SPR":
 						if (!commandLine.hasNext()) {
 							if (!newDealer.isEmpty) {
@@ -132,11 +160,14 @@ public class CarDealershipSimulator
 							}
 							break;
 						}
-						// Any command with arguments after 'SPR' will throw an exception
+						/*
+						 * Any command with other arguments will throw an exception
+						 */ 
 						commandLine.close();
 						throw new NoSuchElementException();
-					
-					// Sorts the list by safety rating (lowest to highest)
+					/*
+					 * Sorts the list by safety rating (lowest to highest)
+					 */ 
 					case "SSR":
 						if (!commandLine.hasNext()) {
 							if (!newDealer.isEmpty) {
@@ -149,11 +180,14 @@ public class CarDealershipSimulator
 							}
 							break;
 						}
-						// Any command with arguments after 'SSR' will throw an exception
+						/*
+						 * Any command with other arguments will throw an exception
+						 */ 
 						commandLine.close();
 						throw new NoSuchElementException();
-					
-					// Sorts the list by max range (from min to max)
+					/*
+					 * Sorts the list by max range (from min to max)
+					 */ 
 					case "SMR":
 						if (!commandLine.hasNext()) {
 							if (!newDealer.isEmpty) {
@@ -166,15 +200,18 @@ public class CarDealershipSimulator
 							}
 							break;
 						}
-						// Any command with arguments after 'SMR' will throw an exception
+						/*
+						 * Any command with other arguments will throw an exception
+						 */ 
 						commandLine.close();
 						throw new NoSuchElementException();
-					
-					// Filters the list by price given a minimum and maximum price
+					/*
+					 * Filters the list by price given a minimum and maximum price
+					 */ 
 					case "FPR":
-						if (commandLine.hasNextInt()) { // Checks for first integer after 'FPR'
+						if (commandLine.hasNextInt()) {
 							int minPrice = commandLine.nextInt();
-							if (commandLine.hasNextInt()) { // Checks for second integer after 'FPR'
+							if (commandLine.hasNextInt()) {
 								int maxPrice = commandLine.nextInt();
 								if (!commandLine.hasNext()) {
 									if (!newDealer.isEmpty) {
@@ -186,22 +223,28 @@ public class CarDealershipSimulator
 										throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
 									}
 									break;
-	
 								}
-								// Any command with arguments after 'FPR' followed by two integers will throw an exception
+								/*
+						 		* Any command with other arguments will throw an exception
+						 		*/ 
 								commandLine.close();
 								throw new NoSuchElementException();
 							}
-							// Second argument is invalid or missing
+							/*
+							 * If second argument is invalid or missing
+							 */ 
 							else
 								System.out.println("\nERROR: Invalid max price or not specified!");
 						}
-						// First argument is invalid or missing
+						/*
+						 * If first argument is invalid or missing
+						 */ 
 						else
 							System.out.println("\nERROR: Invalid price range or not specified!");
 						break;
-					
-					// Filters the list by electric cars (only shows cars that are electric)
+					/*
+					 * Filters the list by electric cars (only shows cars that are electric)
+					 */ 
 					case "FEL":
 						if (!commandLine.hasNext()) {
 							if (!newDealer.isEmpty) {
@@ -214,11 +257,14 @@ public class CarDealershipSimulator
 							}
 							break;
 						}
-						// Any command with arguments after 'FEL' will throw an exception
+						/*
+						 * Any command with other arguments will throw an exception
+						 */ 
 						commandLine.close();
 						throw new NoSuchElementException();
-					
-					// Filters the list by AWD (only shows cars that are AWD)
+					/*
+					 * Filters the list by AWD (only shows cars that are AWD)
+					 */ 
 					case "FAW":
 						if (!commandLine.hasNext()) {
 							if (!newDealer.isEmpty) {
@@ -231,11 +277,14 @@ public class CarDealershipSimulator
 							}
 							break;
 						}
-						// Any command with arguments after 'FAW' will throw an exception
+						/*
+						 * Any command with other arguments will throw an exception
+						 */ 
 						commandLine.close();
 						throw new NoSuchElementException();
-					
-					// Clears the filters currently set (all filters are reset to false)
+					/*
+					 * Clears the filters currently set (all filters are reset to false)
+					 */
 					case "FCL":
 						if (!commandLine.hasNext()) {
 							if (!newDealer.isEmpty) {
@@ -248,10 +297,14 @@ public class CarDealershipSimulator
 							}
 							break;
 						}
-						// Any command with arguments after 'FCL' will throw an exception
+						/*
+						 * Any command with other arguments will throw an exception
+						 */ 
 						commandLine.close();
 						throw new NoSuchElementException();
-
+					/*
+					 * Commands for sales and transactions
+					 */
 					case "SALES":
 						if (!commandLine.hasNext()) {
 							// TO DO - print all transactions for the year
@@ -282,33 +335,30 @@ public class CarDealershipSimulator
 								System.out.println("Stats");
 							}
 							else {
+								/*
+						 		 * Any command with other arguments will throw an exception
+						 		 */
 								commandLine.close();
 								throw new NoSuchElementException();
 							}
 						}
 						break;
-					
-					// Displays the commands list in the console
+					/*
+					 * Displays the commands list in the console
+					 */
 					case "HELP":
 						if (!commandLine.hasNext()) {
 							commandsMenu();
 							break;
 						}
-						// Any command with arguments after 'HELP' will throw an exception
+						/*
+						 * Any command with other arguments will throw an exception
+						 */ 
 						commandLine.close();
 						throw new NoSuchElementException();
-					
-					// **EASTER EGG** //
-					case "F":
-						if (!commandLine.hasNext()) {
-							System.out.println("\nYou have paid your respects.");
-							break;
-						}
-						// Any command with arguments after 'F' will throw an exception
-						commandLine.close();
-						throw new NoSuchElementException();
-					
-					// Any other unknown commands will throw an exception
+					/*
+					 * Any other unknown commands will throw an exception
+					 */ 
 					default:
 						commandLine.close();
 						throw new NoSuchElementException();
@@ -316,20 +366,28 @@ public class CarDealershipSimulator
 					commandLine.close();
 					line = "";
 				}
-				// Catches any command that is not recognized
+				/*
+				 * Catches any command that is not recognized
+				 */
 				catch (NoSuchElementException NSE) {
 					System.out.println("\nERROR: '" + line + "' is an unrecognized command! Please check the commands list and try again!");
 					line = "";
 				}
-				// Catches the exception where an index is being accessed that is greater than the size of the object
+				/*
+				 * Catches the exception where an index is being accessed that is greater or less than the size of the object
+				 */
 				catch (IndexOutOfBoundsException IOB) {
 					System.out.println(IOB.getMessage());
 				}
-				// Catches wrong data type for any arguments
+				/*
+				 * Catches wrong data type for any arguments
+				 */ 
 				catch (IllegalArgumentException IAE) {
 					System.out.println(IAE.getMessage());
 				}
-				// Catches any other exception
+				/**
+				 * Catches any other exception
+				 */ 
 				catch (Exception ex) {
 					System.out.println("\nERROR: " + ex + " has occurred! Please try again!");
 				}
@@ -340,6 +398,7 @@ public class CarDealershipSimulator
 	}
 	/**
 	 * Prints header string to be used with displayInventory()
+	 * 
 	 * @param header
 	 */
 	private static void addHeader(String header) {
@@ -351,7 +410,9 @@ public class CarDealershipSimulator
 	System.out.println();
 	}
 
-	// Displays the commands menu
+	/*
+	 * Displays the commands menu
+	 */
 	private static void commandsMenu() {
 		System.out.println();
 		System.out.println("COMMANDS MENU");
@@ -363,33 +424,34 @@ public class CarDealershipSimulator
 
 	/**
 	 * Reads from a text file and converts the data to Car objects, then add them to the array list
+	 * 
 	 * @param filename of text file to read from
 	 * @param cars ArrayList of Car objects
+	 * @throws FileNotFoundException
 	 */
 	private static boolean addFromFile(String filename, ArrayList<Car> cars) throws FileNotFoundException {
 		try {
-			Scanner scan = new Scanner(new File(filename)); // Creates a new scanner to read from a file
-			ArrayList<Object> specsList = new ArrayList<Object>(); // Array list to store the data
-			
-			// Constant variables
+			Scanner scan = new Scanner(new File(filename));
+			ArrayList<Object> specsList = new ArrayList<Object>();
+			/*
+			 * Initialize variables and constants
+			 */
 			final String BATTERY_TYPE = "Lithium";
 			final int NUM_WHEELS = 4;
-
-			// Initialize variables
 			int modelInt, powerInt, rechargeTimeFile = 0;
 			boolean aWDValue;
-			
 			System.out.println("Importing from " + filename + "...");
-			// While the file still has lines remaining
+			/*
+			 * While the file still has data to be imported
+			 */
 			while (scan.hasNextLine()) {
 				String line = scan.nextLine();
-				Scanner specsLine = new Scanner(line); // Creates a new scanner to read from the line
+				Scanner specsLine = new Scanner(line);
 				while (specsLine.hasNext()) {
 					String specs = specsLine.next();
 					specsList.add(specs);
 				}
 				specsLine.close();
-
 				/* 
 				 * Extracts the data from the array list and prepares the data to construct a Car object
 				 */
@@ -409,10 +471,9 @@ public class CarDealershipSimulator
 				case "MINIVAN":
 					modelInt = Car.MINIVAN;
 					break;
-				default: // Invalid data values will throw an exception
+				default:
 					throw new IllegalArgumentException("\nERROR: The file contains an invalid model!");
 				}
-
 				String powerFile = (String)specsList.get(3);
 				switch (powerFile) {
 				case "ELECTRIC_MOTOR":
@@ -421,10 +482,9 @@ public class CarDealershipSimulator
 				case "GAS_ENGINE":
 					powerInt = Car.GAS_ENGINE;
 					break;
-				default: // Invalid data values will throw an exception
+				default:
 					throw new IllegalArgumentException("\nERROR: THe file contains an invalid power type!");
 				}
-
 				double safetyRatingFile = Double.parseDouble((String)specsList.get(4));
 				int maxRangeFile = Integer.parseInt((String)specsList.get(5));
 				String aWDFile = (String)specsList.get(6);
@@ -435,33 +495,40 @@ public class CarDealershipSimulator
 					case "2WD":
 						aWDValue = false;
 						break;
-					default: // Invalid data values will throw an exception
+					default:
 						throw new IllegalArgumentException("\nERROR: THe file contains an invalid AWD value!");
 				}
-
 				int priceFile = Integer.parseInt((String)specsList.get(7));
 				if (specsList.size() == 9) {
 					rechargeTimeFile = Integer.parseInt((String)specsList.get(8));
-					// Constructs an electric car
+					/*
+					 * Constructs an electric car object with imported data
+					 */ 
 					ElectricCar car = new ElectricCar(brandFile, colorFile, powerInt, NUM_WHEELS, modelInt, maxRangeFile, safetyRatingFile, priceFile, aWDValue, rechargeTimeFile, BATTERY_TYPE);
-					cars.add(car); // Adds the car object to the array list
+					cars.add(car);
 				}
 				else {
-					// Constructs a car object
+					/*
+					 * Constructs a car object with imported data
+					 */ 
 					Car car = new Car(brandFile, colorFile, powerInt, 4, modelInt, maxRangeFile, safetyRatingFile, priceFile, aWDValue);
-					cars.add(car); // Adds the car object to the array list
+					cars.add(car);
 				}
-				specsList.clear(); // Clears the array list for the next line of data
+				specsList.clear();
 			}
 			scan.close();
 			return true;
 		}
-		// Catches invalid data type or values
+		/*
+		 * Catches invalid data type or values
+		 */ 
 		catch (IllegalArgumentException IAE) {
 			System.out.println("\n" + IAE);
 			return false;
 		}
-		// Catches invalid file name
+		/*
+		 * Catches invalid file name
+		 */
 		catch (FileNotFoundException e) {
 			System.out.println("\nERROR: " + e + "\nPlease check the file location and try again!");
 			return false;
