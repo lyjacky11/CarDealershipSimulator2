@@ -28,7 +28,7 @@ public class CarDealershipSimulator
 	// Reads data from file and continues if data is valid
 	if(addFromFile(filename, cars)) {
 		Scanner input = new Scanner(System.in); // Creates a scanner object for keyboard input
-		System.out.println("\nWelcome to Car Dealership Simulator!");
+		System.out.println("\nWelcome to Car Dealership Simulator 2!");
 		commandsMenu(); // Displays commands menu
 		System.out.println();
 		System.out.println("Run the 'ADD' command to get started!");
@@ -254,13 +254,36 @@ public class CarDealershipSimulator
 
 					case "SALES":
 						if (!commandLine.hasNext()) {
-							// TO DO
-							break;
+							// TO DO - print all transactions for the year
+							System.out.println("All transactions");
+						}
+						else if (commandLine.hasNextInt()) {
+							int month = commandLine.nextInt();
+							// TO DO - print all transactions for the month
+							if (month > -1 && month < 12) {
+								System.out.println(month);
+							}
+							else {
+								commandLine.close();
+								throw new IllegalArgumentException("\nERROR: Invalid month! Please try again!");
+							}
 						}
 						else {
 							String arg = commandLine.next();
 							if (arg.equals("TEAM")) {
 								System.out.println("\nSales Team: " + salesTeam.getAll());
+							}
+							else if (arg.equals("TOPSP")) {
+								// TO DO - print sales person who sold most number of cars
+								System.out.println("Top sales person");
+							}
+							else if (arg.equals("STATS")) {
+								// TO DO - print total sales, etc.
+								System.out.println("Stats");
+							}
+							else {
+								commandLine.close();
+								throw new NoSuchElementException();
 							}
 						}
 						break;
