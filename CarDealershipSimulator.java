@@ -71,7 +71,7 @@ public class CarDealershipSimulator
 						commandLine.close();
 						throw new NoSuchElementException();
 					
-					// Buys a car given the car position
+					// Buys a car given the VIN number
 					case "BUY":
 						if (commandLine.hasNextInt()) { // Checks for the VIN after 'BUY'
 							int VIN = commandLine.nextInt();
@@ -95,7 +95,7 @@ public class CarDealershipSimulator
 							System.out.println("\nERROR: Invalid VIN # or not specified!");
 						break;
 					
-					// Returns the last bought car
+					// Returns the last transaction
 					case "RET":
 						if (!commandLine.hasNext()) {
 							int id = newDealer.lastTransID;

@@ -31,7 +31,8 @@ public class AccountingSystem {
         GregorianCalendar gCalendar = new GregorianCalendar(year, month, day);
         Transaction trans = new Transaction(id, gCalendar, car, salesPerson, type, salePrice);
         transList.add(trans);
-        lastTransID = trans.getTransID();
+        if (type.equals("BUY"))
+            lastTransID = trans.getTransID();
         return trans.display();
     }
 

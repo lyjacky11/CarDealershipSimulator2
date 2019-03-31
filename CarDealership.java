@@ -16,6 +16,7 @@ public class CarDealership {
 	// Instance variables
 	private ArrayList<Car> cars;
 	private AccountingSystem accSystem;
+	private SalesTeam salesTeam;
 	private double minPrice, maxPrice;
 	private boolean AWD, electric, price;
 	public int lastTransID;
@@ -96,7 +97,7 @@ public class CarDealership {
 				cars.remove(currentCar);
 				if (cars.size() <= 0)
 					 this.isEmpty = true;
-				String salesPerson = "Joe"; // PLACEHOLDER
+				String salesPerson = salesTeam.getSalesperson();
 				String transType = "BUY";
 				int year = 2019;
 				int month = (int) (Math.random() * 13) + 1;
