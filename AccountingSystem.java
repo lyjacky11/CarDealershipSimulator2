@@ -13,6 +13,7 @@ public class AccountingSystem {
 
     // Instance variables
     private ArrayList<Transaction> transList;
+    public int lastTransID;
     // private Calendar date;
     // private Car car;
     // private String salesPerson, type;
@@ -30,6 +31,7 @@ public class AccountingSystem {
         GregorianCalendar gCalendar = new GregorianCalendar(year, month, day);
         Transaction trans = new Transaction(id, gCalendar, car, salesPerson, type, salePrice);
         transList.add(trans);
+        lastTransID = trans.getTransID();
         return trans.display();
     }
 

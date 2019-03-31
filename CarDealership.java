@@ -18,6 +18,7 @@ public class CarDealership {
 	private AccountingSystem accSystem;
 	private double minPrice, maxPrice;
 	private boolean AWD, electric, price;
+	public int lastTransID;
 	public boolean isEmpty;
 
 	// Comparator class for safety rating
@@ -102,6 +103,7 @@ public class CarDealership {
 				int day = (int) (Math.random() * 29) + 1;
 				Calendar date = new GregorianCalendar(year, month, day);
 				String trans = accSystem.add(date, currentCar, salesPerson, transType, currentCar.getPrice());
+				lastTransID = accSystem.lastTransID;
 				return trans;
 			}
 		}

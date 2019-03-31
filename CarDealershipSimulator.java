@@ -95,17 +95,17 @@ public class CarDealershipSimulator
 							System.out.println("\nERROR: Invalid VIN # or not specified!");
 						break;
 					
-					// // Returns the last bought car
-					// case "RET":
-					// 	if (!commandLine.hasNext()) {
-					// 		Car returnCar = newDealer.carLastBought;
-					// 		newDealer.returnCar(returnCar);
-					// 		System.out.println("\nReturned last bought car to inventory.");
-					// 		break;
-					// 	}
-					// 	// Any command with arguments after 'RET' will throw an exception
-					// 	commandLine.close();
-					// 	throw new NoSuchElementException();
+					// Returns the last bought car
+					case "RET":
+						if (!commandLine.hasNext()) {
+							int id = newDealer.lastTransID;
+							newDealer.returnCar(id);
+							System.out.println("\nProcessed return for transaction #" + id + " successfully.");
+							break;
+						}
+						// Any command with arguments after 'RET' will throw an exception
+						commandLine.close();
+						throw new NoSuchElementException();
 					
 					// Adds the cars from the array list to the dealership inventory
 					case "ADD":
