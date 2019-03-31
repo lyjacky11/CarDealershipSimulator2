@@ -25,14 +25,14 @@ public class AccountingSystem {
 
     public String add(Calendar date, Car car, String salesPerson, String type, double salePrice) {
         int id = (int) (Math.random() * 100) + 1;
-        int year = date.get(Calendar.YEAR);
-        int month = date.get(Calendar.MONTH);
-        int day = date.get(Calendar.DAY_OF_MONTH);
-        GregorianCalendar gCalendar = new GregorianCalendar(year, month, day);
-        Transaction trans = new Transaction(id, gCalendar, car, salesPerson, type, salePrice);
-        transList.add(trans);
+        // int year = date.get(Calendar.YEAR);
+        // int month = date.get(Calendar.MONTH);
+        // int day = date.get(Calendar.DAY_OF_MONTH);
+        // GregorianCalendar gCalendar = new GregorianCalendar(year, month, day);
         if (type.equals("BUY"))
-            lastTransID = trans.getTransID();
+            lastTransID = id;
+        Transaction trans = new Transaction(id, (GregorianCalendar) date, car, salesPerson, type, salePrice);
+        transList.add(trans);
         return trans.display();
     }
 

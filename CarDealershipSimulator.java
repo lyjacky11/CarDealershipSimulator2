@@ -78,9 +78,9 @@ public class CarDealershipSimulator
 							if (!commandLine.hasNext()) {
 								String currentCar = newDealer.buyCar(VIN);
 								// if (currentCar != null) {
-									System.out.println("\nCar Details:");
-									addHeader(header);
-									System.out.printf("%-3d %s\n", VIN, currentCar);
+									System.out.println("\nTRANSACTION INFO:");
+									System.out.println("-------------------");
+									System.out.println(currentCar);
 									System.out.println("\nCar with VIN #" + VIN + " bought successfully.");
 								// }
 								// else
@@ -294,7 +294,8 @@ public class CarDealershipSimulator
 				}
 				// Catches any other exception
 				catch (Exception ex) {
-					System.out.println("\nERROR: " + ex + " has occurred! Please try again!");
+					//System.out.println("\nERROR: " + ex + " has occurred! Please try again!");
+					ex.printStackTrace();
 				}
 				System.out.print("\nEnter another command (HELP for commands menu): ");
 			}

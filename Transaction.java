@@ -57,7 +57,7 @@ public class Transaction {
     }
 
     public String display() {
-        SimpleDateFormat df = new SimpleDateFormat("EEE, MMM DD, YYYY");
-        return "\nTransaction ID: " + transID + "\nDate: " + df.format(transDate.getTime()) + "\nTransaction Type: " + transType + "\nCar: " + car.getVIN() + "\nSalesperson: " + salesPerson + "\nSale Price: " + salePrice;
+        SimpleDateFormat df = new SimpleDateFormat("EEE, MMM dd, YYYY");
+        return "Transaction ID: " + transID + "\nDate: " + df.format(transDate.getTime()) + "\nTransaction Type: " + transType + "\nCar VIN #: " + car.getVIN() + "\nSalesperson: " + salesPerson + "\nSale Price: $" + salePrice;
     }
 }

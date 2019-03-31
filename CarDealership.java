@@ -55,6 +55,8 @@ public class CarDealership {
 	// Default constructor for class CarDealership
 	public CarDealership () {
 		cars = new ArrayList<Car>();
+		accSystem = new AccountingSystem();
+		salesTeam = new SalesTeam();
 		this.isEmpty = true;
 	}
 
@@ -97,11 +99,12 @@ public class CarDealership {
 				cars.remove(currentCar);
 				if (cars.size() <= 0)
 					 this.isEmpty = true;
+				//String salesPerson = salesTeam.getSalesperson();
 				String salesPerson = salesTeam.getSalesperson();
 				String transType = "BUY";
 				int year = 2019;
-				int month = (int) (Math.random() * 13) + 1;
-				int day = (int) (Math.random() * 29) + 1;
+				int month = (int) (Math.random() * 12);
+				int day = (int) (Math.random() * 31);
 				Calendar date = new GregorianCalendar(year, month, day);
 				String trans = accSystem.add(date, currentCar, salesPerson, transType, currentCar.getPrice());
 				lastTransID = accSystem.lastTransID;
