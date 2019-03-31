@@ -44,4 +44,11 @@ public class AccountingSystem {
         }
         return null;
     }
+
+    /**
+     * @return the transList
+     */
+    public ArrayList<Transaction> getTransList() {
+        return transList;
+    }
 }

@@ -99,7 +99,6 @@ public class CarDealership {
 				cars.remove(currentCar);
 				if (cars.size() <= 0)
 					 this.isEmpty = true;
-				//String salesPerson = salesTeam.getSalesperson();
 				String salesPerson = salesTeam.getSalesperson();
 				String transType = "BUY";
 				int year = 2019;
