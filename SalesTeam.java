@@ -16,7 +16,10 @@ import java.util.ListIterator;
         salesTeam = new LinkedList<String>();
         salesTeam.addLast("Bob");
         salesTeam.addLast("Alice");
-        // add more
+        salesTeam.addLast("Dylan");
+        salesTeam.addLast("Paula");
+        salesTeam.addLast("Nathan");
+        salesTeam.addLast("Jayce");
     }
 
     public String getSalesperson() {
@@ -24,5 +27,14 @@ import java.util.ListIterator;
         salesIterator = salesTeam.listIterator(random);
         String salesperson = salesIterator.next();
         return salesperson;
+    }
+
+    public String getAll() {
+        String team = "";
+        salesIterator = salesTeam.listIterator();
+        for (int i = 0; i < salesTeam.size(); i++) {
+            team += salesIterator.next();
+        }
+        return team;
     }
 }
