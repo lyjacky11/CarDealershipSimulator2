@@ -332,20 +332,20 @@ public class CarDealershipSimulator
 							 * Prints all the salesperson names
 							 */
 							if (arg.equals("TEAM")) {
-								System.out.println("\nSales Team: " + salesTeam.getAll());
+								System.out.println("\nSales Team: " + salesTeam.getAllSP());
 							}
 							/*
 							 * Prints the sales person who sold the most cars of the year
 							 */
 							else if (arg.equals("TOPSP")) {
 								// TO DO - print sales person who sold most number of cars
-								System.out.println("\nTop sales person");
+								System.out.println("\nTop Sales Person(s):");
+								newDealer.getAccSystem().getTopSP();
 							}
 							/*
 							 * Prints the stats of the sales team
 							 */
 							else if (arg.equals("STATS")) {
-								// TO DO - print total sales, etc.
 								System.out.println("\nSALES STATISTICS:");
 								System.out.println("----------------------------------------");
 								System.out.printf("Total Sales: $%.2f\n", newDealer.getAccSystem().getTotalSales());

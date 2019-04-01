@@ -90,7 +90,7 @@ public class CarDealership {
 				cars.remove(currentCar);
 				if (cars.size() <= 0)
 					 this.isEmpty = true;
-				String salesPerson = salesTeam.getSalesperson();
+				String salesPerson = salesTeam.getRandomSP();
 				String transType = "BUY";
 				int year = 2019;
 				int month = (int) (Math.random() * 12);

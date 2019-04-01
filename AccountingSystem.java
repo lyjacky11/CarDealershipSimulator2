@@ -16,10 +16,12 @@ public class AccountingSystem {
 
     // Instance variables
     private ArrayList<Transaction> transList;
+    private SalesTeam salesTeam;
     public int lastTransID;
 
     public AccountingSystem () {
         transList = new ArrayList<Transaction>();
+        salesTeam = new SalesTeam();
     }
 
     public String add(Calendar date, Car car, String salesPerson, String type, double salePrice) {
@@ -129,6 +131,33 @@ public class AccountingSystem {
         }
         else
             throw new IllegalArgumentException("\nERROR: No transactions found!");
+    }
+
+    public void getTopSP() {
+        ArrayList<Integer> numSales = new ArrayList<Integer>();
+        for (int i = 0; i < salesTeam.getSalesTeam().size(); i++) {
+            int counter = 0;
+            for (int j = 0; j < transList.size(); j++) {
+                String transSP = transList.get(j).getSalesPerson();
+                if (transSP.equals(salesTeam.getSalesTeam().get(i)))
+                    counter++;
+            }
+            numSales.add(counter);
+        }
+        int maxVal = Collections.max(numSales);
+        if (Collections.frequency(numSales, maxVal) > 1) {
+            for (int i = 0; i < numSales.size(); i++) {
+                if (numSales.get(i) == maxVal) {
+                    System.out.println("Name: " + salesTeam.getSalesTeam().get(i));
+                    System.out.println("Number of cars sold: " + maxVal);
+                }
+            }
+        }
+        else {
+            int maxIndex = numSales.indexOf(maxVal);
+            System.out.println("Name: " + salesTeam.getSalesTeam().get(maxIndex));
+            System.out.println("Number of cars sold: " + maxVal);
+        }
     }
 
     /**
