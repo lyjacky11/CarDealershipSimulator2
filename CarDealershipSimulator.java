@@ -123,7 +123,7 @@ public class CarDealershipSimulator
 						if (!commandLine.hasNext()) {
 							int id = newDealer.lastTransID;
 							System.out.println("\nTRANSACTION INFO:");
-							System.out.println("----------------------------------------");
+							System.out.println("-----------------------------------------------------");
 							newDealer.returnCar(id);
 							break;
 						}
@@ -334,7 +334,9 @@ public class CarDealershipSimulator
 							 * Prints all the salesperson names
 							 */
 							if (arg.equals("TEAM")) {
-								System.out.println("\nSales Team: " + salesTeam.getAllSP());
+								System.out.println("\nSALES TEAM:");
+								System.out.println("--------------------------------------------------------------");
+								System.out.println(salesTeam.getAllSP());
 							}
 							/*
 							 * Prints the sales person who sold the most cars of the year
