@@ -7,6 +7,7 @@
 /*
  * Import statements
  */
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -118,9 +119,12 @@ public class CarDealership {
 				int transYear = transDate.get(Calendar.YEAR);
 				int returnDay = (int) (Math.random() * (29 - transDay + 2)) + transDay + 1;
 				Calendar returnDate = new GregorianCalendar(transYear, transMonth, returnDay);
-				accSystem.add(returnDate, trans.getCar(), trans.getSalesPerson(), transType, trans.getSalePrice());
+				SimpleDateFormat df = new SimpleDateFormat("EEE, MMM dd, YYYY");
+				accSystem.add(returnDate, trans.getCar(), trans.getSalesPerson(), transType, -1 * trans.getSalePrice());
 				cars.add(trans.getCar());
 				lastTransID = accSystem.lastTransID;
+				System.out.println("Return Date: " + df.format(returnDate.getTime()));
+				System.out.println("Processed return for transaction ID #" + transaction + " successfully.");
 			}
 			else
 				throw new IllegalArgumentException("\nERROR: Return for transaction ID #" + transaction + " failed! Can't return a RET transaction type!");

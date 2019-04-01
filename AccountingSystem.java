@@ -4,11 +4,12 @@
  * Section: CPS209-031
  */
 
- /*
- * Import statements
- */
+/*
+* Import statements
+*/
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 
 public class AccountingSystem {
@@ -16,10 +17,6 @@ public class AccountingSystem {
     // Instance variables
     private ArrayList<Transaction> transList;
     public int lastTransID;
-    // private Calendar date;
-    // private Car car;
-    // private String salesPerson, type;
-    // private double salePrice;
 
     public AccountingSystem () {
         transList = new ArrayList<Transaction>();
@@ -27,10 +24,6 @@ public class AccountingSystem {
 
     public String add(Calendar date, Car car, String salesPerson, String type, double salePrice) {
         int id = (int) (Math.random() * 100) + 1;
-        // int year = date.get(Calendar.YEAR);
-        // int month = date.get(Calendar.MONTH);
-        // int day = date.get(Calendar.DAY_OF_MONTH);
-        // GregorianCalendar gCalendar = new GregorianCalendar(year, month, day);
         //if (type.equals("BUY"))
             lastTransID = id;
         Transaction trans = new Transaction(id, (GregorianCalendar) date, car, salesPerson, type, salePrice);
@@ -74,6 +67,68 @@ public class AccountingSystem {
         }
         else
             throw new IllegalArgumentException("\nERROR: Invalid month! Please try again!");
+    }
+
+    public double getTotalSales() {
+        double total = 0;
+        if (transList.size() > 0) {
+            for (int i = 0; i < transList.size(); i++) {
+                total += transList.get(i).getSalePrice();
+            }
+            return total;
+        }
+        else
+            throw new IllegalArgumentException("\nERROR: No transactions found!");
+    }
+
+    public double getAvgSales() {
+        return getTotalSales() / 12;
+    }
+
+    public int getTotalSold() {
+        int total = 0;
+        if (transList.size() > 0) {
+            for (int i = 0; i < transList.size(); i++) {
+                if (transList.get(i).getTransType().equals("BUY"))
+                    total++;
+                // else
+                //     total--;
+            }
+            return total;
+        }
+        else
+            throw new IllegalArgumentException("\nERROR: No transactions found!");
+    }
+
+    public int getTotalReturns() {
+        int total = 0;
+        if (transList.size() > 0) {
+            for (int i = 0; i < transList.size(); i++) {
+                if (transList.get(i).getTransType().equals("RET"))
+                    total++;
+            }
+            return total;
+        }
+        else
+            throw new IllegalArgumentException("\nERROR: No transactions found!");
+    }
+
+    public int getHighestMonth() {
+        ArrayList<Integer> monthSales = new ArrayList<Integer>();
+        if (transList.size() > 0) {
+            for (int i = 0; i < 12; i++) {
+                int counter = 0;
+                for (int j = 0; j < transList.size(); j++) {
+                    if (transList.get(j).getTransDate().get(Calendar.MONTH) == i)
+                        counter++;
+                }
+                monthSales.add(counter);
+            }
+            int maxVal = Collections.max(monthSales);
+            return monthSales.indexOf(maxVal);
+        }
+        else
+            throw new IllegalArgumentException("\nERROR: No transactions found!");
     }
 
     /**

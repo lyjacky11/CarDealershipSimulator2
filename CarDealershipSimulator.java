@@ -32,6 +32,7 @@ public class CarDealershipSimulator
 	SalesTeam salesTeam = new SalesTeam();
 	final String header = String.format("%-3s %-4s %-11s %-6s %-8s %-5s %-8s %-10s %-5s %-3s %-7s", "#", "VIN", "Brand", "Color", "Model", "MaxR", "SafetyR", "Price ($)", "AWD?", "RT", "Battery");
 	final String transHeader = String.format("%-8s %-5s %-7s %-13s %-13s %s", "TransID", "Type", "VIN #", "Salesperson", "Price ($)", "Date");
+	final String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 	String filename = "cars.txt", line = "", command = "";
 	/*
 	 * Reads data from file and continues if the data is valid
@@ -119,8 +120,9 @@ public class CarDealershipSimulator
 					case "RET":
 						if (!commandLine.hasNext()) {
 							int id = newDealer.lastTransID;
+							System.out.println("\nTRANSACTION INFO:");
+							System.out.println("----------------------------------------");
 							newDealer.returnCar(id);
-							System.out.println("\nProcessed return for transaction ID #" + id + " successfully.");
 							break;
 						}
 						/*
@@ -308,7 +310,7 @@ public class CarDealershipSimulator
 						 */
 						if (!commandLine.hasNext()) {
 							if (newDealer.getAccSystem().getTransList().size() > 0) {
-								System.out.println("\nAll transactions for 2019:");
+								System.out.println("\nALL TRANSACTIONS (2019):");
 								addHeader(transHeader);
 							}
 							newDealer.getAccSystem().getAllTrans();
@@ -318,9 +320,8 @@ public class CarDealershipSimulator
 						 */
 						else if (commandLine.hasNextInt()) {
 							int month = commandLine.nextInt();
-							String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 							if (newDealer.getAccSystem().getTransList().size() > 0) {
-								System.out.println("\nAll transactions for " + monthNames[month] + ":");
+								System.out.println("\nALL TRANSACTIONS FOR " + monthNames[month] + ":");
 								addHeader(transHeader);
 							}
 							newDealer.getAccSystem().getMonthTrans(month);
@@ -338,14 +339,21 @@ public class CarDealershipSimulator
 							 */
 							else if (arg.equals("TOPSP")) {
 								// TO DO - print sales person who sold most number of cars
-								System.out.println("Top sales person");
+								System.out.println("\nTop sales person");
 							}
 							/*
 							 * Prints the stats of the sales team
 							 */
 							else if (arg.equals("STATS")) {
 								// TO DO - print total sales, etc.
-								System.out.println("Stats");
+								System.out.println("\nSALES STATISTICS:");
+								System.out.println("----------------------------------------");
+								System.out.printf("Total Sales: $%.2f\n", newDealer.getAccSystem().getTotalSales());
+								System.out.printf("Average Sales Per Month: $%.2f\n", newDealer.getAccSystem().getAvgSales());
+								System.out.printf("Total Cars Sold (incl. returns): %d\n", newDealer.getAccSystem().getTotalSold());
+								System.out.printf("Total Car Returns: %d\n", newDealer.getAccSystem().getTotalReturns());
+								System.out.printf("Highest Sales Month: %s\n", monthNames[newDealer.getAccSystem().getHighestMonth()]);
+
 							}
 							else {
 								/*
