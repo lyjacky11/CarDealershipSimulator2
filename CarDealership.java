@@ -14,8 +14,9 @@ import java.util.Comparator;
 import java.util.GregorianCalendar;
 
 public class CarDealership {
-
-	// Instance variables
+	/*
+	 * Initialize instance variables
+	 */
 	private ArrayList<Car> cars;
 	private AccountingSystem accSystem;
 	private SalesTeam salesTeam;
@@ -24,10 +25,9 @@ public class CarDealership {
 	public int lastTransID;
 	public boolean isEmpty;
 
-	// Comparator class for safety rating
 	class SRComparator implements Comparator<Car> {
 		/**
-		 * Compares two Car objects
+		 * Compares two Car objects' safety rating
 		 * @param car1
 		 * @param car2
 		 * @return int value of result
@@ -39,10 +39,9 @@ public class CarDealership {
 		}
 	}
 
-	// Comparator class for max range
 	class MRComparator implements Comparator<Car> {
 		/**
-		 * Compares two Car objects
+		 * Compares two Car objects' max range
 		 * @param car1
 		 * @param car2
 		 * @return int value of result
@@ -53,8 +52,9 @@ public class CarDealership {
 			return 0;
 		}
 	}
-
-	// Default constructor for class CarDealership
+	/*
+	 * Default constructor for the class
+	 */
 	public CarDealership () {
 		cars = new ArrayList<Car>();
 		accSystem = new AccountingSystem();
@@ -71,7 +71,6 @@ public class CarDealership {
 			cars.addAll(newCars);
 			this.isEmpty = false;
 		}
-		// Throws an exception when the array list is empty
 		else
 			throw new IndexOutOfBoundsException("\nERROR: No cars to add found!");
 	}
@@ -130,59 +129,80 @@ public class CarDealership {
 			throw new IllegalArgumentException("\nERROR: Transaction ID not found!");
 	}
 
-	// Displays the inventory of cars (prints the cars in the array list based on enabled filters)
+	/*
+	 * Displays the inventory of cars based on the filters enabled
+	 */
 	public void displayInventory() {
 		for (int i = 0; i < cars.size(); i++) {
 			Car currentCar = cars.get(i);
 			String output = String.format("%-3d %s", i, currentCar.display());
-
-			// FEL and FAW and FPR enabled
+			/*
+			 * FEL and FAW and FPR enabled
+			 */
 			if (electric && AWD && price) {
 				if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD() && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
 					System.out.println(output);
 			}
-			// FEL and FPR enabled
+			/*
+			 * FEL and FPR enabled
+			 */ 
 			else if (electric && price) {
 				if (currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
 					System.out.println(output);
 			}
-			// FAW and FPR enabled
+			/*
+			 * FAW and FPR enabled
+			 */
 			else if (AWD && price) {
 				if (currentCar.isAWD() && currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
 					System.out.println(output);
 			}
-			// FEL and FAW enabled
+			/*
+			 * FEL and FAW enabled
+			 */
 			else if (electric && AWD) {
 				if(currentCar.getPower() == Car.ELECTRIC_MOTOR && currentCar.isAWD())
 					System.out.println(output);
 			}
-			// FEL enabled
+			/*
+			 * FEL enabled
+			 */
 			else if (electric) {
 				if(currentCar.getPower() == Car.ELECTRIC_MOTOR)
 					System.out.println(output);
 			}
-			// FAW enabled
+			/*
+			 * FAW enabled
+			 */
 			else if (AWD) {
 				if(currentCar.isAWD())
 					System.out.println(output);
 			}
-			// FPR enabled
+			/*
+			 * FPR enabled
+			 */
 			else if (price) {
 				if(currentCar.getPrice() >= minPrice && currentCar.getPrice() <= maxPrice)
 					System.out.println(output);
 			}
-			// No filters enabled
+			/*
+			 * No filters enabled
+			 */
 			else
 				System.out.println(output);
 		}
 	}
 
-	// Filters vehicles by electric cars
+	/*
+	 * Filters vehicles by electric cars
+	 */
 	public void filterByElectric() {
 		this.electric = true;
 	}
 
-	// Filters vehicles by AWD
+	/*
+	 * Filters vehicles by AWD
+	 */
 	public void filterByAWD() {
 		this.AWD = true;
 	}
@@ -198,7 +218,9 @@ public class CarDealership {
 		this.maxPrice = maxPrice;
 	}
 
-	// Clears filters (sets all filters to false)
+	/*
+	 * Clears all the filters
+	 */
 	public void FiltersClear() {
 		this.AWD = false;
 		this.electric = false;
@@ -207,17 +229,23 @@ public class CarDealership {
 		this.maxPrice = Integer.MAX_VALUE;
 	}
 
-	// Sorts array list by price
+	/*
+	 * Sorts array list by price
+	 */
 	public void sortByPrice() {
 		Collections.sort(cars);
 	}
 
-	// Sorts array list by safety rating
+	/**
+	 * Sorts array list by safety rating
+	 */
 	public void sortBySafetyRating() {
 		Collections.sort(cars, new SRComparator());
 	}
 
-	// Sorts array list by max range
+	/*
+	 * Sorts array list by max range
+	 */
 	public void sortByMaxRange() {
 		Collections.sort(cars, new MRComparator());
 	}
