@@ -77,21 +77,10 @@ public class CarDealership {
 	}
 
 	/**
-	 * Buys a car (remove car from array list) given car position (index)
-	 * @param index of the car to buy
-	 * @return carLastBought Car object
+	 * Buys a car given the car's VIN #
+	 * @param VIN
+	 * @return the transaction in a String
 	 */
-	// public Car buyCar(int index) {
-	// 	if (index < cars.size()) {
-	// 		carLastBought = cars.get(index);
-	// 		cars.remove(index);
-	// 		if (cars.size() <= 0)
-	// 			this.isEmpty = true;
-	// 		return carLastBought;
-	// 	}
-	// 	return null;
-	// }
-
 	public String buyCar(int VIN) {
 		if (isEmpty)
 			throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
@@ -114,22 +103,11 @@ public class CarDealership {
 		}
 		throw new IllegalArgumentException("\nERROR: Entered VIN is not a valid selection! Please check the input and try again!");
 	}
-	
-	/**
-	 * Returns last bought car (adds car back to array list)
-	 * @param car to return
-	 */
-	// public void returnCar(Car car) {
-	// 	if (car != null) {
-	// 		cars.add(car);
-	// 		this.isEmpty = false;
-	// 		carLastBought = null;
-	// 	}
-	// 	// Throws an exception when there is no car that was last bought
-	// 	else
-	// 		throw new IllegalArgumentException("\nERROR: No car found to return to inventory!");
-	// }
 
+	/**
+	 * Returns the last BUY transaction
+	 * @param transaction
+	 */
 	public void returnCar(int transaction) {
 		Transaction trans = accSystem.getTransaction(transaction);
 		if (trans != null) {

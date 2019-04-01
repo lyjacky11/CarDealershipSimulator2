@@ -98,14 +98,10 @@ public class CarDealershipSimulator
 							int VIN = commandLine.nextInt();
 							if (!commandLine.hasNext()) {
 								String currentCar = newDealer.buyCar(VIN);
-								// if (currentCar != null) {
-									System.out.println("\nTRANSACTION INFO:");
-									addHeader(transHeader);
-									System.out.println(currentCar);
-									System.out.println("\nCar with VIN #" + VIN + " bought successfully.");
-								// }
-								// else
-									// System.out.println("\nERROR: Invalid car selection!");
+								System.out.println("\nTRANSACTION INFO:");
+								addHeader(transHeader);
+								System.out.println(currentCar);
+								System.out.println("\nCar with VIN #" + VIN + " bought successfully.");
 								break;
 							}
 							/*
@@ -307,6 +303,9 @@ public class CarDealershipSimulator
 					 * Commands for sales and transactions
 					 */
 					case "SALES":
+						/*
+						 * Prints all transactions for the year (2019)
+						 */
 						if (!commandLine.hasNext()) {
 							if (newDealer.getAccSystem().getTransList().size() > 0) {
 								System.out.println("\nAll transactions for 2019:");
@@ -314,6 +313,9 @@ public class CarDealershipSimulator
 							}
 							newDealer.getAccSystem().getAllTrans();
 						}
+						/*
+						 * Prints all transactions for the given month
+						 */
 						else if (commandLine.hasNextInt()) {
 							int month = commandLine.nextInt();
 							String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -325,13 +327,22 @@ public class CarDealershipSimulator
 						}
 						else {
 							String arg = commandLine.next();
+							/*
+							 * Prints all the salesperson names
+							 */
 							if (arg.equals("TEAM")) {
 								System.out.println("\nSales Team: " + salesTeam.getAll());
 							}
+							/*
+							 * Prints the sales person who sold the most cars of the year
+							 */
 							else if (arg.equals("TOPSP")) {
 								// TO DO - print sales person who sold most number of cars
 								System.out.println("Top sales person");
 							}
+							/*
+							 * Prints the stats of the sales team
+							 */
 							else if (arg.equals("STATS")) {
 								// TO DO - print total sales, etc.
 								System.out.println("Stats");
