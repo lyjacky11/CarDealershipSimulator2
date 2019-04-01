@@ -133,17 +133,23 @@ public class CarDealership {
 	public void returnCar(int transaction) {
 		Transaction trans = accSystem.getTransaction(transaction);
 		if (trans != null) {
-			String transType = "RETURN";
-			Calendar transDate = trans.getTransDate();
-			int transMonth = transDate.get(Calendar.MONTH);
-			int transDay = transDate.get(Calendar.DAY_OF_MONTH);
-			int transYear = transDate.get(Calendar.YEAR);
-			int returnDay = (int) (Math.random() * (29 - transDay + 1)) + transDay;
-			Calendar returnDate = new GregorianCalendar(transYear, transMonth, returnDay);
-			accSystem.add(returnDate, trans.getCar(), trans.getSalesPerson(), transType, trans.getSalePrice());
-			cars.add(trans.getCar());
+			if (trans.getTransType().equals("BUY")) {
+				String transType = "RET";
+				Calendar transDate = trans.getTransDate();
+				int transMonth = transDate.get(Calendar.MONTH);
+				int transDay = transDate.get(Calendar.DAY_OF_MONTH);
+				int transYear = transDate.get(Calendar.YEAR);
+				int returnDay = (int) (Math.random() * (29 - transDay + 2)) + transDay + 1;
+				Calendar returnDate = new GregorianCalendar(transYear, transMonth, returnDay);
+				accSystem.add(returnDate, trans.getCar(), trans.getSalesPerson(), transType, trans.getSalePrice());
+				cars.add(trans.getCar());
+				lastTransID = accSystem.lastTransID;
+			}
+			else
+				throw new IllegalArgumentException("\nERROR: Return for transaction ID #" + transaction + " failed! Can't return a RET transaction type!");
 		}
-		throw new IllegalArgumentException("\nERROR: Transaction ID not found!");
+		else
+			throw new IllegalArgumentException("\nERROR: Transaction ID not found!");
 	}
 
 	// Displays the inventory of cars (prints the cars in the array list based on enabled filters)

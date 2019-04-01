@@ -31,7 +31,7 @@ public class AccountingSystem {
         // int month = date.get(Calendar.MONTH);
         // int day = date.get(Calendar.DAY_OF_MONTH);
         // GregorianCalendar gCalendar = new GregorianCalendar(year, month, day);
-        if (type.equals("BUY"))
+        //if (type.equals("BUY"))
             lastTransID = id;
         Transaction trans = new Transaction(id, (GregorianCalendar) date, car, salesPerson, type, salePrice);
         transList.add(trans);
@@ -47,10 +47,60 @@ public class AccountingSystem {
         return null;
     }
 
+    public void getAllTrans() {
+        if (transList.size() > 0) {
+            for (int i = 0; i < transList.size(); i++) {
+                System.out.println(transList.get(i).display());
+            }
+        }
+        else
+            throw new IllegalArgumentException("\nERROR: No transactions found!");
+    }
+
+    public void getMonthTrans(int month) {
+        if (month >= 0 && month < 12) {
+            if (transList.size() > 0) {
+                for (int i = 0; i < transList.size(); i++) {
+                    Transaction currentTrans = transList.get(i);
+                    GregorianCalendar transDate = currentTrans.getTransDate();
+                    int transMonth = transDate.get(Calendar.MONTH);
+                    if (transMonth == month) {
+                        System.out.println(transList.get(i).display());
+                    }
+                }
+            }
+            else
+                throw new IllegalArgumentException("\nERROR: No transactions found!");
+        }
+        else
+            throw new IllegalArgumentException("\nERROR: Invalid month! Please try again!");
+    }
+
     /**
      * @return the transList
      */
     public ArrayList<Transaction> getTransList() {
         return transList;
+    }
+
+    /**
+     * @param transList the transList to set
+     */
+    public void setTransList(ArrayList<Transaction> transList) {
+        this.transList = transList;
+    }
+
+    /**
+     * @return the lastTransID
+     */
+    public int getLastTransID() {
+        return lastTransID;
+    }
+
+    /**
+     * @param lastTransID the lastTransID to set
+     */
+    public void setLastTransID(int lastTransID) {
+        this.lastTransID = lastTransID;
     }
 }

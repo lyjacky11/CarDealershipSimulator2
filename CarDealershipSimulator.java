@@ -124,7 +124,7 @@ public class CarDealershipSimulator
 						if (!commandLine.hasNext()) {
 							int id = newDealer.lastTransID;
 							newDealer.returnCar(id);
-							System.out.println("\nProcessed return for transaction #" + id + " successfully.");
+							System.out.println("\nProcessed return for transaction ID #" + id + " successfully.");
 							break;
 						}
 						/*
@@ -308,25 +308,20 @@ public class CarDealershipSimulator
 					 */
 					case "SALES":
 						if (!commandLine.hasNext()) {
-							// TO DO - print all transactions for the year
-							ArrayList<Transaction> trans = newDealer.getAccSystem().getTransList();
-							System.out.println("\nAll transactions for 2019: ");
-							addHeader(transHeader);
-							for (int i = 0; i < trans.size(); i++) {
-								System.out.println(trans.get(i).display());
+							if (newDealer.getAccSystem().getTransList().size() > 0) {
+								System.out.println("\nAll transactions for 2019:");
+								addHeader(transHeader);
 							}
-
+							newDealer.getAccSystem().getAllTrans();
 						}
 						else if (commandLine.hasNextInt()) {
 							int month = commandLine.nextInt();
-							// TO DO - print all transactions for the month
-							if (month > -1 && month < 12) {
-								System.out.println(month);
+							String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+							if (newDealer.getAccSystem().getTransList().size() > 0) {
+								System.out.println("\nAll transactions for " + monthNames[month] + ":");
+								addHeader(transHeader);
 							}
-							else {
-								commandLine.close();
-								throw new IllegalArgumentException("\nERROR: Invalid month! Please try again!");
-							}
+							newDealer.getAccSystem().getMonthTrans(month);
 						}
 						else {
 							String arg = commandLine.next();

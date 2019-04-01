@@ -19,25 +19,6 @@ public class Transaction {
     private String salesPerson, transType;
     private double salePrice;
 
-	public int getTransID() {
-		return this.transID;
-	}
-
-	public GregorianCalendar getTransDate() {
-		return this.transDate;
-	}
-
-	public Car getCar() {
-		return this.car;
-	}
-
-	public String getSalesPerson() {
-		return this.salesPerson;
-	}
-
-	public double getSalePrice() {
-		return this.salePrice;
-	}
 
     /**
      * Default constructor for class Transaction
@@ -49,6 +30,91 @@ public class Transaction {
      * @param transType
      * @param salePrice
      */
+     
+    /**
+     * @param transID the transID to set
+     */
+    public void setTransID(int transID) {
+        this.transID = transID;
+    }
+
+    /**
+     * @param transDate the transDate to set
+     */
+    public void setTransDate(GregorianCalendar transDate) {
+        this.transDate = transDate;
+    }
+
+    /**
+     * @param car the car to set
+     */
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    /**
+     * @param salesPerson the salesPerson to set
+     */
+    public void setSalesPerson(String salesPerson) {
+        this.salesPerson = salesPerson;
+    }
+
+    /**
+     * @return the transType
+     */
+    public String getTransType() {
+        return transType;
+    }
+
+    /**
+     * @param transType the transType to set
+     */
+    public void setTransType(String transType) {
+        this.transType = transType;
+    }
+
+    /**
+     * @param salePrice the salePrice to set
+     */
+    public void setSalePrice(double salePrice) {
+        this.salePrice = salePrice;
+    }
+
+    /**
+     * @return the transID
+     */
+    public int getTransID() {
+        return transID;
+    }
+
+    /**
+     * @return the transDate
+     */
+    public GregorianCalendar getTransDate() {
+        return transDate;
+    }
+
+    /**
+     * @return the car
+     */
+    public Car getCar() {
+        return car;
+    }
+
+    /**
+     * @return the salesPerson
+     */
+    public String getSalesPerson() {
+        return salesPerson;
+    }
+
+    /**
+     * @return the salePrice
+     */
+    public double getSalePrice() {
+        return salePrice;
+    }
+
     public Transaction (int transID, GregorianCalendar transDate, Car car, String salesPerson, String transType, double salePrice) {
         this.transID = transID;
         this.transDate = transDate;
