@@ -32,6 +32,7 @@ public class CarDealershipSimulator
 	SalesTeam salesTeam = new SalesTeam();
 	final String header = String.format("%-3s %-4s %-11s %-6s %-8s %-5s %-8s %-10s %-5s %-3s %-7s", "#", "VIN", "Brand", "Color", "Model", "MaxR", "SafetyR", "Price ($)", "AWD?", "RT", "Battery");
 	final String transHeader = String.format("%-8s %-5s %-7s %-13s %-13s %s", "TransID", "Type", "VIN #", "Salesperson", "Price ($)", "Date");
+	final String salesHeader = String.format("%-15s %15s", "Salesperson", "# of Cars Sold");
 	final String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 	String filename = "cars.txt", line = "", command = "";
 	/*
@@ -62,6 +63,7 @@ public class CarDealershipSimulator
 					case "L":
 						if (!commandLine.hasNext()) {
 							if (!newDealer.isEmpty) {
+								System.out.println("\nDEALERSHIP INVENTORY LIST:");
 								addHeader(header);
 								newDealer.displayInventory();
 								System.out.println("\nInventory loaded successfully.");
@@ -340,7 +342,8 @@ public class CarDealershipSimulator
 							else if (arg.equals("TOPSP")) {
 								// TO DO - print sales person who sold most number of cars
 								System.out.println("\nTop Sales Person(s):");
-								newDealer.getAccSystem().getTopSP();
+								addHeader(salesHeader);
+								System.out.println(newDealer.getAccSystem().getTopSP());
 							}
 							/*
 							 * Prints the stats of the sales team
@@ -425,7 +428,7 @@ public class CarDealershipSimulator
 	private static void addHeader(String header) {
 	System.out.println();
 	System.out.println(header);
-	for (int i = 0; i < header.length() + 15; i++) {
+	for (int i = 0; i < header.length() + 14; i++) {
 		System.out.print("-");
 	}
 	System.out.println();

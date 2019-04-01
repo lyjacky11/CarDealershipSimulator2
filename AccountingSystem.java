@@ -133,31 +133,33 @@ public class AccountingSystem {
             throw new IllegalArgumentException("\nERROR: No transactions found!");
     }
 
-    public void getTopSP() {
+    public String getTopSP() {
         ArrayList<Integer> numSales = new ArrayList<Integer>();
         for (int i = 0; i < salesTeam.getSalesTeam().size(); i++) {
             int counter = 0;
             for (int j = 0; j < transList.size(); j++) {
-                String transSP = transList.get(j).getSalesPerson();
-                if (transSP.equals(salesTeam.getSalesTeam().get(i)))
+                Transaction trans = transList.get(j);
+                if (trans.getSalesPerson().equals(salesTeam.getSalesTeam().get(i)) && trans.getTransType().equals("BUY"))
                     counter++;
             }
             numSales.add(counter);
         }
         int maxVal = Collections.max(numSales);
+        String result = "";
         if (Collections.frequency(numSales, maxVal) > 1) {
             for (int i = 0; i < numSales.size(); i++) {
                 if (numSales.get(i) == maxVal) {
-                    System.out.println("Name: " + salesTeam.getSalesTeam().get(i));
-                    System.out.println("Number of cars sold: " + maxVal);
+                    String name = salesTeam.getSalesTeam().get(i);
+                    result += String.format("%-15s %15d\n", name, maxVal);
                 }
             }
         }
         else {
             int maxIndex = numSales.indexOf(maxVal);
-            System.out.println("Name: " + salesTeam.getSalesTeam().get(maxIndex));
-            System.out.println("Number of cars sold: " + maxVal);
+            String name = salesTeam.getSalesTeam().get(maxIndex);
+            result += String.format("%-15s %d\n", name, maxVal);
         }
+        return result;
     }
 
     /**
