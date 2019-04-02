@@ -323,7 +323,7 @@ public class CarDealershipSimulator
 						else if (commandLine.hasNextInt()) {
 							int month = commandLine.nextInt();
 							if (newDealer.getAccSystem().getTransList().size() > 0) {
-								System.out.println("\nALL TRANSACTIONS FOR " + monthNames[month] + ":");
+								System.out.println("\nTRANSACTIONS FOR: " + monthNames[month]);
 								addHeader(transHeader);
 							}
 							newDealer.getAccSystem().getMonthTrans(month);
@@ -441,10 +441,11 @@ public class CarDealershipSimulator
 	private static void commandsMenu() {
 		System.out.println();
 		System.out.println("COMMANDS MENU");
-		System.out.printf("%7s  |  %-37s %-33s %-30s %s\n", "General", "ADD - Add Cars To Inventory", "L - Load Inventory", "Q - Quit Program", "HELP - Display Commands Menu");
-		System.out.printf("%7s  |  %-37s %s\n", "Actions", "BUY [VIN] - Buy Car by VIN #", "RET - Return Car");
-		System.out.printf("%7s  |  %-37s %-33s %s\n", "Sort", "SPR - Sort By Price", "SSR - Sort By Safety Rating", "SMR - Sort By Max Range");
-		System.out.printf("%7s  |  %-37s %-33s %-30s %s\n", "Filter", "FPR [min] [max] - Filter By Price", "FEL - Filter By Electric", "FAW - Filter By AWD", "FCL - Clear Filters");
+		System.out.printf("%7s  |  %-45s %-55s %-45s %s\n", "General", "ADD - Add Cars To Inventory", "L - Load Inventory", "Q - Quit Program", "HELP - Display Commands Menu");
+		System.out.printf("%7s  |  %-45s %s\n", "Actions", "BUY [VIN] - Buy Car by VIN #", "RET - Return Car");
+		System.out.printf("%7s  |  %-45s %-55s %s\n", "Sort", "SPR - Sort By Price", "SSR - Sort By Safety Rating", "SMR - Sort By Max Range");
+		System.out.printf("%7s  |  %-45s %-55s %-45s %s\n", "Filter", "FPR [min] [max] - Filter By Price", "FEL - Filter By Electric", "FAW - Filter By AWD", "FCL - Clear Filters");
+		System.out.printf("%7s  |  %-45s %-55s %s\n            %-45s %s\n", "Sales", "SALES - All transactions for year", "SALES [m] - All transactions for month 'm' (0-11)", "SALES TEAM - List of salesperson names", "SALES TOPSP - Top salesperson of the year", "SALES STATS - Sales Statistics");
 	}
 
 	/**
