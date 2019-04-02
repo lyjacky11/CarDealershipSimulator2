@@ -117,7 +117,7 @@ public class CarDealership {
 				int transMonth = transDate.get(Calendar.MONTH);
 				int transDay = transDate.get(Calendar.DAY_OF_MONTH);
 				int transYear = transDate.get(Calendar.YEAR);
-				int returnDay = (int) (Math.random() * (29 - transDay + 2)) + transDay + 1;
+				int returnDay = (int) (Math.random() * (30 - transDay)) + transDay;
 				Calendar returnDate = new GregorianCalendar(transYear, transMonth, returnDay);
 				SimpleDateFormat df = new SimpleDateFormat("EEE, MMM dd, YYYY");
 				accSystem.add(returnDate, trans.getCar(), trans.getSalesPerson(), transType, -1 * trans.getSalePrice());
@@ -127,7 +127,7 @@ public class CarDealership {
 				System.out.println("Processed return for transaction ID #" + transaction + " successfully.");
 			}
 			else
-				throw new IllegalArgumentException("\nERROR: Return for transaction ID #" + transaction + " failed! Can't return a RET transaction type!");
+				throw new IllegalArgumentException("ERROR: Return for transaction ID #" + transaction + " failed!\nTransaction type is not 'BUY'!");
 		}
 		else
 			throw new IllegalArgumentException("\nERROR: Transaction ID not found!");

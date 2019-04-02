@@ -18,6 +18,7 @@ public class AccountingSystem {
     private ArrayList<Transaction> transList;
     private SalesTeam salesTeam;
     public int lastTransID;
+    final String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
     public AccountingSystem () {
         transList = new ArrayList<Transaction>();
@@ -115,19 +116,31 @@ public class AccountingSystem {
             throw new IllegalArgumentException("\nERROR: No transactions found!");
     }
 
-    public int getHighestMonth() {
+    public String getHighestMonth() {
         ArrayList<Integer> monthSales = new ArrayList<Integer>();
         if (transList.size() > 0) {
             for (int i = 0; i < 12; i++) {
                 int counter = 0;
                 for (int j = 0; j < transList.size(); j++) {
-                    if (transList.get(j).getTransDate().get(Calendar.MONTH) == i)
+                    if (transList.get(j).getTransDate().get(Calendar.MONTH) == i && transList.get(j).getTransType() == "BUY")
                         counter++;
                 }
                 monthSales.add(counter);
             }
             int maxVal = Collections.max(monthSales);
-            return monthSales.indexOf(maxVal);
+            String result = "";
+            if (Collections.frequency(monthSales, maxVal) > 1) {
+                for (int i = 0; i < monthSales.size(); i++) {
+                    if (monthSales.get(i) == maxVal) {
+                        result += monthNames[i] + " ";
+                    }
+                }
+            }
+            else {
+                int maxIndex = monthSales.indexOf(maxVal);
+                result = monthNames[maxIndex];
+            }
+            return result;
         }
         else
             throw new IllegalArgumentException("\nERROR: No transactions found!");
@@ -157,7 +170,7 @@ public class AccountingSystem {
         else {
             int maxIndex = numSales.indexOf(maxVal);
             String name = salesTeam.getSalesTeam().get(maxIndex);
-            result += String.format("%-15s %d\n", name, maxVal);
+            result = String.format("%-15s %d\n", name, maxVal);
         }
         return result;
     }

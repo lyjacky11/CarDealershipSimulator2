@@ -343,7 +343,7 @@ public class CarDealershipSimulator
 							 */
 							else if (arg.equals("TOPSP")) {
 								// TO DO - print sales person who sold most number of cars
-								System.out.println("\nTop Sales Person(s):");
+								System.out.println("\nTOP SALES PERSON(S):");
 								addHeader(salesHeader);
 								System.out.println(newDealer.getAccSystem().getTopSP());
 							}
@@ -357,8 +357,7 @@ public class CarDealershipSimulator
 								System.out.printf("Average Sales Per Month: $%.2f\n", newDealer.getAccSystem().getAvgSales());
 								System.out.printf("Total Cars Sold (incl. returns): %d\n", newDealer.getAccSystem().getTotalSold());
 								System.out.printf("Total Car Returns: %d\n", newDealer.getAccSystem().getTotalReturns());
-								System.out.printf("Highest Sales Month: %s\n", monthNames[newDealer.getAccSystem().getHighestMonth()]);
-
+								System.out.printf("Highest Sales Month(s): %s\n", newDealer.getAccSystem().getHighestMonth());
 							}
 							else {
 								/*
