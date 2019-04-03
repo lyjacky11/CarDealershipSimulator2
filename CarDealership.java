@@ -97,7 +97,7 @@ public class CarDealership {
 				int day = (int) (Math.random() * 31);
 				Calendar date = new GregorianCalendar(year, month, day);
 				String trans = accSystem.add(date, currentCar, salesPerson, transType, currentCar.getPrice());
-				lastTransID = accSystem.lastTransID;
+				lastTransID = accSystem.getLastTransID();
 				return trans;
 			}
 		}
@@ -122,7 +122,7 @@ public class CarDealership {
 				SimpleDateFormat df = new SimpleDateFormat("EEE, MMM dd, YYYY");
 				accSystem.add(returnDate, trans.getCar(), trans.getSalesPerson(), transType, -1 * trans.getSalePrice());
 				cars.add(trans.getCar());
-				lastTransID = accSystem.lastTransID;
+				lastTransID = accSystem.getLastTransID();
 				System.out.println("Return Date: " + df.format(returnDate.getTime()));
 				System.out.println("Processed return for transaction ID #" + transaction + " successfully.");
 			}
@@ -255,6 +255,7 @@ public class CarDealership {
 	}
 
 	/**
+	 * Gets the list of car objects
 	 * @return the cars
 	 */
 	public ArrayList<Car> getCars() {
@@ -262,13 +263,7 @@ public class CarDealership {
 	}
 
 	/**
-	 * @param cars the cars to set
-	 */
-	public void setCars(ArrayList<Car> cars) {
-		this.cars = cars;
-	}
-
-	/**
+	 * Gets the accounting system object
 	 * @return the accSystem
 	 */
 	public AccountingSystem getAccSystem() {
@@ -276,23 +271,10 @@ public class CarDealership {
 	}
 
 	/**
-	 * @param accSystem the accSystem to set
-	 */
-	public void setAccSystem(AccountingSystem accSystem) {
-		this.accSystem = accSystem;
-	}
-
-	/**
+	 * Gets the sales team object
 	 * @return the salesTeam
 	 */
 	public SalesTeam getSalesTeam() {
 		return salesTeam;
-	}
-
-	/**
-	 * @param salesTeam the salesTeam to set
-	 */
-	public void setSalesTeam(SalesTeam salesTeam) {
-		this.salesTeam = salesTeam;
 	}
 }

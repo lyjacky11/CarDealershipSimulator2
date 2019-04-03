@@ -28,7 +28,7 @@ public class CarDealershipSimulator
 			System.out.print("-");
 		}
 		System.out.println();
-		}
+	}
 	
 	/*
 	 * Displays the commands list
@@ -52,7 +52,7 @@ public class CarDealershipSimulator
 	public static void main(String[] args) throws IOException
 	{
 	/*
-	 * Initialize objects and variables
+	 * Initialize class objects and variables
 	 */
 	CarDealership newDealer = new CarDealership();
 	ArrayList<Car> cars = new ArrayList<Car>();
@@ -69,8 +69,7 @@ public class CarDealershipSimulator
 		Scanner input = new Scanner(System.in);
 		System.out.println("\nWelcome to Car Dealership Simulator 2!");
 		commandsMenu();
-		System.out.println();
-		System.out.println("Run the 'ADD' command to get started!");
+		System.out.println("\nRun the 'ADD' command to get started!");
 		System.out.print("Enter a command (HELP for commands menu): ");
 		/*
 		 * When there is another command entered, process the command
@@ -81,16 +80,30 @@ public class CarDealershipSimulator
 				Scanner commandLine = new Scanner(line);
 				command = commandLine.next();
 				/*
-				 * Checks if the input is equal to one of the commands and call the appropriate method(s)
+				 * If the input is equal to one of the commands, call the appropriate method(s)
 				 */
 				switch (command) {
+					/**
+					 * Adds cars to the dealership inventory
+					 */ 
+					case "ADD":
+						if (!commandLine.hasNext()) {
+							newDealer.addCars(cars);
+							System.out.println("\nAdded cars to dealership inventory.");
+							break;
+						}
+						/*
+						 * Any command with other arguments will throw an exception
+						 */ 
+						commandLine.close();
+						throw new NoSuchElementException();
 					/*
 					 * Displays the car inventory in the console
 					 */
 					case "L":
 						if (!commandLine.hasNext()) {
 							if (!newDealer.isEmpty) {
-								System.out.println("\nDEALERSHIP INVENTORY LIST:");
+								System.out.println("\nDEALERSHIP INVENTORY:");
 								addHeader(carHeader);
 								newDealer.displayInventory();
 								System.out.println("\nInventory loaded successfully.");
@@ -104,20 +117,6 @@ public class CarDealershipSimulator
 						/*
 						 * Any command with other arguments will throw an exception
 						 */ 
-						commandLine.close();
-						throw new NoSuchElementException();
-					/*
-					 * Terminates the program
-					 */ 
-					case "Q":
-						if (!commandLine.hasNext()) {
-							commandLine.close();
-							System.out.println("\nThank you for using Car Dealership Simulator! Have a great day!");
-							return;
-						}
-						/*
-						 * Any command with other arguments will throw an exception
-						 */
 						commandLine.close();
 						throw new NoSuchElementException();
 					/*
@@ -144,7 +143,7 @@ public class CarDealershipSimulator
 							System.out.println("\nERROR: Invalid VIN # or not specified!");
 						break;
 					/**
-					 * Returns the last transaction
+					 * Returns the last 'BUY' transaction
 					 */ 
 					case "RET":
 						if (!commandLine.hasNext()) {
@@ -152,20 +151,6 @@ public class CarDealershipSimulator
 							System.out.println("\nTRANSACTION INFO:");
 							System.out.println("-----------------------------------------------------");
 							newDealer.returnCar(id);
-							break;
-						}
-						/*
-						 * Any command with other arguments will throw an exception
-						 */ 
-						commandLine.close();
-						throw new NoSuchElementException();
-					/**
-					 * Adds cars to the dealership inventory
-					 */ 
-					case "ADD":
-						if (!commandLine.hasNext()) {
-							newDealer.addCars(cars);
-							System.out.println("\nAdded cars to dealership inventory.");
 							break;
 						}
 						/*
@@ -417,6 +402,20 @@ public class CarDealershipSimulator
 						/*
 						 * Any command with other arguments will throw an exception
 						 */ 
+						commandLine.close();
+						throw new NoSuchElementException();
+					/*
+					 * Terminates the program
+					 */ 
+					case "Q":
+						if (!commandLine.hasNext()) {
+							commandLine.close();
+							System.out.println("\nThank you for using Car Dealership Simulator! Have a great day!");
+							return;
+						}
+						/*
+						 * Any command with other arguments will throw an exception
+						 */
 						commandLine.close();
 						throw new NoSuchElementException();
 					/*

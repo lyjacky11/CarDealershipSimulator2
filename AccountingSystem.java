@@ -15,11 +15,11 @@ import java.util.GregorianCalendar;
 public class AccountingSystem {
 
     /*
-     * Initialize instance variables
+     * Initialize instance variables and constants
      */
     private ArrayList<Transaction> transList;
     private SalesTeam salesTeam;
-    public int lastTransID;
+    private int lastTransID;
     public final String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     
     /*
@@ -38,7 +38,7 @@ public class AccountingSystem {
      * @param salesPerson
      * @param type
      * @param salePrice
-     * @return
+     * @return the transaction details
      */
     public String add(Calendar date, Car car, String salesPerson, String type, double salePrice) {
         int id = (int) (Math.random() * 999) + 1;
@@ -227,7 +227,7 @@ public class AccountingSystem {
     }
 
     /**
-     * Gets the latest transaction ID
+     * Gets the last transaction's ID
      * @return the lastTransID
      */
     public int getLastTransID() {
