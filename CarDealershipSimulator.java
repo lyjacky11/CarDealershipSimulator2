@@ -107,12 +107,10 @@ public class CarDealershipSimulator
 								addHeader(carHeader);
 								newDealer.displayInventory();
 								System.out.println("\nInventory loaded successfully.");
+								break;
 							}
-							else {
-								commandLine.close();
-								throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
-							}
-							break;
+							commandLine.close();
+							throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
 						}
 						/*
 						 * Any command with other arguments will throw an exception
@@ -139,9 +137,8 @@ public class CarDealershipSimulator
 							commandLine.close();
 							throw new NoSuchElementException();
 						}
-						else
-							System.out.println("\nERROR: Invalid VIN # or not specified!");
-						break;
+						commandLine.close();
+						throw new IllegalArgumentException("\nERROR: Invalid VIN # or not specified!");
 					/**
 					 * Returns the last 'BUY' transaction
 					 */ 
@@ -166,12 +163,10 @@ public class CarDealershipSimulator
 							if (!newDealer.isEmpty) {
 								newDealer.sortByPrice();
 								System.out.println("\nInventory sorted by price.");
+								break;
 							}
-							else {
-								commandLine.close();
-								throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
-							}
-							break;
+							commandLine.close();
+							throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
 						}
 						/*
 						 * Any command with other arguments will throw an exception
@@ -186,12 +181,10 @@ public class CarDealershipSimulator
 							if (!newDealer.isEmpty) {
 								newDealer.sortBySafetyRating();
 								System.out.println("\nInventory sorted by safety rating.");
+								break;
 							}
-							else {
-								commandLine.close();
-								throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
-							}
-							break;
+							commandLine.close();
+							throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
 						}
 						/*
 						 * Any command with other arguments will throw an exception
@@ -206,12 +199,10 @@ public class CarDealershipSimulator
 							if (!newDealer.isEmpty) {
 								newDealer.sortByMaxRange();
 								System.out.println("\nInventory sorted by max range.");
+								break;
 							}
-							else {
-								commandLine.close();
-								throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
-							}
-							break;
+							commandLine.close();
+							throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
 						}
 						/*
 						 * Any command with other arguments will throw an exception
@@ -230,12 +221,10 @@ public class CarDealershipSimulator
 									if (!newDealer.isEmpty) {
 										newDealer.filterByPrice(minPrice, maxPrice);
 										System.out.println("\nInventory filtered by price between $" + minPrice + " and $" + maxPrice + ".");
+										break;
 									}
-									else {
-										commandLine.close();
-										throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
-									}
-									break;
+									commandLine.close();
+									throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
 								}
 								/*
 						 		* Any command with other arguments will throw an exception
@@ -246,15 +235,14 @@ public class CarDealershipSimulator
 							/*
 							 * If second argument is invalid or missing
 							 */ 
-							else
-								System.out.println("\nERROR: Invalid max price or not specified!");
+							commandLine.close();
+							throw new IllegalArgumentException("\nERROR: Invalid max price or not specified!");
 						}
 						/*
 						 * If first argument is invalid or missing
 						 */ 
-						else
-							System.out.println("\nERROR: Invalid price range or not specified!");
-						break;
+						commandLine.close();
+						throw new IllegalArgumentException("\nERROR: Invalid price range or not specified!");
 					/*
 					 * Filters the list by electric cars (only shows cars that are electric)
 					 */ 
@@ -263,12 +251,10 @@ public class CarDealershipSimulator
 							if (!newDealer.isEmpty) {
 								newDealer.filterByElectric();
 								System.out.println("\nInventory filtered by electric cars.");
+								break;
 							}
-							else {
-								commandLine.close();
-								throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
-							}
-							break;
+							commandLine.close();
+							throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
 						}
 						/*
 						 * Any command with other arguments will throw an exception
@@ -283,12 +269,10 @@ public class CarDealershipSimulator
 							if (!newDealer.isEmpty) {
 								newDealer.filterByAWD();
 								System.out.println("\nInventory filtered by AWD cars.");
+								break;
 							}
-							else {
-								commandLine.close();
-								throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
-							}
-							break;
+							commandLine.close();
+							throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
 						}
 						/*
 						 * Any command with other arguments will throw an exception
@@ -303,12 +287,10 @@ public class CarDealershipSimulator
 							if (!newDealer.isEmpty) {
 								newDealer.FiltersClear();
 								System.out.println("\nFilters cleared successfully.");
+								break;
 							}
-							else {
-								commandLine.close();
-								throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
-							}
-							break;
+							commandLine.close();
+							throw new IllegalArgumentException("\nERROR: Car inventory is empty!");
 						}
 						/*
 						 * Any command with other arguments will throw an exception
@@ -346,14 +328,13 @@ public class CarDealershipSimulator
 									}
 								}
 								newDealer.getAccSystem().getMonthTrans(month);
+								break;
 							}
-							else {
-								/*
-						 		 * Any command with other arguments will throw an exception
-						 		 */
-								commandLine.close();
-								throw new NoSuchElementException();
-							}
+							/*
+							 * Any command with other arguments will throw an exception
+							 */
+							commandLine.close();
+							throw new NoSuchElementException();
 						}
 						else {
 							String arg = commandLine.next();
@@ -365,31 +346,31 @@ public class CarDealershipSimulator
 									System.out.println("\nSALES TEAM:");
 									System.out.println("--------------------------------------------------------------");
 									System.out.println(salesTeam.getAllSP());
+									break;
 								}
-								else {
-									/*
-						 		 	 * Any command with other arguments will throw an exception
-						 		 	 */
-									commandLine.close();
-									throw new NoSuchElementException();
-								}
+								/*
+								 * Any command with other arguments will throw an exception
+								 */
+								commandLine.close();
+								throw new NoSuchElementException();
 							}
 							/*
 							 * Prints the sales person who sold the most cars of the year
 							 */
 							else if (arg.equals("TOPSP")) {
 								if (!commandLine.hasNext()) {
-									System.out.println("\nTOP SALES PERSON(S):");
-									addHeader(salesHeader);
+									if (newDealer.getAccSystem().getTransList().size() > 0) {
+										System.out.println("\nTOP SALES PERSON(S):");
+										addHeader(salesHeader);
+									}
 									System.out.println(newDealer.getAccSystem().getTopSP());
+									break;
 								}
-								else {
-									/*
-						 		 	 * Any command with other arguments will throw an exception
-						 		 	 */
-									commandLine.close();
-									throw new NoSuchElementException();
-								}
+								/*
+								 * Any command with other arguments will throw an exception
+								 */
+								commandLine.close();
+								throw new NoSuchElementException();
 							}
 							/*
 							 * Prints the stats of the sales team
@@ -403,24 +384,20 @@ public class CarDealershipSimulator
 									System.out.printf("Total Cars Sold: %d\n", newDealer.getAccSystem().getTotalSold());
 									System.out.printf("Total Car Returns: %d\n", newDealer.getAccSystem().getTotalReturns());
 									System.out.printf("\nHighest Sales Month(s):\n%s", newDealer.getAccSystem().getHighestMonth());
+									break;
 								}
-								else {
-									/*
-						 		 	 * Any command with other arguments will throw an exception
-						 		 	 */
-									commandLine.close();
-									throw new NoSuchElementException();
-								}
-							}
-							else {
 								/*
-						 		 * Any command with other arguments will throw an exception
-						 		 */
+								 * Any command with other arguments will throw an exception
+								 */
 								commandLine.close();
 								throw new NoSuchElementException();
 							}
+							/*
+							 * Any command with other arguments will throw an exception
+							 */
+							commandLine.close();
+							throw new NoSuchElementException();
 						}
-						break;
 					/*
 					 * Displays the commands list in the console
 					 */
