@@ -6,21 +6,22 @@
 
 public class Car extends Vehicle implements Comparable<Car> {
 	
-	// Instance variables
+	/*
+     * Initialize instance variables and constants
+     */
 	private int model;
 	private int maxRange;
 	private double safetyRating, price;
 	private boolean AWD;
 	private String modelString;
-
-	// Constant variables
 	public static final int SEDAN = 0;
 	public static final int SUV = 1;
 	public static final int SPORTS = 2;
 	public static final int MINIVAN = 3;
 
 	/**
-	 * Default constructor for class Car
+	 * Default constructor for the class
+	 * 
 	 * @param mfr
 	 * @param color
 	 * @param power

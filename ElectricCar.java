@@ -6,12 +6,15 @@
 
 public class ElectricCar extends Car {
 	
-	// Instance variables
+	/*
+     * Initialize instance variables
+     */
 	private int rechargeTime;
 	private String batteryType;
 
 	/**
-	 * Default constructor for class ElectricCar
+	 * Default constructor for the class
+	 * 
 	 * @param mfr
 	 * @param color
 	 * @param power

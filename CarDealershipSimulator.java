@@ -30,7 +30,7 @@ public class CarDealershipSimulator
 	CarDealership newDealer = new CarDealership();
 	ArrayList<Car> cars = new ArrayList<Car>();
 	SalesTeam salesTeam = new SalesTeam();
-	final String header = String.format("%-3s %-4s %-11s %-6s %-8s %-5s %-8s %-10s %-5s %-3s %-7s", "#", "VIN", "Brand", "Color", "Model", "MaxR", "SafetyR", "Price ($)", "AWD?", "RT", "Battery");
+	final String carHeader = String.format("%-3s %-4s %-11s %-6s %-8s %-5s %-8s %-10s %-5s %-3s %-7s", "#", "VIN", "Brand", "Color", "Model", "MaxR", "SafetyR", "Price ($)", "AWD?", "RT", "Battery");
 	final String transHeader = String.format("%-8s %-5s %-7s %-13s %-13s %s", "TransID", "Type", "VIN #", "Salesperson", "Price ($)", "Date");
 	final String salesHeader = String.format("%-15s %15s", "Salesperson", "# of Cars Sold");
 	final String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -64,7 +64,7 @@ public class CarDealershipSimulator
 						if (!commandLine.hasNext()) {
 							if (!newDealer.isEmpty) {
 								System.out.println("\nDEALERSHIP INVENTORY LIST:");
-								addHeader(header);
+								addHeader(carHeader);
 								newDealer.displayInventory();
 								System.out.println("\nInventory loaded successfully.");
 							}
@@ -433,7 +433,7 @@ public class CarDealershipSimulator
 		}
 	}
 	/**
-	 * Prints header string to be used with displayInventory()
+	 * Displays the header given the string and format
 	 * 
 	 * @param header
 	 */
@@ -447,7 +447,7 @@ public class CarDealershipSimulator
 	}
 
 	/*
-	 * Displays the commands menu
+	 * Displays the commands list
 	 */
 	private static void commandsMenu() {
 		System.out.println();

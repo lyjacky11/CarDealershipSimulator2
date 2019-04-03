@@ -6,11 +6,11 @@
 
 public class Vehicle {
 
-	// Instance variables
+	/*
+     * Initialize instance variables and constants
+     */
 	private String mfr, color, powerString;
 	private int power, numWheels, VIN;
-
-	// Constant variables
 	public static final int ELECTRIC_MOTOR = 0;
 	public static final int GAS_ENGINE = 1;
 
