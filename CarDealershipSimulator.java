@@ -357,7 +357,7 @@ public class CarDealershipSimulator
 								System.out.printf("Average Sales Per Month: $%.2f\n", newDealer.getAccSystem().getAvgSales());
 								System.out.printf("Total Cars Sold (incl. returns): %d\n", newDealer.getAccSystem().getTotalSold());
 								System.out.printf("Total Car Returns: %d\n", newDealer.getAccSystem().getTotalReturns());
-								System.out.printf("Highest Sales Month(s): %s\n", newDealer.getAccSystem().getHighestMonth());
+								System.out.printf("\nHighest Sales Month(s):\n%s", newDealer.getAccSystem().getHighestMonth());
 							}
 							else {
 								/*
@@ -441,11 +441,11 @@ public class CarDealershipSimulator
 	private static void commandsMenu() {
 		System.out.println();
 		System.out.println("COMMANDS MENU");
-		System.out.printf("%7s  |  %-45s %-55s %-45s %s\n", "General", "ADD - Add Cars To Inventory", "L - Load Inventory", "Q - Quit Program", "HELP - Display Commands Menu");
-		System.out.printf("%7s  |  %-45s %s\n", "Actions", "BUY [VIN] - Buy Car by VIN #", "RET - Return Car");
-		System.out.printf("%7s  |  %-45s %-55s %s\n", "Sort", "SPR - Sort By Price", "SSR - Sort By Safety Rating", "SMR - Sort By Max Range");
-		System.out.printf("%7s  |  %-45s %-55s %-45s %s\n", "Filter", "FPR [min] [max] - Filter By Price", "FEL - Filter By Electric", "FAW - Filter By AWD", "FCL - Clear Filters");
-		System.out.printf("%7s  |  %-45s %-55s %s\n            %-45s %s\n", "Sales", "SALES - All transactions for year", "SALES [m] - All transactions for month 'm' (0-11)", "SALES TEAM - List of salesperson names", "SALES TOPSP - Top salesperson of the year", "SALES STATS - Sales Statistics");
+		System.out.printf("%7s  |  %-40s %-50s %-40s %s\n", "General", "ADD - Add Cars To Inventory", "L - Load Inventory", "Q - Quit Program", "HELP - Display Commands Menu");
+		System.out.printf("%7s  |  %-40s %s\n", "Actions", "BUY [VIN] - Buy Car By VIN #", "RET - Return Last Transaction");
+		System.out.printf("%7s  |  %-40s %-50s %s\n", "Sort", "SPR - Sort By Price", "SSR - Sort By Safety Rating", "SMR - Sort By Max Range");
+		System.out.printf("%7s  |  %-40s %-50s %-40s %s\n", "Filter", "FPR [min] [max] - Filter By Price", "FEL - Filter By Electric", "FAW - Filter By AWD", "FCL - Clear Filters");
+		System.out.printf("%7s  |  %-40s %-50s %s\n            %-40s %s\n", "Sales", "SALES - All Transactions (2019)", "SALES [m] - All Transactions By Month (0-11)", "SALES TEAM - List of Salespeople", "SALES TOPSP - Top Salesperson(s)", "SALES STATS - Sales Statistics");
 	}
 
 	/**

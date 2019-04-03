@@ -26,7 +26,7 @@ public class AccountingSystem {
     }
 
     public String add(Calendar date, Car car, String salesPerson, String type, double salePrice) {
-        int id = (int) (Math.random() * 100) + 1;
+        int id = (int) (Math.random() * 999) + 1;
         //if (type.equals("BUY"))
             lastTransID = id;
         Transaction trans = new Transaction(id, (GregorianCalendar) date, car, salesPerson, type, salePrice);
@@ -132,13 +132,13 @@ public class AccountingSystem {
             if (Collections.frequency(monthSales, maxVal) > 1) {
                 for (int i = 0; i < monthSales.size(); i++) {
                     if (monthSales.get(i) == maxVal) {
-                        result += monthNames[i] + " ";
+                        result += monthNames[i] + ": " + maxVal + "\n";
                     }
                 }
             }
             else {
                 int maxIndex = monthSales.indexOf(maxVal);
-                result = monthNames[maxIndex];
+                result = monthNames[maxIndex] + ": " + maxVal + "\n";
             }
             return result;
         }
@@ -148,31 +148,35 @@ public class AccountingSystem {
 
     public String getTopSP() {
         ArrayList<Integer> numSales = new ArrayList<Integer>();
-        for (int i = 0; i < salesTeam.getSalesTeam().size(); i++) {
-            int counter = 0;
-            for (int j = 0; j < transList.size(); j++) {
-                Transaction trans = transList.get(j);
-                if (trans.getSalesPerson().equals(salesTeam.getSalesTeam().get(i)) && trans.getTransType().equals("BUY"))
-                    counter++;
+        if (transList.size() > 0) {
+            for (int i = 0; i < salesTeam.getSalesTeam().size(); i++) {
+                int counter = 0;
+                for (int j = 0; j < transList.size(); j++) {
+                    Transaction trans = transList.get(j);
+                    if (trans.getSalesPerson().equals(salesTeam.getSalesTeam().get(i)) && trans.getTransType().equals("BUY"))
+                        counter++;
+                }
+                numSales.add(counter);
             }
-            numSales.add(counter);
-        }
-        int maxVal = Collections.max(numSales);
-        String result = "";
-        if (Collections.frequency(numSales, maxVal) > 1) {
-            for (int i = 0; i < numSales.size(); i++) {
-                if (numSales.get(i) == maxVal) {
-                    String name = salesTeam.getSalesTeam().get(i);
-                    result += String.format("%-15s %15d\n", name, maxVal);
+            int maxVal = Collections.max(numSales);
+            String result = "";
+            if (Collections.frequency(numSales, maxVal) > 1) {
+                for (int i = 0; i < numSales.size(); i++) {
+                    if (numSales.get(i) == maxVal) {
+                        String name = salesTeam.getSalesTeam().get(i);
+                        result += String.format("%-15s %15d\n", name, maxVal);
+                    }
                 }
             }
+            else {
+                int maxIndex = numSales.indexOf(maxVal);
+                String name = salesTeam.getSalesTeam().get(maxIndex);
+                result = String.format("%-15s %15d\n", name, maxVal);
+            }
+            return result;
         }
-        else {
-            int maxIndex = numSales.indexOf(maxVal);
-            String name = salesTeam.getSalesTeam().get(maxIndex);
-            result = String.format("%-15s %d\n", name, maxVal);
-        }
-        return result;
+        else
+            throw new IllegalArgumentException("\nERROR: No transactions found!");
     }
 
     /**
