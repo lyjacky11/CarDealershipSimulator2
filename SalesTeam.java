@@ -4,7 +4,7 @@
  * Section: CPS209-031
  */
 
- /*
+/*
  * Import statements
  */
 import java.util.LinkedList;
