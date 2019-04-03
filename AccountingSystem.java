@@ -14,12 +14,16 @@ import java.util.GregorianCalendar;
 
 public class AccountingSystem {
 
-    // Instance variables
+    /*
+     * Initialize instance variables
+     */
     private ArrayList<Transaction> transList;
     private SalesTeam salesTeam;
     public int lastTransID;
     final String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-
+    /*
+	 * Default constructor for the class
+	 */
     public AccountingSystem () {
         transList = new ArrayList<Transaction>();
         salesTeam = new SalesTeam();
@@ -27,8 +31,7 @@ public class AccountingSystem {
 
     public String add(Calendar date, Car car, String salesPerson, String type, double salePrice) {
         int id = (int) (Math.random() * 999) + 1;
-        //if (type.equals("BUY"))
-            lastTransID = id;
+        lastTransID = id;
         Transaction trans = new Transaction(id, (GregorianCalendar) date, car, salesPerson, type, salePrice);
         transList.add(trans);
         return trans.display();
@@ -54,22 +57,17 @@ public class AccountingSystem {
     }
 
     public void getMonthTrans(int month) {
-        if (month >= 0 && month < 12) {
-            if (transList.size() > 0) {
-                for (int i = 0; i < transList.size(); i++) {
-                    Transaction currentTrans = transList.get(i);
-                    GregorianCalendar transDate = currentTrans.getTransDate();
-                    int transMonth = transDate.get(Calendar.MONTH);
-                    if (transMonth == month) {
-                        System.out.println(transList.get(i).display());
-                    }
-                }
+        if (transList.size() > 0) {
+            for (int i = 0; i < transList.size(); i++) {
+                Transaction currentTrans = transList.get(i);
+                GregorianCalendar transDate = currentTrans.getTransDate();
+                int transMonth = transDate.get(Calendar.MONTH);
+                if (transMonth == month)
+                    System.out.println(transList.get(i).display());
             }
-            else
-                throw new IllegalArgumentException("\nERROR: No transactions found!");
         }
         else
-            throw new IllegalArgumentException("\nERROR: Invalid month! Please try again!");
+            throw new IllegalArgumentException("\nERROR: No transactions found!");
     }
 
     public double getTotalSales() {
@@ -94,8 +92,6 @@ public class AccountingSystem {
             for (int i = 0; i < transList.size(); i++) {
                 if (transList.get(i).getTransType().equals("BUY"))
                     total++;
-                // else
-                //     total--;
             }
             return total;
         }
@@ -131,9 +127,8 @@ public class AccountingSystem {
             String result = "";
             if (Collections.frequency(monthSales, maxVal) > 1) {
                 for (int i = 0; i < monthSales.size(); i++) {
-                    if (monthSales.get(i) == maxVal) {
+                    if (monthSales.get(i) == maxVal)
                         result += monthNames[i] + ": " + maxVal + "\n";
-                    }
                 }
             }
             else {

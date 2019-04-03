@@ -322,11 +322,17 @@ public class CarDealershipSimulator
 						 */
 						else if (commandLine.hasNextInt()) {
 							int month = commandLine.nextInt();
-							if (newDealer.getAccSystem().getTransList().size() > 0) {
-								System.out.println("\nTRANSACTIONS FOR: " + monthNames[month]);
-								addHeader(transHeader);
+							if (month >= 0 && month < 12) {
+								if (newDealer.getAccSystem().getTransList().size() > 0) {
+									System.out.println("\nTRANSACTIONS FOR: " + monthNames[month]);
+									addHeader(transHeader);
+								}
+								newDealer.getAccSystem().getMonthTrans(month);
 							}
-							newDealer.getAccSystem().getMonthTrans(month);
+							else {
+								commandLine.close();
+								throw new IllegalArgumentException("\nERROR: Invalid month! Please try again!");
+							}
 						}
 						else {
 							String arg = commandLine.next();
@@ -342,7 +348,6 @@ public class CarDealershipSimulator
 							 * Prints the sales person who sold the most cars of the year
 							 */
 							else if (arg.equals("TOPSP")) {
-								// TO DO - print sales person who sold most number of cars
 								System.out.println("\nTOP SALES PERSON(S):");
 								addHeader(salesHeader);
 								System.out.println(newDealer.getAccSystem().getTopSP());

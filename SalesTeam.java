@@ -10,11 +10,15 @@
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-    public class SalesTeam {
-
+public class SalesTeam {
+    /*
+     * Initialize instance variables
+     */
     private LinkedList<String> salesTeam;
     private ListIterator<String> salesIterator;
-
+    /*
+	 * Default constructor for the class
+	 */
     public SalesTeam() {
         salesTeam = new LinkedList<String>();
         salesTeam.addLast("Bob");

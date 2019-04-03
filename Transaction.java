@@ -11,14 +11,14 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 public class Transaction {
-    
-    // Instance variables
+    /*
+     * Initialize instance variables
+     */
     private int transID;
     private GregorianCalendar transDate;
     private Car car;
     private String salesPerson, transType;
     private double salePrice;
-
 
     /**
      * Default constructor for class Transaction
@@ -30,7 +30,24 @@ public class Transaction {
      * @param transType
      * @param salePrice
      */
-     
+    public Transaction (int transID, GregorianCalendar transDate, Car car, String salesPerson, String transType, double salePrice) {
+        this.transID = transID;
+        this.transDate = transDate;
+        this.car = car;
+        this.salesPerson = salesPerson;
+        this.transType = transType;
+        this.salePrice = salePrice;
+    }
+
+    /**
+     * Displays the transaction information
+     * @return transaction info in a String
+     */
+    public String display() {
+        SimpleDateFormat df = new SimpleDateFormat("EEE, MMM dd, YYYY");
+        return String.format("%-8d %-5s %-7d %-13s %-13.2f %s", transID, transType, car.getVIN(), salesPerson, salePrice, df.format(transDate.getTime()));
+    }
+
     /**
      * @param transID the transID to set
      */
@@ -113,19 +130,5 @@ public class Transaction {
      */
     public double getSalePrice() {
         return salePrice;
-    }
-
-    public Transaction (int transID, GregorianCalendar transDate, Car car, String salesPerson, String transType, double salePrice) {
-        this.transID = transID;
-        this.transDate = transDate;
-        this.car = car;
-        this.salesPerson = salesPerson;
-        this.transType = transType;
-        this.salePrice = salePrice;
-    }
-
-    public String display() {
-        SimpleDateFormat df = new SimpleDateFormat("EEE, MMM dd, YYYY");
-        return String.format("%-8d %-5s %-7d %-13s %-13.2f %s", transID, transType, car.getVIN(), salesPerson, salePrice, df.format(transDate.getTime()));
     }
 }
