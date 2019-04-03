@@ -335,19 +335,22 @@ public class CarDealershipSimulator
 						else if (commandLine.hasNextInt()) {
 							int month = commandLine.nextInt();
 							if (!commandLine.hasNext()) {
-								if (month >= 0 && month < 12) {
-									if (newDealer.getAccSystem().getTransList().size() > 0) {
-										System.out.println("\nTRANSACTIONS FOR: " + monthNames[month]);
+								if (newDealer.getAccSystem().getTransList().size() > 0) {
+									if (month >= 0 && month < 12) {
+										System.out.println("\nTRANSACTIONS for " + monthNames[month]);
 										addHeader(transHeader);
 									}
-									newDealer.getAccSystem().getMonthTrans(month);
+									else {
+										commandLine.close();
+										throw new IllegalArgumentException("\nERROR: Invalid month selection! Please enter a number from 0-11!");
+									}
 								}
-								else {
-									commandLine.close();
-									throw new IllegalArgumentException("\nERROR: Invalid month selection! Please enter a number from 0-11!");
-								}
+								newDealer.getAccSystem().getMonthTrans(month);
 							}
 							else {
+								/*
+						 		 * Any command with other arguments will throw an exception
+						 		 */
 								commandLine.close();
 								throw new NoSuchElementException();
 							}
@@ -358,29 +361,56 @@ public class CarDealershipSimulator
 							 * Prints all the salesperson names
 							 */
 							if (arg.equals("TEAM")) {
-								System.out.println("\nSALES TEAM:");
-								System.out.println("--------------------------------------------------------------");
-								System.out.println(salesTeam.getAllSP());
+								if (!commandLine.hasNext()) {
+									System.out.println("\nSALES TEAM:");
+									System.out.println("--------------------------------------------------------------");
+									System.out.println(salesTeam.getAllSP());
+								}
+								else {
+									/*
+						 		 	 * Any command with other arguments will throw an exception
+						 		 	 */
+									commandLine.close();
+									throw new NoSuchElementException();
+								}
 							}
 							/*
 							 * Prints the sales person who sold the most cars of the year
 							 */
 							else if (arg.equals("TOPSP")) {
-								System.out.println("\nTOP SALES PERSON(S):");
-								addHeader(salesHeader);
-								System.out.println(newDealer.getAccSystem().getTopSP());
+								if (!commandLine.hasNext()) {
+									System.out.println("\nTOP SALES PERSON(S):");
+									addHeader(salesHeader);
+									System.out.println(newDealer.getAccSystem().getTopSP());
+								}
+								else {
+									/*
+						 		 	 * Any command with other arguments will throw an exception
+						 		 	 */
+									commandLine.close();
+									throw new NoSuchElementException();
+								}
 							}
 							/*
 							 * Prints the stats of the sales team
 							 */
 							else if (arg.equals("STATS")) {
-								System.out.println("\nSALES STATISTICS:");
-								System.out.println("----------------------------------------");
-								System.out.printf("Total Sales: $%.2f\n", newDealer.getAccSystem().getTotalSales());
-								System.out.printf("Average Sales Per Month: $%.2f\n", newDealer.getAccSystem().getAvgSales());
-								System.out.printf("Total Cars Sold: %d\n", newDealer.getAccSystem().getTotalSold());
-								System.out.printf("Total Car Returns: %d\n", newDealer.getAccSystem().getTotalReturns());
-								System.out.printf("\nHighest Sales Month(s):\n%s", newDealer.getAccSystem().getHighestMonth());
+								if (!commandLine.hasNext()) {
+									System.out.println("\nSALES STATISTICS:");
+									System.out.println("----------------------------------------");
+									System.out.printf("Total Sales: $%.2f\n", newDealer.getAccSystem().getTotalSales());
+									System.out.printf("Average Sales Per Month: $%.2f\n", newDealer.getAccSystem().getAvgSales());
+									System.out.printf("Total Cars Sold: %d\n", newDealer.getAccSystem().getTotalSold());
+									System.out.printf("Total Car Returns: %d\n", newDealer.getAccSystem().getTotalReturns());
+									System.out.printf("\nHighest Sales Month(s):\n%s", newDealer.getAccSystem().getHighestMonth());
+								}
+								else {
+									/*
+						 		 	 * Any command with other arguments will throw an exception
+						 		 	 */
+									commandLine.close();
+									throw new NoSuchElementException();
+								}
 							}
 							else {
 								/*
