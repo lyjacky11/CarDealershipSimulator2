@@ -49,34 +49,7 @@ public class Transaction {
     }
 
     /**
-     * @param transID the transID to set
-     */
-    public void setTransID(int transID) {
-        this.transID = transID;
-    }
-
-    /**
-     * @param transDate the transDate to set
-     */
-    public void setTransDate(GregorianCalendar transDate) {
-        this.transDate = transDate;
-    }
-
-    /**
-     * @param car the car to set
-     */
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    /**
-     * @param salesPerson the salesPerson to set
-     */
-    public void setSalesPerson(String salesPerson) {
-        this.salesPerson = salesPerson;
-    }
-
-    /**
+     * Gets the type of the transaction
      * @return the transType
      */
     public String getTransType() {
@@ -84,20 +57,7 @@ public class Transaction {
     }
 
     /**
-     * @param transType the transType to set
-     */
-    public void setTransType(String transType) {
-        this.transType = transType;
-    }
-
-    /**
-     * @param salePrice the salePrice to set
-     */
-    public void setSalePrice(double salePrice) {
-        this.salePrice = salePrice;
-    }
-
-    /**
+     * Gets the transaction ID
      * @return the transID
      */
     public int getTransID() {
@@ -105,6 +65,7 @@ public class Transaction {
     }
 
     /**
+     * Gets the date of the transaction
      * @return the transDate
      */
     public GregorianCalendar getTransDate() {
@@ -112,6 +73,7 @@ public class Transaction {
     }
 
     /**
+     * Gets the Car object of the transaction
      * @return the car
      */
     public Car getCar() {
@@ -119,6 +81,7 @@ public class Transaction {
     }
 
     /**
+     * Gets the sales person of the transaction
      * @return the salesPerson
      */
     public String getSalesPerson() {
@@ -126,6 +89,7 @@ public class Transaction {
     }
 
     /**
+     * Gets the sales price of the transaction
      * @return the salePrice
      */
     public double getSalePrice() {

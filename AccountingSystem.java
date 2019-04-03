@@ -20,7 +20,8 @@ public class AccountingSystem {
     private ArrayList<Transaction> transList;
     private SalesTeam salesTeam;
     public int lastTransID;
-    final String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    public final String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    
     /*
 	 * Default constructor for the class
 	 */
@@ -29,6 +30,16 @@ public class AccountingSystem {
         salesTeam = new SalesTeam();
     }
 
+    /**
+     * Adds a transaction to the list of existing transactions
+     * 
+     * @param date
+     * @param car
+     * @param salesPerson
+     * @param type
+     * @param salePrice
+     * @return
+     */
     public String add(Calendar date, Car car, String salesPerson, String type, double salePrice) {
         int id = (int) (Math.random() * 999) + 1;
         lastTransID = id;
@@ -37,6 +48,12 @@ public class AccountingSystem {
         return trans.display();
     }
 
+    /**
+     * Finds a transaction in the list given the transaction ID
+     * 
+     * @param id
+     * @return the transaction if found
+     */
     public Transaction getTransaction(int id) {
         for (int i = 0; i < transList.size(); i++) {
             Transaction currentTrans = transList.get(i);
@@ -46,6 +63,9 @@ public class AccountingSystem {
         return null;
     }
 
+    /*
+     * Displays a list of all the transactions
+     */
     public void getAllTrans() {
         if (transList.size() > 0) {
             for (int i = 0; i < transList.size(); i++) {
@@ -53,9 +73,14 @@ public class AccountingSystem {
             }
         }
         else
-            throw new IllegalArgumentException("\nERROR: No transactions found!");
+            throw new IllegalArgumentException("\nERROR: Transactions list is empty! No transactions found!");
     }
 
+    /**
+     * Displays a list of transactions in the given month
+     * 
+     * @param month
+     */
     public void getMonthTrans(int month) {
         if (transList.size() > 0) {
             for (int i = 0; i < transList.size(); i++) {
@@ -67,9 +92,13 @@ public class AccountingSystem {
             }
         }
         else
-            throw new IllegalArgumentException("\nERROR: No transactions found!");
+            throw new IllegalArgumentException("\nERROR: Transactions list is empty! No transactions found!");
     }
 
+    /**
+     * Calculates the total sales ($) of all transactions
+     * @return the total result
+     */
     public double getTotalSales() {
         double total = 0;
         if (transList.size() > 0) {
@@ -79,9 +108,12 @@ public class AccountingSystem {
             return total;
         }
         else
-            throw new IllegalArgumentException("\nERROR: No transactions found!");
+            throw new IllegalArgumentException("\nERROR: Transactions list is empty! No transactions found!");
     }
 
+    /*
+     * Finds the average of the total sales per month
+     */
     public double getAvgSales() {
         return getTotalSales() / 12;
     }
@@ -90,15 +122,18 @@ public class AccountingSystem {
         int total = 0;
         if (transList.size() > 0) {
             for (int i = 0; i < transList.size(); i++) {
-                if (transList.get(i).getTransType().equals("BUY"))
-                    total++;
+                if (transList.get(i).getTransType().equals("BUY")) total++;
+                else total--;
             }
             return total;
         }
         else
-            throw new IllegalArgumentException("\nERROR: No transactions found!");
+            throw new IllegalArgumentException("\nERROR: Transactions list is empty! No transactions found!");
     }
 
+    /*
+     * Finds the total number of returns in the transactions list
+     */
     public int getTotalReturns() {
         int total = 0;
         if (transList.size() > 0) {
@@ -109,17 +144,23 @@ public class AccountingSystem {
             return total;
         }
         else
-            throw new IllegalArgumentException("\nERROR: No transactions found!");
+            throw new IllegalArgumentException("\nERROR: Transactions list is empty! No transactions found!");
     }
 
+    /*
+     * Finds the month with the highest sales (in terms of 'BUY' transactions)
+     */
     public String getHighestMonth() {
         ArrayList<Integer> monthSales = new ArrayList<Integer>();
         if (transList.size() > 0) {
             for (int i = 0; i < 12; i++) {
                 int counter = 0;
                 for (int j = 0; j < transList.size(); j++) {
-                    if (transList.get(j).getTransDate().get(Calendar.MONTH) == i && transList.get(j).getTransType() == "BUY")
-                        counter++;
+                    Transaction currentTrans = transList.get(j);
+                    if (currentTrans.getTransDate().get(Calendar.MONTH) == i) {
+                        if (currentTrans.getTransType().equals("BUY")) counter++;
+                        else counter--;
+                    }
                 }
                 monthSales.add(counter);
             }
@@ -138,9 +179,12 @@ public class AccountingSystem {
             return result;
         }
         else
-            throw new IllegalArgumentException("\nERROR: No transactions found!");
+            throw new IllegalArgumentException("\nERROR: Transactions list is empty! No transactions found!");
     }
 
+    /*
+     * Finds the salesperson who sold the most cars ('BUY' transactions)
+     */
     public String getTopSP() {
         ArrayList<Integer> numSales = new ArrayList<Integer>();
         if (transList.size() > 0) {
@@ -171,10 +215,11 @@ public class AccountingSystem {
             return result;
         }
         else
-            throw new IllegalArgumentException("\nERROR: No transactions found!");
+            throw new IllegalArgumentException("\nERROR: Transactions list is empty! No transactions found!");
     }
 
     /**
+     * Gets the transaction array list
      * @return the transList
      */
     public ArrayList<Transaction> getTransList() {
@@ -182,23 +227,10 @@ public class AccountingSystem {
     }
 
     /**
-     * @param transList the transList to set
-     */
-    public void setTransList(ArrayList<Transaction> transList) {
-        this.transList = transList;
-    }
-
-    /**
+     * Gets the latest transaction ID
      * @return the lastTransID
      */
     public int getLastTransID() {
         return lastTransID;
-    }
-
-    /**
-     * @param lastTransID the lastTransID to set
-     */
-    public void setLastTransID(int lastTransID) {
-        this.lastTransID = lastTransID;
     }
 }

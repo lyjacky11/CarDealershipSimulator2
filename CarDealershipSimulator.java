@@ -17,6 +17,33 @@ import java.io.IOException;
 public class CarDealershipSimulator
 {
 	/**
+	 * Displays the header given the string and format
+	 * 
+	 * @param header
+	 */
+	private static void addHeader(String header) {
+		System.out.println();
+		System.out.println(header);
+		for (int i = 0; i < header.length() + 14; i++) {
+			System.out.print("-");
+		}
+		System.out.println();
+		}
+	
+	/*
+	 * Displays the commands list
+	 */
+	private static void commandsMenu() {
+		System.out.println();
+		System.out.println("COMMANDS MENU");
+		System.out.printf("%7s  |  %-40s %-50s %-40s %s\n", "General", "ADD - Add Cars To Inventory", "L - Load Inventory", "Q - Quit Program", "HELP - Display Commands Menu");
+		System.out.printf("%7s  |  %-40s %s\n", "Actions", "BUY [VIN] - Buy Car By VIN #", "RET - Return Last Transaction");
+		System.out.printf("%7s  |  %-40s %-50s %s\n", "Sort", "SPR - Sort By Price", "SSR - Sort By Safety Rating", "SMR - Sort By Max Range");
+		System.out.printf("%7s  |  %-40s %-50s %-40s %s\n", "Filter", "FPR [min] [max] - Filter By Price", "FEL - Filter By Electric", "FAW - Filter By AWD", "FCL - Clear Filters");
+		System.out.printf("%7s  |  %-40s %-50s %s\n            %-40s %s\n", "Sales", "SALES - All Transactions (2019)", "SALES [m] - All Transactions By Month (0-11)", "SALES TEAM - List of Sales Team Names", "SALES TOPSP - Top Salesperson(s)", "SALES STATS - Sales Statistics");
+	}
+
+	/**
 	 * Main method of the class
 	 * 
 	 * @param args
@@ -33,7 +60,7 @@ public class CarDealershipSimulator
 	final String carHeader = String.format("%-3s %-4s %-11s %-6s %-8s %-5s %-8s %-10s %-5s %-3s %-7s", "#", "VIN", "Brand", "Color", "Model", "MaxR", "SafetyR", "Price ($)", "AWD?", "RT", "Battery");
 	final String transHeader = String.format("%-8s %-5s %-7s %-13s %-13s %s", "TransID", "Type", "VIN #", "Salesperson", "Price ($)", "Date");
 	final String salesHeader = String.format("%-15s %15s", "Salesperson", "# of Cars Sold");
-	final String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+	final String[] monthNames = newDealer.getAccSystem().monthNames;
 	String filename = "cars.txt", line = "", command = "";
 	/*
 	 * Reads data from file and continues if the data is valid
@@ -332,7 +359,7 @@ public class CarDealershipSimulator
 								}
 								else {
 									commandLine.close();
-									throw new IllegalArgumentException("\nERROR: Invalid month! Please try again!");
+									throw new IllegalArgumentException("\nERROR: Invalid month selection! Please enter a number from 0-11!");
 								}
 							}
 							else {
@@ -366,7 +393,7 @@ public class CarDealershipSimulator
 								System.out.println("----------------------------------------");
 								System.out.printf("Total Sales: $%.2f\n", newDealer.getAccSystem().getTotalSales());
 								System.out.printf("Average Sales Per Month: $%.2f\n", newDealer.getAccSystem().getAvgSales());
-								System.out.printf("Total Cars Sold (incl. returns): %d\n", newDealer.getAccSystem().getTotalSold());
+								System.out.printf("Total Cars Sold: %d\n", newDealer.getAccSystem().getTotalSold());
 								System.out.printf("Total Car Returns: %d\n", newDealer.getAccSystem().getTotalReturns());
 								System.out.printf("\nHighest Sales Month(s):\n%s", newDealer.getAccSystem().getHighestMonth());
 							}
@@ -431,32 +458,6 @@ public class CarDealershipSimulator
 			}
 			input.close();
 		}
-	}
-	/**
-	 * Displays the header given the string and format
-	 * 
-	 * @param header
-	 */
-	private static void addHeader(String header) {
-	System.out.println();
-	System.out.println(header);
-	for (int i = 0; i < header.length() + 14; i++) {
-		System.out.print("-");
-	}
-	System.out.println();
-	}
-
-	/*
-	 * Displays the commands list
-	 */
-	private static void commandsMenu() {
-		System.out.println();
-		System.out.println("COMMANDS MENU");
-		System.out.printf("%7s  |  %-40s %-50s %-40s %s\n", "General", "ADD - Add Cars To Inventory", "L - Load Inventory", "Q - Quit Program", "HELP - Display Commands Menu");
-		System.out.printf("%7s  |  %-40s %s\n", "Actions", "BUY [VIN] - Buy Car By VIN #", "RET - Return Last Transaction");
-		System.out.printf("%7s  |  %-40s %-50s %s\n", "Sort", "SPR - Sort By Price", "SSR - Sort By Safety Rating", "SMR - Sort By Max Range");
-		System.out.printf("%7s  |  %-40s %-50s %-40s %s\n", "Filter", "FPR [min] [max] - Filter By Price", "FEL - Filter By Electric", "FAW - Filter By AWD", "FCL - Clear Filters");
-		System.out.printf("%7s  |  %-40s %-50s %s\n            %-40s %s\n", "Sales", "SALES - All Transactions (2019)", "SALES [m] - All Transactions By Month (0-11)", "SALES TEAM - List of Salespeople", "SALES TOPSP - Top Salesperson(s)", "SALES STATS - Sales Statistics");
 	}
 
 	/**

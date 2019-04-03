@@ -29,6 +29,9 @@ public class SalesTeam {
         salesTeam.addLast("Jayce");
     }
 
+    /*
+     * Gets a random sales person from the list
+     */
     public String getRandomSP() {
         int random = (int) (Math.random() * salesTeam.size());
         salesIterator = salesTeam.listIterator(random);
@@ -36,50 +39,39 @@ public class SalesTeam {
         return salesperson;
     }
 
+    /*
+     * Displays all the people of the sales team
+     */
     public String getAllSP() {
         String team = "";
         salesIterator = salesTeam.listIterator();
         for (int i = 0; i < salesTeam.size(); i++) {
-            team += (i + 1) + ") " + salesIterator.next() + "   ";
+            team += (i + 1) + ". " + salesIterator.next() + "   ";
         }
         return team;
     }
 
+    /*
+     * Gets a sales person given their position in the list
+     */
     public String getSalesP(int index) {
         salesIterator = salesTeam.listIterator(index);
         String salesperson = salesIterator.next();
         return salesperson;
     }
 
+    /*
+     * Gets the number of sales people on the team
+     */
     public int getNumSP() {
         return salesTeam.size();
     }
 
     /**
+     * Gets the list of the sales team
      * @return the salesTeam
      */
     public LinkedList<String> getSalesTeam() {
         return salesTeam;
-    }
-
-    /**
-     * @param salesTeam the salesTeam to set
-     */
-    public void setSalesTeam(LinkedList<String> salesTeam) {
-        this.salesTeam = salesTeam;
-    }
-
-    /**
-     * @return the salesIterator
-     */
-    public ListIterator<String> getSalesIterator() {
-        return salesIterator;
-    }
-
-    /**
-     * @param salesIterator the salesIterator to set
-     */
-    public void setSalesIterator(ListIterator<String> salesIterator) {
-        this.salesIterator = salesIterator;
     }
 }
