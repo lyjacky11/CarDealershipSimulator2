@@ -322,16 +322,22 @@ public class CarDealershipSimulator
 						 */
 						else if (commandLine.hasNextInt()) {
 							int month = commandLine.nextInt();
-							if (month >= 0 && month < 12) {
-								if (newDealer.getAccSystem().getTransList().size() > 0) {
-									System.out.println("\nTRANSACTIONS FOR: " + monthNames[month]);
-									addHeader(transHeader);
+							if (!commandLine.hasNext()) {
+								if (month >= 0 && month < 12) {
+									if (newDealer.getAccSystem().getTransList().size() > 0) {
+										System.out.println("\nTRANSACTIONS FOR: " + monthNames[month]);
+										addHeader(transHeader);
+									}
+									newDealer.getAccSystem().getMonthTrans(month);
 								}
-								newDealer.getAccSystem().getMonthTrans(month);
+								else {
+									commandLine.close();
+									throw new IllegalArgumentException("\nERROR: Invalid month! Please try again!");
+								}
 							}
 							else {
 								commandLine.close();
-								throw new IllegalArgumentException("\nERROR: Invalid month! Please try again!");
+								throw new NoSuchElementException();
 							}
 						}
 						else {
