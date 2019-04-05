@@ -165,21 +165,23 @@ public class AccountingSystem {
                 monthSales.add(counter);
             }
             int maxVal = Collections.max(monthSales);
-            String result = "";
-            if (Collections.frequency(monthSales, maxVal) > 1) {
-                for (int i = 0; i < monthSales.size(); i++) {
-                    if (monthSales.get(i) == maxVal)
-                        result += monthNames[i] + ": " + maxVal + "\n";
+            if (maxVal != 0) {
+                String result = "";
+                if (Collections.frequency(monthSales, maxVal) > 1) {
+                    for (int i = 0; i < monthSales.size(); i++) {
+                        if (monthSales.get(i) == maxVal)
+                            result += monthNames[i] + ": " + maxVal + "\n";
+                    }
                 }
+                else {
+                    int maxIndex = monthSales.indexOf(maxVal);
+                    result = monthNames[maxIndex] + ": " + maxVal + "\n";
+                }
+                return result;
             }
-            else {
-                int maxIndex = monthSales.indexOf(maxVal);
-                result = monthNames[maxIndex] + ": " + maxVal + "\n";
-            }
-            return result;
+            throw new IllegalArgumentException("\nERROR: All cars sold have been returned!");
         }
-        else
-            throw new IllegalArgumentException("\nERROR: Transactions list is empty! No transactions found!");
+        throw new IllegalArgumentException("\nERROR: Transactions list is empty! No transactions found!");
     }
 
     /*
