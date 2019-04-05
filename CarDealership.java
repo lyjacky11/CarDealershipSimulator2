@@ -133,12 +133,10 @@ public class CarDealership {
 				System.out.println("\nTRANSACTION INFO:");
 				System.out.println("---------------------------------------------------------------------");
 				System.out.printf("Return Trans ID: %-15d       Return Date: %s\n", lastTransID, df.format(returnDate.getTime()));
-				//System.out.println("Return Transaction ID: " + lastTransID);
-				//System.out.println("Return Date: " + df.format(returnDate.getTime()));
 				System.out.println("Processed return for transaction ID #" + transaction + " successfully.");
 			}
 			else
-				throw new IllegalArgumentException("ERROR: Return for transaction ID #" + transaction + " failed!\nTransaction type is not 'BUY'!");
+				throw new IllegalArgumentException("ERROR: Return for transaction ID #" + transaction + " failed!\nCan't return a 'RET' type transaction!");
 		}
 		else
 			throw new IllegalArgumentException("\nERROR: Transaction ID not found!");
