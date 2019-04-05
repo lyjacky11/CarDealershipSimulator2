@@ -127,7 +127,7 @@ public class CarDealership {
 				int returnDay = (int) (Math.random() * (30 - transDay)) + transDay;
 				Calendar returnDate = new GregorianCalendar(transYear, transMonth, returnDay);
 				SimpleDateFormat df = new SimpleDateFormat("EEE, MMM dd, YYYY");
-				accSystem.add(returnDate, trans.getCar(), trans.getSalesPerson(), transType, -1 * trans.getSalePrice());
+				accSystem.add(returnDate, trans.getCar(), salesTeam.getRandomSP(), transType, -1 * trans.getSalePrice());
 				cars.add(trans.getCar());
 				lastTransID = accSystem.getLastTransID();
 				System.out.println("\nTRANSACTION INFO:");
