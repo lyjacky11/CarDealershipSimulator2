@@ -110,8 +110,15 @@ public class CarDealership {
 	 */
 	public void returnCar(int transaction) {
 		Transaction trans = accSystem.getTransaction(transaction);
+		ArrayList<Transaction> transList = accSystem.getTransList();
 		if (trans != null) {
 			if (trans.getTransType().equals("BUY")) {
+				Car currentCar = trans.getCar();
+				for (int i = 0; i < transList.size(); i++) {
+					Transaction currentTrans = transList.get(i);
+					if (currentTrans.getCar().getVIN() == currentCar.getVIN() && currentTrans.getTransType().equals("RET"))
+						throw new IllegalArgumentException("\nERROR: This transaction has already been returned!");
+				}
 				String transType = "RET";
 				Calendar transDate = trans.getTransDate();
 				int transMonth = transDate.get(Calendar.MONTH);
@@ -123,7 +130,11 @@ public class CarDealership {
 				accSystem.add(returnDate, trans.getCar(), trans.getSalesPerson(), transType, -1 * trans.getSalePrice());
 				cars.add(trans.getCar());
 				lastTransID = accSystem.getLastTransID();
-				System.out.println("Return Date: " + df.format(returnDate.getTime()));
+				System.out.println("\nTRANSACTION INFO:");
+				System.out.println("---------------------------------------------------------------------");
+				System.out.printf("Return Trans ID: %-15d       Return Date: %s\n", lastTransID, df.format(returnDate.getTime()));
+				//System.out.println("Return Transaction ID: " + lastTransID);
+				//System.out.println("Return Date: " + df.format(returnDate.getTime()));
 				System.out.println("Processed return for transaction ID #" + transaction + " successfully.");
 			}
 			else

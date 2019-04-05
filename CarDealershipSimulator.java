@@ -144,21 +144,27 @@ public class CarDealershipSimulator
 						commandLine.close();
 						throw new IllegalArgumentException("\nERROR: Invalid VIN # or not specified!");
 					/**
-					 * Returns the last 'BUY' transaction
+					 * Returns the last 'BUY' transaction or a specific transaction with given ID
 					 */ 
 					case "RET":
 						if (!commandLine.hasNext()) {
 							int id = newDealer.lastTransID;
-							System.out.println("\nTRANSACTION INFO:");
-							System.out.println("-----------------------------------------------------");
 							newDealer.returnCar(id);
 							break;
 						}
-						/*
-						 * Any command with other arguments will throw an exception
-						 */ 
-						commandLine.close();
-						throw new NoSuchElementException();
+						else if (commandLine.hasNextInt()) {
+							int id = commandLine.nextInt();
+							if (!commandLine.hasNext()) {
+								newDealer.returnCar(id);
+								break;
+							}
+							/*
+						 	 * Any command with other arguments will throw an exception
+						 	 */ 
+							commandLine.close();
+							throw new NoSuchElementException();
+						}
+						
 					/*
 					 * Sorts the list by price (from least to most expensive)
 					 */ 
@@ -314,6 +320,7 @@ public class CarDealershipSimulator
 								addHeader(transHeader);
 							}
 							newDealer.getAccSystem().getAllTrans();
+							break;
 						}
 						/*
 						 * Prints all transactions for the given month
