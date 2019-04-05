@@ -88,9 +88,13 @@ public class CarDealershipSimulator
 					 */ 
 					case "ADD":
 						if (!commandLine.hasNext()) {
-							newDealer.addCars(cars);
-							System.out.println("\nAdded cars to dealership inventory.");
-							break;
+							if (newDealer.isEmpty) {
+								newDealer.addCars(cars);
+								System.out.println("\nAdded cars to dealership inventory.");
+								break;
+							}
+							commandLine.close();
+							throw new IllegalArgumentException("\nERROR: Cars already added to the inventory!");
 						}
 						/*
 						 * Any command with other arguments will throw an exception
