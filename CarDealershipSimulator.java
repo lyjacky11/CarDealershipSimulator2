@@ -537,7 +537,7 @@ public class CarDealershipSimulator
 					powerInt = Car.GAS_ENGINE;
 					break;
 				default:
-					throw new IllegalArgumentException("\nERROR: THe file contains an invalid power type!");
+					throw new IllegalArgumentException("\nERROR: The file contains an invalid power type!");
 				}
 				double safetyRatingFile = Double.parseDouble((String)specsList.get(4));
 				int maxRangeFile = Integer.parseInt((String)specsList.get(5));
@@ -550,7 +550,7 @@ public class CarDealershipSimulator
 						aWDValue = false;
 						break;
 					default:
-						throw new IllegalArgumentException("\nERROR: THe file contains an invalid AWD value!");
+						throw new IllegalArgumentException("\nERROR: The file contains an invalid AWD value!");
 				}
 				int priceFile = Integer.parseInt((String)specsList.get(7));
 				if (specsList.size() == 9) {
