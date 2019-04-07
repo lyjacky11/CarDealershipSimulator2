@@ -105,8 +105,8 @@ public class CarDealership {
 	}
 
 	/**
-	 * Returns the last BUY transaction
-	 * @param transaction
+	 * Returns a transaction given the ID
+	 * @param transaction ID
 	 */
 	public void returnCar(int transaction) {
 		Transaction trans = accSystem.getTransaction(transaction);
