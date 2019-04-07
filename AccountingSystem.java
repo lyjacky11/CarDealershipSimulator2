@@ -170,16 +170,17 @@ public class AccountingSystem {
                 if (Collections.frequency(monthSales, maxVal) > 1) {
                     for (int i = 0; i < monthSales.size(); i++) {
                         if (monthSales.get(i) == maxVal)
-                            result += monthNames[i] + ": " + maxVal + "\n";
+                            result += "\t" + monthNames[i] + " - " + maxVal + "\n";
                     }
                 }
                 else {
                     int maxIndex = monthSales.indexOf(maxVal);
-                    result = monthNames[maxIndex] + ": " + maxVal + "\n";
+                    result = "\t" + monthNames[maxIndex] + " - " + maxVal + "\n";
                 }
                 return result;
             }
-            throw new IllegalArgumentException("\nERROR: All cars sold have been returned!");
+            else
+                return "None\n";
         }
         throw new IllegalArgumentException("\nERROR: Transactions list is empty! No transactions found!");
     }

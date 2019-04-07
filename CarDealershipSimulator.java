@@ -389,12 +389,12 @@ public class CarDealershipSimulator
 							else if (arg.equals("STATS")) {
 								if (!commandLine.hasNext()) {
 									System.out.println("\nSALES STATISTICS:");
-									System.out.println("----------------------------------------");
+									System.out.println("--------------------------------------------------------------");
 									System.out.printf("Total Sales: $%.2f\n", newDealer.getAccSystem().getTotalSales());
 									System.out.printf("Average Sales Per Month: $%.2f\n", newDealer.getAccSystem().getAvgSales());
 									System.out.printf("Total Cars Sold: %d\n", newDealer.getAccSystem().getTotalSold());
 									System.out.printf("Total Car Returns: %d\n", newDealer.getAccSystem().getTotalReturns());
-									System.out.printf("\nHighest Sales Month(s):\n%s", newDealer.getAccSystem().getHighestMonth());
+									System.out.printf("Highest Sales Month(s):\n%s", newDealer.getAccSystem().getHighestMonth());
 									break;
 								}
 								/*

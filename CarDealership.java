@@ -132,11 +132,12 @@ public class CarDealership {
 				lastTransID = accSystem.getLastTransID();
 				System.out.println("\nTRANSACTION INFO:");
 				System.out.println("---------------------------------------------------------------------");
-				System.out.printf("Return Trans ID: %-15d       Return Date: %s\n", lastTransID, df.format(returnDate.getTime()));
-				System.out.println("Processed return for transaction ID #" + transaction + " successfully.");
+				System.out.printf("BUY Trans ID: %-15d         Return VIN#: %s\n", transaction, currentCar.getVIN());
+				System.out.printf("RET Trans ID: %-15d         Return Date: %s\n", lastTransID, df.format(returnDate.getTime()));
+				System.out.println("\nProcessed return for transaction ID #" + transaction + " successfully.");
 			}
 			else
-				throw new IllegalArgumentException("ERROR: Return for transaction ID #" + transaction + " failed!\nCan't return a 'RET' type transaction!");
+				throw new IllegalArgumentException("\nERROR: Return for transaction ID #" + transaction + " failed!\nCan't return a 'RET' type transaction!");
 		}
 		else
 			throw new IllegalArgumentException("\nERROR: Transaction ID not found!");
