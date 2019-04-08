@@ -149,7 +149,7 @@ public class CarDealership {
 	public void displayInventory() {
 		for (int i = 0; i < cars.size(); i++) {
 			Car currentCar = cars.get(i);
-			String output = String.format("%-3d %s", i, currentCar.display());
+			String output = String.format("%-3d %s", i + 1, currentCar.display());
 			/*
 			 * FEL and FAW and FPR enabled
 			 */
