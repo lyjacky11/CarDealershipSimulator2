@@ -123,7 +123,7 @@ public class AccountingSystem {
         if (transList.size() > 0) {
             for (int i = 0; i < transList.size(); i++) {
                 if (transList.get(i).getTransType().equals("BUY")) total++;
-                else total--;
+                // else total--;
             }
             return total;
         }
@@ -195,8 +195,10 @@ public class AccountingSystem {
                 int counter = 0;
                 for (int j = 0; j < transList.size(); j++) {
                     Transaction trans = transList.get(j);
-                    if (trans.getSalesPerson().equals(salesTeam.getSalesTeam().get(i)) && trans.getTransType().equals("BUY"))
-                        counter++;
+                    if (trans.getSalesPerson().equals(salesTeam.getSalesTeam().get(i))) {
+                        if (trans.getTransType().equals("BUY")) counter++;
+                        else counter--;
+                    }
                 }
                 numSales.add(counter);
             }

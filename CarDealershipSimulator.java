@@ -110,6 +110,7 @@ public class CarDealershipSimulator
 								System.out.println("\nDEALERSHIP INVENTORY:");
 								addHeader(carHeader);
 								newDealer.displayInventory();
+								System.out.println("-----------------------------------------------------------------------------------------------");
 								System.out.println("\nInventory loaded successfully.");
 								break;
 							}
