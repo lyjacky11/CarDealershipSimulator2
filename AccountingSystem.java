@@ -24,7 +24,6 @@ public class AccountingSystem {
     private Map<Integer, Transaction> transMap;
     private Set<Integer> transIDs;
     private Iterator<Integer> transIterator;
-    //private ArrayList<Transaction> transList;
     private SalesTeam salesTeam;
     private int lastTransID;
     public final String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -35,7 +34,6 @@ public class AccountingSystem {
     public AccountingSystem () {
         transMap = new TreeMap<Integer, Transaction>();
         transIDs = transMap.keySet();
-        //transList = new ArrayList<Transaction>();
         salesTeam = new SalesTeam();
     }
 
