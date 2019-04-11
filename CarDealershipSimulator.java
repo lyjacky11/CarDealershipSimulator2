@@ -320,7 +320,7 @@ public class CarDealershipSimulator
 						 * Prints all transactions for the year (2019)
 						 */
 						if (!commandLine.hasNext()) {
-							if (newDealer.getAccSystem().getTransList().size() > 0) {
+							if (newDealer.getAccSystem().getTransMap().size() > 0) {
 								System.out.println("\nALL TRANSACTIONS (2019):");
 								addHeader(transHeader);
 							}
@@ -333,9 +333,9 @@ public class CarDealershipSimulator
 						else if (commandLine.hasNextInt()) {
 							int month = commandLine.nextInt();
 							if (!commandLine.hasNext()) {
-								if (newDealer.getAccSystem().getTransList().size() > 0) {
+								if (newDealer.getAccSystem().getTransMap().size() > 0) {
 									if (month >= 0 && month < 12) {
-										System.out.println("\nTRANSACTIONS for " + monthNames[month]);
+										System.out.println("\nTRANSACTIONS for " + monthNames[month] + ":");
 										addHeader(transHeader);
 									}
 									else {
@@ -375,7 +375,7 @@ public class CarDealershipSimulator
 							 */
 							else if (arg.equals("TOPSP")) {
 								if (!commandLine.hasNext()) {
-									if (newDealer.getAccSystem().getTransList().size() > 0) {
+									if (newDealer.getAccSystem().getTransMap().size() > 0) {
 										System.out.println("\nTOP SALES PERSON(S):");
 										addHeader(salesHeader);
 									}

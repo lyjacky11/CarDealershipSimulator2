@@ -14,6 +14,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.Map;
 
 public class CarDealership {
 	/*
@@ -111,12 +113,13 @@ public class CarDealership {
 	 */
 	public void returnCar(int transaction) {
 		Transaction trans = accSystem.getTransaction(transaction);
-		ArrayList<Transaction> transList = accSystem.getTransList();
+		Iterator<Integer> transIterator = accSystem.getIterator();
 		if (trans != null) {
 			if (trans.getTransType().equals("BUY")) {
 				Car currentCar = trans.getCar();
-				for (int i = 0; i < transList.size(); i++) {
-					Transaction currentTrans = transList.get(i);
+				while (transIterator.hasNext()) {
+					int transID = transIterator.next();
+					Transaction currentTrans = accSystem.getTransMap().get(transID);
 					if (currentTrans.getCar().getVIN() == currentCar.getVIN() && currentTrans.getTransType().equals("RET"))
 						throw new IllegalArgumentException("\nERROR: This transaction has already been returned!");
 				}

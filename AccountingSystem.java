@@ -11,13 +11,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 public class AccountingSystem {
 
     /*
      * Initialize instance variables and constants
      */
-    private ArrayList<Transaction> transList;
+    private Map<Integer, Transaction> transMap;
+    private Set<Integer> transIDs;
+    private Iterator<Integer> transIterator;
+    //private ArrayList<Transaction> transList;
     private SalesTeam salesTeam;
     private int lastTransID;
     public final String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -26,7 +33,9 @@ public class AccountingSystem {
 	 * Default constructor for the class
 	 */
     public AccountingSystem () {
-        transList = new ArrayList<Transaction>();
+        transMap = new TreeMap<Integer, Transaction>();
+        transIDs = transMap.keySet();
+        //transList = new ArrayList<Transaction>();
         salesTeam = new SalesTeam();
     }
 
@@ -44,7 +53,8 @@ public class AccountingSystem {
         int id = (int) (Math.random() * 999) + 1;
         lastTransID = id;
         Transaction trans = new Transaction(id, (GregorianCalendar) date, car, salesPerson, type, salePrice);
-        transList.add(trans);
+        transMap.put(id, trans);
+        //transList.add(trans);
         return trans.display();
     }
 
@@ -55,8 +65,10 @@ public class AccountingSystem {
      * @return the transaction if found
      */
     public Transaction getTransaction(int id) {
-        for (int i = 0; i < transList.size(); i++) {
-            Transaction currentTrans = transList.get(i);
+        transIterator = transIDs.iterator();
+        while (transIterator.hasNext()) {
+            int transID = transIterator.next();
+            Transaction currentTrans = transMap.get(transID);
             if (currentTrans.getTransID() == id)
                 return currentTrans;
         }
@@ -67,9 +79,11 @@ public class AccountingSystem {
      * Displays a list of all the transactions
      */
     public void getAllTrans() {
-        if (transList.size() > 0) {
-            for (int i = 0; i < transList.size(); i++) {
-                System.out.println(transList.get(i).display());
+        transIterator = transIDs.iterator();
+        if (transMap.size() > 0) {
+            while (transIterator.hasNext()) {
+                int transID = transIterator.next();
+                System.out.println(transMap.get(transID).display());
             }
         }
         else
@@ -82,13 +96,15 @@ public class AccountingSystem {
      * @param month
      */
     public void getMonthTrans(int month) {
-        if (transList.size() > 0) {
-            for (int i = 0; i < transList.size(); i++) {
-                Transaction currentTrans = transList.get(i);
+        transIterator = transIDs.iterator();
+        if (transMap.size() > 0) {
+            while (transIterator.hasNext()) {
+                int transID = transIterator.next();
+                Transaction currentTrans = transMap.get(transID);
                 GregorianCalendar transDate = currentTrans.getTransDate();
                 int transMonth = transDate.get(Calendar.MONTH);
                 if (transMonth == month)
-                    System.out.println(transList.get(i).display());
+                    System.out.println(currentTrans.display());
             }
         }
         else
@@ -101,9 +117,11 @@ public class AccountingSystem {
      */
     public double getTotalSales() {
         double total = 0;
-        if (transList.size() > 0) {
-            for (int i = 0; i < transList.size(); i++) {
-                total += transList.get(i).getSalePrice();
+        transIterator = transIDs.iterator();
+        if (transMap.size() > 0) {
+            while (transIterator.hasNext()) {
+                int transID = transIterator.next();
+                total += transMap.get(transID).getSalePrice();
             }
             return total;
         }
@@ -120,9 +138,11 @@ public class AccountingSystem {
 
     public int getTotalSold() {
         int total = 0;
-        if (transList.size() > 0) {
-            for (int i = 0; i < transList.size(); i++) {
-                if (transList.get(i).getTransType().equals("BUY")) total++;
+        transIterator = transIDs.iterator();
+        if (transMap.size() > 0) {
+            while (transIterator.hasNext()) {
+                int transID = transIterator.next();
+                if (transMap.get(transID).getTransType().equals("BUY")) total++;
                 // else total--;
             }
             return total;
@@ -136,9 +156,11 @@ public class AccountingSystem {
      */
     public int getTotalReturns() {
         int total = 0;
-        if (transList.size() > 0) {
-            for (int i = 0; i < transList.size(); i++) {
-                if (transList.get(i).getTransType().equals("RET"))
+        transIterator = transIDs.iterator();
+        if (transMap.size() > 0) {
+            while (transIterator.hasNext()) {
+                int transID = transIterator.next();
+                if (transMap.get(transID).getTransType().equals("RET"))
                     total++;
             }
             return total;
@@ -152,11 +174,13 @@ public class AccountingSystem {
      */
     public String getHighestMonth() {
         ArrayList<Integer> monthSales = new ArrayList<Integer>();
-        if (transList.size() > 0) {
+        if (transMap.size() > 0) {
             for (int i = 0; i < 12; i++) {
+                transIterator = transIDs.iterator();
                 int counter = 0;
-                for (int j = 0; j < transList.size(); j++) {
-                    Transaction currentTrans = transList.get(j);
+                while (transIterator.hasNext()) {
+                    int transID = transIterator.next();
+                    Transaction currentTrans = transMap.get(transID);
                     if (currentTrans.getTransDate().get(Calendar.MONTH) == i) {
                         if (currentTrans.getTransType().equals("BUY")) counter++;
                         else counter--;
@@ -190,11 +214,13 @@ public class AccountingSystem {
      */
     public String getTopSP() {
         ArrayList<Integer> numSales = new ArrayList<Integer>();
-        if (transList.size() > 0) {
+        if (transMap.size() > 0) {
             for (int i = 0; i < salesTeam.getSalesTeam().size(); i++) {
+                transIterator = transIDs.iterator();
                 int counter = 0;
-                for (int j = 0; j < transList.size(); j++) {
-                    Transaction trans = transList.get(j);
+                while (transIterator.hasNext()) {
+                    int transID = transIterator.next();
+                    Transaction trans = transMap.get(transID);
                     if (trans.getSalesPerson().equals(salesTeam.getSalesTeam().get(i))) {
                         if (trans.getTransType().equals("BUY")) counter++;
                         else counter--;
@@ -227,8 +253,8 @@ public class AccountingSystem {
      * Gets the transaction array list
      * @return the transList
      */
-    public ArrayList<Transaction> getTransList() {
-        return transList;
+    public Map<Integer, Transaction> getTransMap() {
+        return transMap;
     }
 
     /**
@@ -237,5 +263,13 @@ public class AccountingSystem {
      */
     public int getLastTransID() {
         return lastTransID;
+    }
+
+    /**
+     * Gets the transaction iterator for the object
+     * @return transIterator
+     */
+    public Iterator<Integer> getIterator() {
+        return transIterator;
     }
 }

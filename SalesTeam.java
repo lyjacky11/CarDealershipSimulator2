@@ -26,7 +26,7 @@ public class SalesTeam {
         salesTeam.addLast("Dylan");
         salesTeam.addLast("Paula");
         salesTeam.addLast("Nathan");
-        salesTeam.addLast("Jayce");
+        salesTeam.addLast("Joyce");
     }
 
     /*
