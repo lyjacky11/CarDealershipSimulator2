@@ -1,5 +1,5 @@
 # CarDealershipSimulator2
-Simulates a car dealership inventory system using classes, objects and inheritance.
+Simulates a car dealership inventory system using Collections, FileIO, and exception handling.
 
 ## Features
 
