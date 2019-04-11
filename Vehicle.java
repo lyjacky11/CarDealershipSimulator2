@@ -139,6 +139,6 @@ public class Vehicle {
 	 * @return the Vehicle object specifications
 	 */
 	public String display() {
-		return String.format("%-4d %-11s %-6s", VIN, mfr, color);
+		return String.format("%-5d %-11s %-7s", VIN, mfr, color);
 	}
 }

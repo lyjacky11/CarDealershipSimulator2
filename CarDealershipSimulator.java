@@ -24,7 +24,7 @@ public class CarDealershipSimulator
 	private static void addHeader(String header) {
 		System.out.println();
 		System.out.println(header);
-		for (int i = 0; i < header.length() + 14; i++) {
+		for (int i = 0; i < header.length() + 13; i++) {
 			System.out.print("-");
 		}
 		System.out.println();
@@ -57,7 +57,7 @@ public class CarDealershipSimulator
 	CarDealership newDealer = new CarDealership();
 	ArrayList<Car> cars = new ArrayList<Car>();
 	SalesTeam salesTeam = new SalesTeam();
-	final String carHeader = String.format("%-3s %-4s %-11s %-6s %-8s %-5s %-8s %-10s %-5s %-3s %-7s", "#", "VIN", "Brand", "Color", "Model", "MaxR", "SafetyR", "Price ($)", "AWD?", "RT", "Battery");
+	final String carHeader = String.format("%-3s %-5s %-11s %-7s %-8s %-5s %-8s %-10s %-5s %-3s %-7s", "##", "VIN", "Brand", "Color", "Model", "MaxR", "SafetyR", "Price ($)", "AWD", "RT", "BattType");
 	final String transHeader = String.format("%-8s %-5s %-7s %-13s %-13s %s", "TransID", "Type", "VIN #", "Salesperson", "Price ($)", "Date");
 	final String salesHeader = String.format("%-15s %15s", "Salesperson", "# of Cars Sold");
 	final String[] monthNames = newDealer.getAccSystem().monthNames;

@@ -7,6 +7,7 @@
 /*
  * Import statements
  */
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -149,7 +150,8 @@ public class CarDealership {
 	public void displayInventory() {
 		for (int i = 0; i < cars.size(); i++) {
 			Car currentCar = cars.get(i);
-			String output = String.format("%-3d %s", i + 1, currentCar.display());
+			DecimalFormat df = new DecimalFormat("00");
+			String output = String.format("%-3s %s", df.format(i + 1), currentCar.display());
 			/*
 			 * FEL and FAW and FPR enabled
 			 */

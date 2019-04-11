@@ -148,7 +148,7 @@ public class AccountingSystem {
     }
 
     /*
-     * Finds the month with the highest sales (in terms of 'BUY' transactions)
+     * Return the month(s) with the highest sales (in terms of 'BUY' transactions)
      */
     public String getHighestMonth() {
         ArrayList<Integer> monthSales = new ArrayList<Integer>();
@@ -170,12 +170,12 @@ public class AccountingSystem {
                 if (Collections.frequency(monthSales, maxVal) > 1) {
                     for (int i = 0; i < monthSales.size(); i++) {
                         if (monthSales.get(i) == maxVal)
-                            result += "\t" + monthNames[i] + " - " + maxVal + "\n";
+                            result += String.format("  %-10s | %6d\n", monthNames[i], maxVal);
                     }
                 }
                 else {
                     int maxIndex = monthSales.indexOf(maxVal);
-                    result = "\t" + monthNames[maxIndex] + " - " + maxVal + "\n";
+                    result += String.format("  %-10s | %6d\n", monthNames[maxIndex], maxVal);
                 }
                 return result;
             }
