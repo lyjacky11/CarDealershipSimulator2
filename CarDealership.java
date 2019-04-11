@@ -116,18 +116,12 @@ public class CarDealership {
 		if (trans != null) {
 			if (trans.getTransType().equals("BUY")) {
 				Car currentCar = trans.getCar();
-				int buyCounter = 0;
-				int retCounter = 0;
 				while (transIterator.hasNext()) {
 					int transID = transIterator.next();
 					Transaction currentTrans = accSystem.getTransMap().get(transID);
-					if (currentTrans.getCar().getVIN() == currentCar.getVIN()) {
-						if (currentTrans.getTransType().equals("BUY")) buyCounter++;
-						else retCounter++;
-					}
+					if (currentTrans.getCar().getVIN() == currentCar.getVIN() && currentTrans.getTransType().equals("RET"))
+						throw new IllegalArgumentException("\nERROR: This transaction has already been returned!");
 				}
-				if (buyCounter != retCounter)
-					throw new IllegalArgumentException("\nERROR: This transaction has already been returned!");
 				String transType = "RET";
 				Calendar transDate = trans.getTransDate();
 				int transMonth = transDate.get(Calendar.MONTH);
