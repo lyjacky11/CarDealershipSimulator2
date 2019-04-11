@@ -79,7 +79,7 @@ public class CarDealership {
 	}
 
 	/**
-	 * Buys a car given the car's VIN #
+	 * Buys a car given the VIN number
 	 * @param VIN
 	 * @return the transaction in a String
 	 */
@@ -116,6 +116,9 @@ public class CarDealership {
 		if (trans != null) {
 			if (trans.getTransType().equals("BUY")) {
 				Car currentCar = trans.getCar();
+				/*
+				 * Checks if this transaction has already been returned
+				 */
 				while (transIterator.hasNext()) {
 					int transID = transIterator.next();
 					Transaction currentTrans = accSystem.getTransMap().get(transID);
@@ -147,7 +150,7 @@ public class CarDealership {
 	}
 
 	/*
-	 * Displays the inventory of cars based on the filters enabled
+	 * Displays the inventory of cars based on the enabled filters
 	 */
 	public void displayInventory() {
 		for (int i = 0; i < cars.size(); i++) {

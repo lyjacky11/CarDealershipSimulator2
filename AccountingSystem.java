@@ -38,7 +38,7 @@ public class AccountingSystem {
     }
 
     /**
-     * Adds a transaction to the list of existing transactions
+     * Adds a transaction to the map of existing transactions
      * 
      * @param date
      * @param car
@@ -52,14 +52,13 @@ public class AccountingSystem {
         lastTransID = id;
         Transaction trans = new Transaction(id, (GregorianCalendar) date, car, salesPerson, type, salePrice);
         transMap.put(id, trans);
-        //transList.add(trans);
         return trans.display();
     }
 
     /**
      * Finds a transaction in the list given the transaction ID
      * 
-     * @param id
+     * @param id of the transaction
      * @return the transaction if found
      */
     public Transaction getTransaction(int id) {
@@ -74,7 +73,7 @@ public class AccountingSystem {
     }
 
     /*
-     * Displays a list of all the transactions
+     * Displays a list of all transactions
      */
     public void getAllTrans() {
         transIterator = transIDs.iterator();
@@ -89,7 +88,7 @@ public class AccountingSystem {
     }
 
     /**
-     * Displays a list of transactions in the given month
+     * Displays a list of transactions in a month (0-11)
      * 
      * @param month
      */
@@ -111,6 +110,7 @@ public class AccountingSystem {
 
     /**
      * Calculates the total sales ($) of all transactions
+     * 
      * @return the total result
      */
     public double getTotalSales() {
@@ -134,14 +134,18 @@ public class AccountingSystem {
         return getTotalSales() / 12;
     }
 
+    /**
+     * Gets the total number of cars sold
+     * @return total
+     */
     public int getTotalSold() {
         int total = 0;
         transIterator = transIDs.iterator();
         if (transMap.size() > 0) {
             while (transIterator.hasNext()) {
                 int transID = transIterator.next();
-                if (transMap.get(transID).getTransType().equals("BUY")) total++;
-                // else total--;
+                if (transMap.get(transID).getTransType().equals("BUY"))
+                    total++;
             }
             return total;
         }
@@ -149,8 +153,9 @@ public class AccountingSystem {
             throw new IllegalArgumentException("\nERROR: Transactions list is empty! No transactions found!");
     }
 
-    /*
-     * Finds the total number of returns in the transactions list
+    /**
+     * Finds the total number of returns in the transactions
+     * @return total
      */
     public int getTotalReturns() {
         int total = 0;
@@ -172,6 +177,9 @@ public class AccountingSystem {
      */
     public String getHighestMonth() {
         ArrayList<Integer> monthSales = new ArrayList<Integer>();
+        /*
+         * Calculates the number of transactions for each month and stores it in an array list
+         */
         if (transMap.size() > 0) {
             for (int i = 0; i < 12; i++) {
                 transIterator = transIDs.iterator();
@@ -186,6 +194,9 @@ public class AccountingSystem {
                 }
                 monthSales.add(counter);
             }
+            /*
+             * Finds the highest sales month and returns more than one if there is a tie
+             */
             int maxVal = Collections.max(monthSales);
             if (maxVal != 0) {
                 String result = "";
@@ -212,6 +223,9 @@ public class AccountingSystem {
      */
     public String getTopSP() {
         ArrayList<Integer> numSales = new ArrayList<Integer>();
+        /*
+         * Calculates the number of transactions for each sales person and stores it in an array list
+         */
         if (transMap.size() > 0) {
             for (int i = 0; i < salesTeam.getSalesTeam().size(); i++) {
                 transIterator = transIDs.iterator();
@@ -226,6 +240,9 @@ public class AccountingSystem {
                 }
                 numSales.add(counter);
             }
+            /*
+             * Finds the person with the most sales and returns more than one if there is a tie
+             */
             int maxVal = Collections.max(numSales);
             String result = "";
             if (Collections.frequency(numSales, maxVal) > 1) {
@@ -248,8 +265,8 @@ public class AccountingSystem {
     }
 
     /**
-     * Gets the transaction array list
-     * @return the transList
+     * Gets the transaction map
+     * @return transMap
      */
     public Map<Integer, Transaction> getTransMap() {
         return transMap;

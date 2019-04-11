@@ -92,14 +92,14 @@ public class Vehicle {
 	}
 
 	/**
-	 * @return the vIN
+	 * @return the VIN
 	 */
 	public int getVIN() {
 		return VIN;
 	}
 
 	/**
-	 * @param vIN the vIN to set
+	 * @param vIN the VIN to set
 	 */
 	public void setVIN(int vIN) {
 		this.VIN = vIN;

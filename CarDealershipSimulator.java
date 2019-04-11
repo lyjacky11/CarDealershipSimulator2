@@ -169,7 +169,108 @@ public class CarDealershipSimulator
 							commandLine.close();
 							throw new NoSuchElementException();
 						}
-						
+					/*
+					 * Commands for sales and transactions
+					 */
+					case "SALES":
+						/*
+						 * Prints all transactions for the year (2019)
+						 */
+						if (!commandLine.hasNext()) {
+							if (newDealer.getAccSystem().getTransMap().size() > 0) {
+								System.out.println("\nALL TRANSACTIONS (2019):");
+								addHeader(transHeader);
+							}
+							newDealer.getAccSystem().getAllTrans();
+							break;
+						}
+						/*
+						 * Prints all transactions for the given month
+						 */
+						else if (commandLine.hasNextInt()) {
+							int month = commandLine.nextInt();
+							if (!commandLine.hasNext()) {
+								if (newDealer.getAccSystem().getTransMap().size() > 0) {
+									if (month >= 0 && month < 12) {
+										System.out.println("\nTRANSACTIONS for " + monthNames[month] + ":");
+										addHeader(transHeader);
+									}
+									else {
+										commandLine.close();
+										throw new IllegalArgumentException("\nERROR: Invalid month selection! Please enter a number from 0-11!");
+									}
+								}
+								newDealer.getAccSystem().getMonthTrans(month);
+								break;
+							}
+							/*
+							 * Any command with other arguments will throw an exception
+							 */
+							commandLine.close();
+							throw new NoSuchElementException();
+						}
+						else {
+							String arg = commandLine.next();
+							/*
+							 * Prints all the salesperson names
+							 */
+							if (arg.equals("TEAM")) {
+								if (!commandLine.hasNext()) {
+									System.out.println("\nSALES TEAM:");
+									System.out.println("--------------------------------------------------------------");
+									System.out.println(salesTeam.getAllSP());
+									break;
+								}
+								/*
+								 * Any command with other arguments will throw an exception
+								 */
+								commandLine.close();
+								throw new NoSuchElementException();
+							}
+							/*
+							 * Prints the sales person who sold the most cars of the year
+							 */
+							else if (arg.equals("TOPSP")) {
+								if (!commandLine.hasNext()) {
+									if (newDealer.getAccSystem().getTransMap().size() > 0) {
+										System.out.println("\nTOP SALES PERSON(S):");
+										addHeader(salesHeader);
+									}
+									System.out.println(newDealer.getAccSystem().getTopSP());
+									break;
+								}
+								/*
+								 * Any command with other arguments will throw an exception
+								 */
+								commandLine.close();
+								throw new NoSuchElementException();
+							}
+							/*
+							 * Prints the stats of the sales team
+							 */
+							else if (arg.equals("STATS")) {
+								if (!commandLine.hasNext()) {
+									System.out.println("\nSALES STATISTICS:");
+									System.out.println("--------------------------------------------------------------");
+									System.out.printf("Total Sales: $%.2f\n", newDealer.getAccSystem().getTotalSales());
+									System.out.printf("Average Sales Per Month: $%.2f\n", newDealer.getAccSystem().getAvgSales());
+									System.out.printf("Total Cars Sold: %d\n", newDealer.getAccSystem().getTotalSold());
+									System.out.printf("Total Car Returns: %d\n", newDealer.getAccSystem().getTotalReturns());
+									System.out.printf("Highest Sales Month(s):\n%s", newDealer.getAccSystem().getHighestMonth());
+									break;
+								}
+								/*
+								 * Any command with other arguments will throw an exception
+								 */
+								commandLine.close();
+								throw new NoSuchElementException();
+							}
+							/*
+							 * Any command with other arguments will throw an exception
+							 */
+							commandLine.close();
+							throw new NoSuchElementException();
+						}
 					/*
 					 * Sorts the list by price (from least to most expensive)
 					 */ 
@@ -312,108 +413,7 @@ public class CarDealershipSimulator
 						 */ 
 						commandLine.close();
 						throw new NoSuchElementException();
-					/*
-					 * Commands for sales and transactions
-					 */
-					case "SALES":
-						/*
-						 * Prints all transactions for the year (2019)
-						 */
-						if (!commandLine.hasNext()) {
-							if (newDealer.getAccSystem().getTransMap().size() > 0) {
-								System.out.println("\nALL TRANSACTIONS (2019):");
-								addHeader(transHeader);
-							}
-							newDealer.getAccSystem().getAllTrans();
-							break;
-						}
-						/*
-						 * Prints all transactions for the given month
-						 */
-						else if (commandLine.hasNextInt()) {
-							int month = commandLine.nextInt();
-							if (!commandLine.hasNext()) {
-								if (newDealer.getAccSystem().getTransMap().size() > 0) {
-									if (month >= 0 && month < 12) {
-										System.out.println("\nTRANSACTIONS for " + monthNames[month] + ":");
-										addHeader(transHeader);
-									}
-									else {
-										commandLine.close();
-										throw new IllegalArgumentException("\nERROR: Invalid month selection! Please enter a number from 0-11!");
-									}
-								}
-								newDealer.getAccSystem().getMonthTrans(month);
-								break;
-							}
-							/*
-							 * Any command with other arguments will throw an exception
-							 */
-							commandLine.close();
-							throw new NoSuchElementException();
-						}
-						else {
-							String arg = commandLine.next();
-							/*
-							 * Prints all the salesperson names
-							 */
-							if (arg.equals("TEAM")) {
-								if (!commandLine.hasNext()) {
-									System.out.println("\nSALES TEAM:");
-									System.out.println("--------------------------------------------------------------");
-									System.out.println(salesTeam.getAllSP());
-									break;
-								}
-								/*
-								 * Any command with other arguments will throw an exception
-								 */
-								commandLine.close();
-								throw new NoSuchElementException();
-							}
-							/*
-							 * Prints the sales person who sold the most cars of the year
-							 */
-							else if (arg.equals("TOPSP")) {
-								if (!commandLine.hasNext()) {
-									if (newDealer.getAccSystem().getTransMap().size() > 0) {
-										System.out.println("\nTOP SALES PERSON(S):");
-										addHeader(salesHeader);
-									}
-									System.out.println(newDealer.getAccSystem().getTopSP());
-									break;
-								}
-								/*
-								 * Any command with other arguments will throw an exception
-								 */
-								commandLine.close();
-								throw new NoSuchElementException();
-							}
-							/*
-							 * Prints the stats of the sales team
-							 */
-							else if (arg.equals("STATS")) {
-								if (!commandLine.hasNext()) {
-									System.out.println("\nSALES STATISTICS:");
-									System.out.println("--------------------------------------------------------------");
-									System.out.printf("Total Sales: $%.2f\n", newDealer.getAccSystem().getTotalSales());
-									System.out.printf("Average Sales Per Month: $%.2f\n", newDealer.getAccSystem().getAvgSales());
-									System.out.printf("Total Cars Sold: %d\n", newDealer.getAccSystem().getTotalSold());
-									System.out.printf("Total Car Returns: %d\n", newDealer.getAccSystem().getTotalReturns());
-									System.out.printf("Highest Sales Month(s):\n%s", newDealer.getAccSystem().getHighestMonth());
-									break;
-								}
-								/*
-								 * Any command with other arguments will throw an exception
-								 */
-								commandLine.close();
-								throw new NoSuchElementException();
-							}
-							/*
-							 * Any command with other arguments will throw an exception
-							 */
-							commandLine.close();
-							throw new NoSuchElementException();
-						}
+
 					/*
 					 * Displays the commands list in the console
 					 */

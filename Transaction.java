@@ -21,7 +21,7 @@ public class Transaction {
     private double salePrice;
 
     /**
-     * Default constructor for class Transaction
+     * Default constructor for the class
      * 
      * @param transID
      * @param transDate
@@ -41,7 +41,7 @@ public class Transaction {
 
     /**
      * Displays the transaction information
-     * @return transaction info in a String
+     * @return the transaction in a String
      */
     public String display() {
         SimpleDateFormat df = new SimpleDateFormat("EEE, MMM dd, YYYY");
@@ -49,7 +49,7 @@ public class Transaction {
     }
 
     /**
-     * Gets the type of the transaction
+     * Gets the type of transaction
      * @return the transType
      */
     public String getTransType() {

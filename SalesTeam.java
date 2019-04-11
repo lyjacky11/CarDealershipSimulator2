@@ -11,11 +11,13 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 
 public class SalesTeam {
+    
     /*
      * Initialize instance variables
      */
     private LinkedList<String> salesTeam;
     private ListIterator<String> salesIterator;
+
     /*
 	 * Default constructor for the class
 	 */
@@ -29,8 +31,9 @@ public class SalesTeam {
         salesTeam.addLast("Joyce");
     }
 
-    /*
+    /**
      * Gets a random sales person from the list
+     * @return salesperson
      */
     public String getRandomSP() {
         int random = (int) (Math.random() * salesTeam.size());
@@ -39,8 +42,9 @@ public class SalesTeam {
         return salesperson;
     }
 
-    /*
-     * Displays all the people of the sales team
+    /**
+     * Displays the list of names of the sales team
+     * @return team
      */
     public String getAllSP() {
         String team = "";
@@ -51,8 +55,9 @@ public class SalesTeam {
         return team;
     }
 
-    /*
+    /**
      * Gets a sales person given their position in the list
+     * @return salesperson
      */
     public String getSalesP(int index) {
         salesIterator = salesTeam.listIterator(index);
@@ -60,15 +65,16 @@ public class SalesTeam {
         return salesperson;
     }
 
-    /*
+    /**
      * Gets the number of sales people on the team
+     * @return size of sales team
      */
     public int getNumSP() {
         return salesTeam.size();
     }
 
     /**
-     * Gets the list of the sales team
+     * Gets the LinkedList of the sales team
      * @return the salesTeam
      */
     public LinkedList<String> getSalesTeam() {
