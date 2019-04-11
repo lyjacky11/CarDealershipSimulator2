@@ -110,7 +110,7 @@ public class CarDealershipSimulator
 								System.out.println("\nDEALERSHIP INVENTORY:");
 								addHeader(carHeader);
 								newDealer.displayInventory();
-								System.out.println("-----------------------------------------------------------------------------------------------");
+								System.out.println("----------------------------------------------------------------------------------------------");
 								System.out.println("\nInventory loaded successfully.");
 								break;
 							}
@@ -144,15 +144,19 @@ public class CarDealershipSimulator
 						}
 						commandLine.close();
 						throw new IllegalArgumentException("\nERROR: Invalid VIN # or not specified!");
-					/**
-					 * Returns the last 'BUY' transaction or a specific transaction with given ID
-					 */ 
+					
 					case "RET":
+						/*
+					 	* Returns the last 'BUY' transaction
+					 	*/ 
 						if (!commandLine.hasNext()) {
 							int id = newDealer.lastTransID;
 							newDealer.returnCar(id);
 							break;
 						}
+						/*
+						 * Returns a specific transaction given the ID
+						 */
 						else if (commandLine.hasNextInt()) {
 							int id = commandLine.nextInt();
 							if (!commandLine.hasNext()) {
