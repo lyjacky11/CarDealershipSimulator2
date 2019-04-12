@@ -485,7 +485,6 @@ public class CarDealershipSimulator
 	/**
 	 * Reads from a text file and converts the data to Car objects, then add them to the array list
 	 * 
-	 * @param filename of text file to read from
 	 * @param cars ArrayList of Car objects
 	 * @throws FileNotFoundException
 	 */
