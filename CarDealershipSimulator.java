@@ -61,11 +61,11 @@ public class CarDealershipSimulator
 	final String transHeader = String.format("%-8s %-5s %-7s %-13s %-13s %s", "TransID", "Type", "VIN #", "Salesperson", "Price ($)", "Date");
 	final String salesHeader = String.format("%-15s %15s", "Salesperson", "# of Cars Sold");
 	final String[] monthNames = newDealer.getAccSystem().monthNames;
-	String filename = "cars.txt", line = "", command = "";
+	String line = "", command = "";
 	/*
 	 * Reads data from file and continues if the data is valid
 	 */
-	if(addFromFile(filename, cars)) {
+	if(addFromFile(cars)) {
 		Scanner input = new Scanner(System.in);
 		System.out.println("\nWelcome to Car Dealership Simulator 2!");
 		commandsMenu();
@@ -489,8 +489,9 @@ public class CarDealershipSimulator
 	 * @param cars ArrayList of Car objects
 	 * @throws FileNotFoundException
 	 */
-	private static boolean addFromFile(String filename, ArrayList<Car> cars) throws FileNotFoundException {
+	private static boolean addFromFile(ArrayList<Car> cars) throws FileNotFoundException {
 		try {
+			String filename = "cars.txt";
 			Scanner scan = new Scanner(new File(filename));
 			ArrayList<Object> specsList = new ArrayList<Object>();
 			/*
@@ -512,7 +513,7 @@ public class CarDealershipSimulator
 				}
 				specsLine.close();
 				/* 
-				 * Extracts the data from the array list and prepares the data to construct a Car object
+				 * Extracts the data from the array list and prepares to construct a Car object
 				 */
 				String brandFile = (String)specsList.get(0);
 				String colorFile = (String)specsList.get(1);
@@ -570,7 +571,7 @@ public class CarDealershipSimulator
 					/*
 					 * Constructs a car object with imported data
 					 */ 
-					Car car = new Car(brandFile, colorFile, powerInt, 4, modelInt, maxRangeFile, safetyRatingFile, priceFile, aWDValue);
+					Car car = new Car(brandFile, colorFile, powerInt, NUM_WHEELS, modelInt, maxRangeFile, safetyRatingFile, priceFile, aWDValue);
 					cars.add(car);
 				}
 				specsList.clear();
