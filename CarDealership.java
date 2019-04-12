@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.Set;
 
 public class CarDealership {
 	/*
@@ -112,9 +113,10 @@ public class CarDealership {
 	 */
 	public void returnCar(int transaction) {
 		Transaction trans = accSystem.getTransaction(transaction);
-		Iterator<Integer> transIterator = accSystem.getIterator();
 		if (trans != null) {
 			if (trans.getTransType().equals("BUY")) {
+				Set<Integer> transIDs = accSystem.getSet();
+				Iterator<Integer> transIterator = transIDs.iterator();
 				Car currentCar = trans.getCar();
 				/*
 				 * Checks if this transaction has already been returned
@@ -125,6 +127,9 @@ public class CarDealership {
 					if (currentTrans.getCar().getVIN() == currentCar.getVIN() && currentTrans.getTransType().equals("RET"))
 						throw new IllegalArgumentException("\nERROR: This transaction has already been returned!");
 				}
+				/*
+				 * Ensures return date is after or on the same BUY date
+				 */
 				String transType = "RET";
 				Calendar transDate = trans.getTransDate();
 				int transMonth = transDate.get(Calendar.MONTH);
@@ -134,8 +139,11 @@ public class CarDealership {
 				Calendar returnDate = new GregorianCalendar(transYear, transMonth, returnDay);
 				SimpleDateFormat df = new SimpleDateFormat("EEE, MMM dd, YYYY");
 				accSystem.add(returnDate, trans.getCar(), salesTeam.getRandomSP(), transType, -1 * trans.getSalePrice());
-				cars.add(trans.getCar());
 				lastTransID = accSystem.getLastTransID();
+				cars.add(trans.getCar());
+				/*
+				 * Displays the transaction information
+				 */
 				System.out.println("\nTRANSACTION INFO:");
 				System.out.println("---------------------------------------------------------------------");
 				System.out.printf("BUY Trans ID: %-15d         Return VIN#: %s\n", transaction, currentCar.getVIN());

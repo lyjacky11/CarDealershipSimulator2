@@ -287,4 +287,12 @@ public class AccountingSystem {
     public Iterator<Integer> getIterator() {
         return transIterator;
     }
+
+    /**
+     * Gets the set of transaction IDs
+     * @return transIDs set
+     */
+    public Set<Integer> getSet() {
+        return transIDs;
+    }
 }
