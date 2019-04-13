@@ -14,14 +14,12 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
-import java.util.Set;
 
 public class CarDealership {
 	/*
 	 * Initialize instance variables
 	 */
-	private ArrayList<Car> cars;
+	private ArrayList<Car> cars, boughtCars;
 	private AccountingSystem accSystem;
 	private SalesTeam salesTeam;
 	private double minPrice, maxPrice;
@@ -61,6 +59,7 @@ public class CarDealership {
 	 */
 	public CarDealership () {
 		cars = new ArrayList<Car>();
+		boughtCars = new ArrayList<Car>();
 		accSystem = new AccountingSystem();
 		salesTeam = new SalesTeam();
 		this.isEmpty = true;
@@ -91,6 +90,7 @@ public class CarDealership {
 			if (cars.get(i).getVIN() == VIN) {
 				Car currentCar = cars.get(i);
 				cars.remove(currentCar);
+				boughtCars.add(currentCar);
 				if (cars.size() <= 0)
 					 this.isEmpty = true;
 				String salesPerson = salesTeam.getRandomSP();
@@ -115,18 +115,12 @@ public class CarDealership {
 		Transaction trans = accSystem.getTransaction(transaction);
 		if (trans != null) {
 			if (trans.getTransType().equals("BUY")) {
-				Set<Integer> transIDs = accSystem.getSet();
-				Iterator<Integer> transIterator = transIDs.iterator();
 				Car currentCar = trans.getCar();
 				/*
 				 * Checks if this transaction has already been returned
 				 */
-				while (transIterator.hasNext()) {
-					int transID = transIterator.next();
-					Transaction currentTrans = accSystem.getTransMap().get(transID);
-					if (currentTrans.getCar().getVIN() == currentCar.getVIN() && currentTrans.getTransType().equals("RET"))
-						throw new IllegalArgumentException("\nERROR: This transaction has already been returned!");
-				}
+				if (!boughtCars.contains(currentCar))
+					throw new IllegalArgumentException("\nERROR: This transaction has already been returned!");
 				/*
 				 * Ensures return date is after or on the same BUY date
 				 */
@@ -140,6 +134,7 @@ public class CarDealership {
 				SimpleDateFormat df = new SimpleDateFormat("EEE, MMM dd, YYYY");
 				accSystem.add(returnDate, trans.getCar(), salesTeam.getRandomSP(), transType, -1 * trans.getSalePrice());
 				lastTransID = accSystem.getLastTransID();
+				boughtCars.remove(trans.getCar());
 				cars.add(trans.getCar());
 				/*
 				 * Displays the transaction information
@@ -285,6 +280,14 @@ public class CarDealership {
 	 */
 	public ArrayList<Car> getCars() {
 		return cars;
+	}
+
+	/**
+	 * Gets the list of bought car objects
+	 * @return boughtCars
+	 */
+	public ArrayList<Car> getBoughtCars() {
+		return boughtCars;
 	}
 
 	/**
