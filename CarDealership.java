@@ -112,13 +112,14 @@ public class CarDealership {
 	public void returnCar(int transaction) {
 		Transaction trans = accSystem.getTransaction(transaction);
 		if (trans != null) {
+			/*
+			 * Checks if this transaction has already been returned
+			 */
+			Car currentCar = trans.getCar();
+			if (trans.getTransType().equals("BUY") && cars.contains(currentCar)) {
+				throw new IllegalArgumentException("\nERROR: This transaction has already been returned!");
+			}
 			if (trans.getTransType().equals("BUY")) {
-				Car currentCar = trans.getCar();
-				/*
-				 * Checks if this transaction has already been returned
-				 */
-				if (cars.contains(currentCar))
-					throw new IllegalArgumentException("\nERROR: This transaction has already been returned!");
 				/*
 				 * Ensures return date is after or on the same BUY date
 				 */
@@ -132,7 +133,7 @@ public class CarDealership {
 				SimpleDateFormat df = new SimpleDateFormat("EEE, MMM dd, YYYY");
 				accSystem.add(returnDate, trans.getCar(), salesTeam.getRandomSP(), transType, -1 * trans.getSalePrice());
 				lastTransID = accSystem.getLastTransID();
-				cars.add(trans.getCar());
+				cars.add(currentCar);
 				/*
 				 * Displays the transaction information
 				 */
