@@ -49,6 +49,9 @@ public class AccountingSystem {
      */
     public String add(Calendar date, Car car, String salesPerson, String type, double salePrice) {
         int id = (int) (Math.random() * 999) + 1;
+        while (transMap.containsKey(id)) {
+            id = (int) (Math.random() * 999) + 1;
+        }
         lastTransID = id;
         Transaction trans = new Transaction(id, (GregorianCalendar) date, car, salesPerson, type, salePrice);
         transMap.put(id, trans);
