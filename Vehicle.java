@@ -27,7 +27,7 @@ public class Vehicle {
 		this.color = color;
 		this.power = power;
 		this.numWheels = numWheels;
-		this.VIN = (int) (Math.random() * 400) + 100;
+		this.VIN = (int) (Math.random() * 900) + 100;
 	}
 
 	/**
